@@ -20,15 +20,17 @@ export function transformSwapRouteToGetQuoteResult(
     blockNumber,
   }: SwapRoute
 ): GetQuoteResult {
+  console.log("transformSwapRouteToGetQuoteResult called")
   const routeResponse: Array<(V3PoolInRoute | V2PoolInRoute)[]> = []
 
   for (const subRoute of route) {
     const { amount, quote, tokenPath } = subRoute
 
     const pools = subRoute.protocol === Protocol.V2 ? subRoute.route.pairs : subRoute.route.pools
+console.log("pools", pools)
     const curRoute: (V3PoolInRoute | V2PoolInRoute)[] = []
     for (let i = 0; i < pools.length; i++) {
-      const nextPool = pools[i]
+      const nextPool = pools[i] as Pool
       const tokenIn = tokenPath[i]
       const tokenOut = tokenPath[i + 1]
 
@@ -42,7 +44,7 @@ export function transformSwapRouteToGetQuoteResult(
         edgeAmountOut = type === 'exactIn' ? quote.quotient.toString() : amount.quotient.toString()
       }
 
-      if (nextPool instanceof Pool) {
+      // if (Object.hasOwn(nextPool, "sqrtRatioX96")) {
         curRoute.push({
           type: 'v3-pool',
           tokenIn: {
@@ -64,52 +66,54 @@ export function transformSwapRouteToGetQuoteResult(
           amountIn: edgeAmountIn,
           amountOut: edgeAmountOut,
         })
-      } else {
-        const reserve0 = nextPool.reserve0
-        const reserve1 = nextPool.reserve1
+      // } else {
+      //   const reserve0 = nextPool.reserve0
+      //   const reserve1 = nextPool.reserve1
 
-        curRoute.push({
-          type: 'v2-pool',
-          tokenIn: {
-            chainId: tokenIn.chainId,
-            decimals: tokenIn.decimals,
-            address: tokenIn.address,
-            symbol: tokenIn.symbol,
-          },
-          tokenOut: {
-            chainId: tokenOut.chainId,
-            decimals: tokenOut.decimals,
-            address: tokenOut.address,
-            symbol: tokenOut.symbol,
-          },
-          reserve0: {
-            token: {
-              chainId: reserve0.currency.wrapped.chainId,
-              decimals: reserve0.currency.wrapped.decimals,
-              address: reserve0.currency.wrapped.address,
-              symbol: reserve0.currency.wrapped.symbol,
-            },
-            quotient: reserve0.quotient.toString(),
-          },
-          reserve1: {
-            token: {
-              chainId: reserve1.currency.wrapped.chainId,
-              decimals: reserve1.currency.wrapped.decimals,
-              address: reserve1.currency.wrapped.address,
-              symbol: reserve1.currency.wrapped.symbol,
-            },
-            quotient: reserve1.quotient.toString(),
-          },
-          amountIn: edgeAmountIn,
-          amountOut: edgeAmountOut,
-        })
-      }
+      //   curRoute.push({
+      //     type: 'v2-pool',
+      //     tokenIn: {
+      //       chainId: tokenIn.chainId,
+      //       decimals: tokenIn.decimals,
+      //       address: tokenIn.address,
+      //       symbol: tokenIn.symbol,
+      //     },
+      //     tokenOut: {
+      //       chainId: tokenOut.chainId,
+      //       decimals: tokenOut.decimals,
+      //       address: tokenOut.address,
+      //       symbol: tokenOut.symbol,
+      //     },
+      //     reserve0: {
+      //       token: {
+      //         chainId: reserve0.currency.wrapped.chainId,
+      //         decimals: reserve0.currency.wrapped.decimals,
+      //         address: reserve0.currency.wrapped.address,
+      //         symbol: reserve0.currency.wrapped.symbol,
+      //       },
+      //       quotient: reserve0.quotient.toString(),
+      //     },
+      //     reserve1: {
+      //       token: {
+      //         chainId: reserve1.currency.wrapped.chainId,
+      //         decimals: reserve1.currency.wrapped.decimals,
+      //         address: reserve1.currency.wrapped.address,
+      //         symbol: reserve1.currency.wrapped.symbol,
+      //       },
+      //       quotient: reserve1.quotient.toString(),
+      //     },
+      //     amountIn: edgeAmountIn,
+      //     amountOut: edgeAmountOut,
+      //   })
+      // }
     }
 
     routeResponse.push(curRoute)
   }
-
-  const result: GetQuoteResult = {
+console.log("routeResponse", routeResponse);
+let result: GetQuoteResult;
+try {
+  result = {
     methodParameters,
     blockNumber: blockNumber.toString(),
     amount: amount.quotient.toString(),
@@ -126,6 +130,10 @@ export function transformSwapRouteToGetQuoteResult(
     route: routeResponse,
     routeString: routeAmountsToString(route),
   }
-
+} catch (e) {
+  console.log("transformSwapRouteToGetQuoteResult error", e);
+  throw new Error("Failed to transform swap route to quote result");
+}
+console.log("transformSwapRouteToGetQuoteResult", result);
   return result
 }

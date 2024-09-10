@@ -44,3 +44,5 @@ cypress/videos
 cypress/screenshots
 
 .vercel
+
+/smart-order-router

@@ -39,7 +39,7 @@ type AssetLogoProps = AssetLogoBaseProps & { isNative?: boolean; address?: strin
 export default function AssetLogo({
   isNative,
   address,
-  chainId = SupportedChainId.MAINNET,
+  chainId = SupportedChainId.FLAME_DEVNET,
   symbol,
   backupImg,
   size = '24px',

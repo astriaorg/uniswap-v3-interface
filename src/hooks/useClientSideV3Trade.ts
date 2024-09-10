@@ -12,12 +12,12 @@ import { useAllV3Routes } from './useAllV3Routes'
 import { useQuoter } from './useContract'
 
 const QUOTE_GAS_OVERRIDES: { [chainId: number]: number } = {
-  [SupportedChainId.ARBITRUM_ONE]: 25_000_000,
-  [SupportedChainId.ARBITRUM_RINKEBY]: 25_000_000,
-  [SupportedChainId.CELO]: 50_000_000,
-  [SupportedChainId.CELO_ALFAJORES]: 50_000_000,
-  [SupportedChainId.POLYGON]: 40_000_000,
-  [SupportedChainId.POLYGON_MUMBAI]: 40_000_000,
+  // [SupportedChainId.ARBITRUM_ONE]: 25_000_000,
+  // [SupportedChainId.ARBITRUM_RINKEBY]: 25_000_000,
+  // [SupportedChainId.CELO]: 50_000_000,
+  // [SupportedChainId.CELO_ALFAJORES]: 50_000_000,
+  // [SupportedChainId.POLYGON]: 40_000_000,
+  // [SupportedChainId.POLYGON_MUMBAI]: 40_000_000,
 }
 
 const DEFAULT_GAS_QUOTE = 2_000_000

@@ -255,7 +255,7 @@ export default function App() {
 
                   <Route path="*" element={<RedirectPathToSwapOnly />} />
 
-                  <Route
+                  {/* <Route
                     path="/nfts"
                     element={
                       // TODO: replace loading state during Apollo migration
@@ -295,7 +295,7 @@ export default function App() {
                         <Collection />
                       </Suspense>
                     }
-                  />
+                  /> */}
                 </Routes>
               ) : (
                 <Loader />

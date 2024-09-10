@@ -109,6 +109,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "jest-styled-components": "^7.0.8",
     "ms.macro": "^2.0.0",
+    "npm-run-all": "^4.1.5",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.7.1",
@@ -245,7 +246,10 @@
   },
   "engines": {
     "npm": "please-use-yarn",
-    "node": "14",
     "yarn": ">=1.22"
-  }
+  },
+  "resolutions": {
+    "@uniswap/smart-order-router": "https://github.com/astriaorg/uniswap-smart-order-router#4c3df1d8ae21cef4d24397838a9beaac13d32610"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

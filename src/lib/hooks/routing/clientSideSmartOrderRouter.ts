@@ -34,20 +34,20 @@ async function getQuote(
 ): Promise<{ data: GetQuoteResult; error?: unknown }> {
   const currencyIn = new Token(tokenIn.chainId, tokenIn.address, tokenIn.decimals, tokenIn.symbol)
   const currencyOut = new Token(tokenOut.chainId, tokenOut.address, tokenOut.decimals, tokenOut.symbol)
-
   const baseCurrency = type === 'exactIn' ? currencyIn : currencyOut
   const quoteCurrency = type === 'exactIn' ? currencyOut : currencyIn
   const amount = CurrencyAmount.fromRawAmount(baseCurrency, JSBI.BigInt(amountRaw))
-
   const swapRoute = await router.route(
-    amount,
+    amount as any,
     quoteCurrency,
     type === 'exactIn' ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     /*swapConfig=*/ undefined,
     config
   )
-
-  if (!swapRoute) throw new Error('Failed to generate client side quote')
+  if (!swapRoute) {
+    console.log("Failed to generate client side quote")
+    throw new Error('Failed to generate client side quote')
+  }
 
   return { data: transformSwapRouteToGetQuoteResult(type, amount, swapRoute) }
 }

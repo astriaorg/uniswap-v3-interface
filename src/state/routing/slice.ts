@@ -21,7 +21,7 @@ function getRouter(chainId: ChainId): AlphaRouter {
 
   const supportedChainId = toSupportedChainId(chainId)
   if (supportedChainId) {
-    const provider = RPC_PROVIDERS[supportedChainId]
+    const provider = RPC_PROVIDERS[supportedChainId] as any
     const router = new AlphaRouter({ chainId, provider })
     routers.set(chainId, router)
     return router
@@ -32,16 +32,18 @@ function getRouter(chainId: ChainId): AlphaRouter {
 
 // routing API quote params: https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/schema/quote-schema.ts
 const API_QUERY_PARAMS = {
-  protocols: 'v2,v3,mixed',
+  protocols: 'v3',
 }
 const CLIENT_PARAMS = {
-  protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
+  // protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
+  protocols: [Protocol.V3],
 }
 // Price queries are tuned down to minimize the required RPCs to respond to them.
 // TODO(zzmp): This will be used after testing router caching.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PRICE_PARAMS = {
-  protocols: [Protocol.V2, Protocol.V3],
+  //protocols: [Protocol.V2, Protocol.V3],
+  protocols: [Protocol.V3],
   v2PoolSelection: {
     topN: 2,
     topNDirectSwaps: 1,
@@ -93,6 +95,7 @@ export const routingApi = createApi({
         let result
 
         try {
+          console.log("routerPreference", routerPreference)
           if (routerPreference === RouterPreference.API) {
             const query = qs.stringify({
               ...API_QUERY_PARAMS,
@@ -113,6 +116,7 @@ export const routingApi = createApi({
               // This change is intentionally being deferred to first see what effect router caching has.
               CLIENT_PARAMS
             )
+            console.log("getClientSideQuote", result)
           }
 
           return { data: result.data as GetQuoteResult }
