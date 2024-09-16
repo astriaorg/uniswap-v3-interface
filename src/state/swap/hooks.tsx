@@ -36,7 +36,7 @@ export function useSwapActionHandlers(): {
       dispatch(
         selectCurrency({
           field,
-          currencyId: currency.isToken ? currency.address : currency.isNative ? 'ETH' : '',
+          currencyId: currency.isToken ? currency.address : currency.isNative ? 'TIA' : '',
         })
       )
     },
@@ -191,7 +191,7 @@ function parseCurrencyFromURLParameter(urlParam: ParsedQs[string]): string {
     const valid = isAddress(urlParam)
     if (valid) return valid
     const upper = urlParam.toUpperCase()
-    if (upper === 'ETH') return 'ETH'
+    if (upper === 'TIA') return 'TIA'
     if (upper in TOKEN_SHORTHANDS) return upper
   }
   return ''
@@ -224,7 +224,7 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
 
   if (inputCurrency === '' && outputCurrency === '' && typedValue === '' && independentField === Field.INPUT) {
     // Defaults to having the native currency selected
-    inputCurrency = 'ETH'
+    inputCurrency = 'TIA'
   } else if (inputCurrency === outputCurrency) {
     // clear output if identical
     outputCurrency = ''

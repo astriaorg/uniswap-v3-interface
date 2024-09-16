@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Web3Status from 'components/Web3Status'
 import { chainIdToBackendName } from 'graphql/data/util'
-import { useIsNftPage } from 'hooks/useIsNftPage'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { FlameIcon } from 'nft/components/icons'
@@ -10,9 +9,7 @@ import { ReactNode } from 'react'
 import { NavLink, NavLinkProps, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import { Bag } from './Bag'
 import { ChainSelector } from './ChainSelector'
-import { MenuDropdown } from './MenuDropdown'
 import { SearchBar } from './SearchBar'
 import * as styles from './style.css'
 
@@ -74,19 +71,11 @@ const PageTabs = () => {
     pathname.startsWith('/increase') ||
     pathname.startsWith('/find')
 
-  const isNftPage = useIsNftPage()
-
   return (
     <>
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
-        <Trans>Tokens</Trans>
-      </MenuItem>
-      {/* <MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
-        <Trans>NFTs</Trans>
-      </MenuItem> */}
       <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
         <Trans>Pool</Trans>
       </MenuItem>
@@ -95,7 +84,6 @@ const PageTabs = () => {
 }
 
 const Navbar = () => {
-  const isNftPage = useIsNftPage()
   const navigate = useNavigate()
 
   return (
@@ -113,11 +101,9 @@ const Navbar = () => {
                 }}
               />
             </Box>
-            {!isNftPage && (
-              <Box display={{ sm: 'flex', lg: 'none' }} alignSelf="center">
-                <ChainSelector leftAlign={true} />
-              </Box>
-            )}
+            <Box display={{ sm: 'flex', lg: 'none' }} alignSelf="center">
+              <ChainSelector leftAlign={true} />
+            </Box>
             <Row gap={{ xl: '0', xxl: '8' }} display={{ sm: 'none', lg: 'flex' }}>
               <PageTabs />
             </Row>
@@ -131,14 +117,8 @@ const Navbar = () => {
                 <SearchBar />
               </Box> */}
               <Box display={{ sm: 'none', lg: 'flex' }}>
-                <MenuDropdown />
+                <ChainSelector />
               </Box>
-              {isNftPage && <Bag />}
-              {!isNftPage && (
-                <Box display={{ sm: 'none', lg: 'flex' }}>
-                  <ChainSelector />
-                </Box>
-              )}
 
               <Web3Status />
             </Row>
@@ -147,9 +127,6 @@ const Navbar = () => {
       </Nav>
       <MobileBottomBar>
         <PageTabs />
-        <Box marginY="4">
-          <MenuDropdown />
-        </Box>
       </MobileBottomBar>
     </>
   )

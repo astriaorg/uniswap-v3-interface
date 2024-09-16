@@ -15,11 +15,10 @@ import { Link } from 'react-router-dom'
 import { useToggleWalletModal } from 'state/application/hooks'
 import { useUserHideClosedPositions } from 'state/user/hooks'
 import styled, { css, useTheme } from 'styled-components/macro'
-import { HideSmall, ThemedText } from 'theme'
+import { ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
 
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
-import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
 
 const PageWrapper = styled(AutoColumn)`
@@ -216,50 +215,6 @@ export default function Pool() {
 
   const filteredPositions = [...openPositions, ...(userHideClosedPositions ? [] : closedPositions)]
   const showConnectAWallet = Boolean(!account)
-  const showV2Features = Boolean(V2_FACTORY_ADDRESSES[chainId])
-
-  const menuItems = [
-    {
-      content: (
-        <PoolMenuItem>
-          <Trans>Create a pool</Trans>
-          <PlusCircle size={16} />
-        </PoolMenuItem>
-      ),
-      link: '/add/ETH',
-      external: false,
-    },
-    {
-      content: (
-        <PoolMenuItem>
-          <Trans>Migrate</Trans>
-          <ChevronsRight size={16} />
-        </PoolMenuItem>
-      ),
-      link: '/migrate/v2',
-      external: false,
-    },
-    {
-      content: (
-        <PoolMenuItem>
-          <Trans>V2 liquidity</Trans>
-          <Layers size={16} />
-        </PoolMenuItem>
-      ),
-      link: '/pool/v2',
-      external: false,
-    },
-    {
-      content: (
-        <PoolMenuItem>
-          <Trans>Learn</Trans>
-          <BookOpen size={16} />
-        </PoolMenuItem>
-      ),
-      link: 'https://docs.uniswap.org/',
-      external: true,
-    },
-  ]
 
   return (
     <Trace page={PageName.POOL_PAGE} shouldLogImpression>
@@ -272,21 +227,7 @@ export default function Pool() {
                   <Trans>Pools</Trans>
                 </ThemedText.LargeHeader>
                 <ButtonRow>
-                  {showV2Features && (
-                    <PoolMenu
-                      menuItems={menuItems}
-                      flyoutAlignment={FlyoutAlignment.LEFT}
-                      ToggleUI={(props: any) => (
-                        <MoreOptionsButton {...props}>
-                          <MoreOptionsText>
-                            <Trans>More</Trans>
-                            <ChevronDown size={15} />
-                          </MoreOptionsText>
-                        </MoreOptionsButton>
-                      )}
-                    />
-                  )}
-                  <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/ETH">
+                  <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/TIA">
                     + <Trans>New Position</Trans>
                   </ResponsiveButtonPrimary>
                 </ButtonRow>
@@ -335,9 +276,6 @@ export default function Pool() {
                   </ErrorContainer>
                 )}
               </MainContentWrapper>
-              <HideSmall>
-                <CTACards />
-              </HideSmall>
             </AutoColumn>
           </AutoColumn>
         </PageWrapper>

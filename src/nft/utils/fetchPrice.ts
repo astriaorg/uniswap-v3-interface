@@ -3,7 +3,7 @@ import { GenieAsset } from 'nft/types'
 import { useQuery } from 'react-query'
 
 export enum Currency {
-  ETH = 'ETH',
+  ETH = 'TIA',
   LOOKS = 'LOOKS',
   MATIC = 'MATIC',
 }

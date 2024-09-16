@@ -7,7 +7,7 @@ import { RowBetween } from '../Row'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 
-export const BaseButton = styled(RebassButton)<
+export const BaseButton = styled(RebassButton) <
   {
     padding?: string
     width?: string
@@ -19,7 +19,7 @@ export const BaseButton = styled(RebassButton)<
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
-  border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
+  border-radius: ${({ $borderRadius }) => $borderRadius ?? '12px'};
   outline: none;
   border: 1px solid transparent;
   color: ${({ theme }) => theme.deprecated_text1};
@@ -51,30 +51,24 @@ export const BaseButton = styled(RebassButton)<
 `
 
 export const ButtonPrimary = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.accentAction};
+  background: linear-gradient(90deg, #F19727 0%, #DD5022 100%);
   font-size: 20px;
   font-weight: 600;
   padding: 16px;
-  color: ${({ theme }) => theme.accentTextLightPrimary};
+  color: #FFFFFF;
+  border-color: #F19727;
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
-    background-color: ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
+    border-color: #fff;
   }
   &:hover {
-    background-color: ${({ theme }) => darken(0.05, theme.deprecated_primary1)};
+    border-color: #fff;
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.deprecated_primary1)};
-    background-color: ${({ theme }) => darken(0.1, theme.deprecated_primary1)};
+    border-color: #fff;
   }
   &:disabled {
-    background-color: ${({ theme, altDisabledStyle, disabled }) =>
-      altDisabledStyle ? (disabled ? theme.deprecated_primary1 : theme.deprecated_bg2) : theme.deprecated_bg2};
-    color: ${({ altDisabledStyle, disabled, theme }) =>
-      altDisabledStyle ? (disabled ? theme.deprecated_white : theme.deprecated_text2) : theme.deprecated_text2};
+    background: transparent;
     cursor: auto;
-    box-shadow: none;
-    border: 1px solid transparent;
     outline: none;
   }
 `
@@ -506,7 +500,7 @@ const BaseThemeButton = styled.button<BaseButtonProps>`
   }
 `
 
-interface ThemeButtonProps extends React.ComponentPropsWithoutRef<'button'>, BaseButtonProps {}
+interface ThemeButtonProps extends React.ComponentPropsWithoutRef<'button'>, BaseButtonProps { }
 
 export const ThemeButton = ({ children, ...rest }: ThemeButtonProps) => {
   return (
