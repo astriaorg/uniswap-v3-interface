@@ -8,7 +8,7 @@ import { useModalIsOpen, useToggleModal } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
 import { ExternalLink } from '../../theme'
 
-export enum FlyoutAlignment {
+enum FlyoutAlignment {
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
 }

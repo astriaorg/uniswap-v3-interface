@@ -1,6 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query/react'
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core'
-import { IMetric, MetricLoggerUnit, setGlobalMetric } from '@uniswap/smart-order-router'
 import { sendTiming } from 'components/analytics'
 import { AVERAGE_L1_BLOCK_TIME } from 'constants/chainInfo'
 import { useStablecoinAmountFromFiatValue } from 'hooks/useStablecoinPrice'
@@ -8,6 +7,7 @@ import { useRoutingAPIArguments } from 'lib/hooks/routing/useRoutingAPIArguments
 import useIsValidBlock from 'lib/hooks/useIsValidBlock'
 import ms from 'ms.macro'
 import { useMemo } from 'react'
+import { IMetric, MetricLoggerUnit, setGlobalMetric } from 'smart-order-router'
 import { RouterPreference, useGetQuoteQuery } from 'state/routing/slice'
 
 import { GetQuoteResult, InterfaceTrade, TradeState } from './types'

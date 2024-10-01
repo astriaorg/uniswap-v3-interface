@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import useAutoRouterSupported from 'hooks/useAutoRouterSupported'
 import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
@@ -51,8 +50,6 @@ export function AutoRouterLabel() {
   return autoRouterSupported ? (
     <StyledAutoRouterLabel fontSize={14}>Auto Router</StyledAutoRouterLabel>
   ) : (
-    <ThemedText.DeprecatedBlack fontSize={14}>
-      <Trans>Trade Route</Trans>
-    </ThemedText.DeprecatedBlack>
+    <ThemedText.DeprecatedBlack fontSize={14}>Trade Route</ThemedText.DeprecatedBlack>
   )
 }

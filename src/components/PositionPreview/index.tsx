@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Currency } from '@uniswap/sdk-core'
 import { Position } from '@uniswap/v3-sdk'
 import RangeBadge from 'components/Badge/RangeBadge'
@@ -99,12 +98,8 @@ export const PositionPreview = ({
           </RowBetween>
           <Break />
           <RowBetween>
-            <ThemedText.DeprecatedLabel>
-              <Trans>Fee Tier</Trans>
-            </ThemedText.DeprecatedLabel>
-            <ThemedText.DeprecatedLabel>
-              <Trans>{position?.pool?.fee / 10000}%</Trans>
-            </ThemedText.DeprecatedLabel>
+            <ThemedText.DeprecatedLabel>Fee Tier</ThemedText.DeprecatedLabel>
+            <ThemedText.DeprecatedLabel>{position?.pool?.fee / 10000}%</ThemedText.DeprecatedLabel>
           </RowBetween>
         </AutoColumn>
       </LightCard>
@@ -122,64 +117,52 @@ export const PositionPreview = ({
         <RowBetween>
           <LightCard width="48%" padding="8px">
             <AutoColumn gap="4px" justify="center">
-              <ThemedText.DeprecatedMain fontSize="12px">
-                <Trans>Min Price</Trans>
-              </ThemedText.DeprecatedMain>
+              <ThemedText.DeprecatedMain fontSize="12px">Min Price</ThemedText.DeprecatedMain>
               <ThemedText.DeprecatedMediumHeader textAlign="center">{`${formatTickPrice(
                 priceLower,
                 ticksAtLimit,
                 Bound.LOWER
               )}`}</ThemedText.DeprecatedMediumHeader>
               <ThemedText.DeprecatedMain textAlign="center" fontSize="12px">
-                <Trans>
-                  {quoteCurrency.symbol} per {baseCurrency.symbol}
-                </Trans>
+                {quoteCurrency.symbol} per {baseCurrency.symbol}
               </ThemedText.DeprecatedMain>
               <ThemedText.DeprecatedSmall
                 textAlign="center"
                 color={theme.deprecated_text3}
                 style={{ marginTop: '4px' }}
               >
-                <Trans>Your position will be 100% composed of {baseCurrency?.symbol} at this price</Trans>
+                Your position will be 100% composed of {baseCurrency?.symbol} at this price
               </ThemedText.DeprecatedSmall>
             </AutoColumn>
           </LightCard>
 
           <LightCard width="48%" padding="8px">
             <AutoColumn gap="4px" justify="center">
-              <ThemedText.DeprecatedMain fontSize="12px">
-                <Trans>Max Price</Trans>
-              </ThemedText.DeprecatedMain>
+              <ThemedText.DeprecatedMain fontSize="12px">Max Price</ThemedText.DeprecatedMain>
               <ThemedText.DeprecatedMediumHeader textAlign="center">{`${formatTickPrice(
                 priceUpper,
                 ticksAtLimit,
                 Bound.UPPER
               )}`}</ThemedText.DeprecatedMediumHeader>
               <ThemedText.DeprecatedMain textAlign="center" fontSize="12px">
-                <Trans>
-                  {quoteCurrency.symbol} per {baseCurrency.symbol}
-                </Trans>
+                {quoteCurrency.symbol} per {baseCurrency.symbol}
               </ThemedText.DeprecatedMain>
               <ThemedText.DeprecatedSmall
                 textAlign="center"
                 color={theme.deprecated_text3}
                 style={{ marginTop: '4px' }}
               >
-                <Trans>Your position will be 100% composed of {quoteCurrency?.symbol} at this price</Trans>
+                Your position will be 100% composed of {quoteCurrency?.symbol} at this price
               </ThemedText.DeprecatedSmall>
             </AutoColumn>
           </LightCard>
         </RowBetween>
         <LightCard padding="12px ">
           <AutoColumn gap="4px" justify="center">
-            <ThemedText.DeprecatedMain fontSize="12px">
-              <Trans>Current price</Trans>
-            </ThemedText.DeprecatedMain>
+            <ThemedText.DeprecatedMain fontSize="12px">Current price</ThemedText.DeprecatedMain>
             <ThemedText.DeprecatedMediumHeader>{`${price.toSignificant(5)} `}</ThemedText.DeprecatedMediumHeader>
             <ThemedText.DeprecatedMain textAlign="center" fontSize="12px">
-              <Trans>
-                {quoteCurrency.symbol} per {baseCurrency.symbol}
-              </Trans>
+              {quoteCurrency.symbol} per {baseCurrency.symbol}
             </ThemedText.DeprecatedMain>
           </AutoColumn>
         </LightCard>

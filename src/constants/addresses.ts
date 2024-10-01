@@ -5,11 +5,6 @@ type AddressMap = { [chainId: number]: string }
 
 export const UNI_ADDRESS: AddressMap = constructSameAddressMap('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984')
 
-export const UNISWAP_NFT_AIRDROP_CLAIM_ADDRESS = '0x0000000000000000000000000000000000000000'
-
-export const V2_FACTORY_ADDRESSES: AddressMap = {}
-export const V2_ROUTER_ADDRESS: AddressMap = {}
-
 /* V3 Contract Addresses */
 export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   [SupportedChainId.FLAME_DEVNET]: '0xc40CAc88C65B5fa4B3EE4FEAe2Cea443287f3879',

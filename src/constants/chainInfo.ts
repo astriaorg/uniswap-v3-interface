@@ -1,15 +1,9 @@
-import celoCircleLogoUrl from 'assets/images/celoCircle.png'
 import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
-import polygonCircleLogoUrl from 'assets/images/polygonCircle.png'
-import { default as arbitrumCircleLogoUrl, default as arbitrumLogoUrl } from 'assets/svg/arbitrum_logo.svg'
-import celoLogo from 'assets/svg/celo_logo.svg'
-import optimismLogoUrl from 'assets/svg/optimistic_ethereum.svg'
-import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
+import flameLogoUrl from 'assets/images/flame-logo.png'
 import ms from 'ms.macro'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, CELO_LIST, OPTIMISM_LIST } from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms`12s`
 
@@ -67,15 +61,15 @@ const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.FLAME_DEVNET]: {
     networkType: NetworkType.L2,
     blockWaitMsBeforeWarning: ms`10m`,
-    bridge: "",
+    bridge: '',
     docs: 'https://docs.astria.org/',
     explorer: 'https://explorer.evm.dusk-10.devnet.astria.org/',
     infoLink: 'https://info.uniswap.org/#/celo',
     label: 'Flame Devnet',
-    logoUrl: ethereumLogoUrl,
+    logoUrl: flameLogoUrl,
     nativeCurrency: { name: 'RIA', symbol: 'RIA', decimals: 18 },
     color: darkTheme.chain_1,
-    defaultListUrl: CELO_LIST,
+    defaultListUrl: '',
   },
 }
 

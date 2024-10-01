@@ -45,4 +45,4 @@ cypress/screenshots
 
 .vercel
 
-/smart-order-router
+src/smart-order-router/types

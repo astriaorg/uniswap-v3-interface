@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
@@ -229,9 +228,7 @@ function Web3StatusInner() {
     return (
       <Web3StatusError onClick={toggleWallet}>
         <NetworkIcon />
-        <Text>
-          <Trans>Error</Trans>
-        </Text>
+        <Text>Error</Text>
       </Web3StatusError>
     )
   } else if (account) {
@@ -250,10 +247,7 @@ function Web3StatusInner() {
         {!hasPendingTransactions && <StatusIcon size={24} connectionType={connectionType} />}
         {hasPendingTransactions ? (
           <RowBetween>
-            <Text>
-              <Trans>{pending?.length} Pending</Trans>
-            </Text>{' '}
-            <Loader stroke="white" />
+            <Text>{pending?.length} Pending</Text> <Loader stroke="white" />
           </RowBetween>
         ) : (
           <AddressAndChevronContainer>
@@ -278,7 +272,7 @@ function Web3StatusInner() {
       >
         <Web3StatusConnectWrapper faded={!account}>
           <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
-            <Trans>Connect</Trans>
+            Connect
           </StyledConnectButton>
           <VerticalDivider />
           <ChevronWrapper onClick={toggleWalletDropdown}>

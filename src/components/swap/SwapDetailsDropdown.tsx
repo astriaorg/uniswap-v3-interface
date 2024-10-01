@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
@@ -176,9 +175,7 @@ export default function SwapDetailsDropdown({
                   />
                 </LoadingOpacityContainer>
               ) : loading || syncing ? (
-                <ThemedText.DeprecatedMain fontSize={14}>
-                  <Trans>Fetching best price...</Trans>
-                </ThemedText.DeprecatedMain>
+                <ThemedText.DeprecatedMain fontSize={14}>Fetching best price...</ThemedText.DeprecatedMain>
               ) : null}
             </RowFixed>
             <RowFixed>

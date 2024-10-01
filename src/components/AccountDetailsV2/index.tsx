@@ -18,7 +18,7 @@ export enum TransactionState {
   Failed,
 }
 
-const Grid = styled(ExternalLink) <{ isLastTransactionInList?: boolean }>`
+const Grid = styled(ExternalLink)<{ isLastTransactionInList?: boolean }>`
   cursor: pointer;
   display: grid;
   grid-template-columns: 44px auto 24px;
@@ -66,8 +66,8 @@ export const TransactionSummary = ({
     const transactionState = pending
       ? TransactionState.Pending
       : success
-        ? TransactionState.Success
-        : TransactionState.Failed
+      ? TransactionState.Success
+      : TransactionState.Failed
 
     return transactionState
   }, [receipt, tx])

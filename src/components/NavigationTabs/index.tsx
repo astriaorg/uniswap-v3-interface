@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Percent } from '@uniswap/sdk-core'
 import { ReactNode } from 'react'
 import { ArrowLeft } from 'react-feather'
@@ -47,7 +46,7 @@ export function FindPoolTabs({ origin }: { origin: string }) {
           <StyledArrowLeft />
         </HistoryLink>
         <ActiveText style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-          <Trans>Import V2 Pool</Trans>
+          Import V2 Pool
         </ActiveText>
       </RowBetween>
     </Tabs>
@@ -99,13 +98,7 @@ export function AddRemoveTabs({
           fontSize={20}
           style={{ flex: '1', margin: 'auto', textAlign: children ? 'start' : 'center' }}
         >
-          {creating ? (
-            <Trans>Create a pair</Trans>
-          ) : adding ? (
-            <Trans>Add Liquidity</Trans>
-          ) : (
-            <Trans>Remove Liquidity</Trans>
-          )}
+          {creating ? 'Create a pair' : adding ? 'Add Liquidity' : 'Remove Liquidity'}
         </ThemedText.DeprecatedMediumHeader>
         <Box style={{ marginRight: '.5rem' }}>{children}</Box>
         <SettingsTab placeholderSlippage={defaultSlippage} />

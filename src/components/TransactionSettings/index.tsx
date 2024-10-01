@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Percent } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { L2_CHAIN_IDS } from 'constants/chains'
@@ -172,13 +171,9 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
       <AutoColumn gap="sm">
         <RowFixed>
           <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
-            <Trans>Slippage tolerance</Trans>
+            Slippage tolerance
           </ThemedText.DeprecatedBlack>
-          <QuestionHelper
-            text={
-              <Trans>Your transaction will revert if the price changes unfavorably by more than this percentage.</Trans>
-            }
-          />
+          <QuestionHelper text="Your transaction will revert if the price changes unfavorably by more than this percentage." />
         </RowFixed>
         <RowBetween>
           <Option
@@ -187,7 +182,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
             }}
             active={userSlippageTolerance === 'auto'}
           >
-            <Trans>Auto</Trans>
+            Auto
           </Option>
           <OptionCustom active={userSlippageTolerance !== 'auto'} warning={!!slippageError} tabIndex={-1}>
             <RowBetween>
@@ -226,13 +221,11 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
               color: slippageError ? 'red' : '#F3841E',
             }}
           >
-            {slippageError ? (
-              <Trans>Enter a valid slippage percentage</Trans>
-            ) : tooLow ? (
-              <Trans>Your transaction may fail</Trans>
-            ) : (
-              <Trans>Your transaction may be frontrun</Trans>
-            )}
+            {slippageError
+              ? 'Enter a valid slippage percentage'
+              : tooLow
+              ? 'Your transaction may fail'
+              : 'Your transaction may be frontrun'}
           </RowBetween>
         ) : null}
       </AutoColumn>
@@ -241,11 +234,9 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
         <AutoColumn gap="sm">
           <RowFixed>
             <ThemedText.DeprecatedBlack fontSize={14} fontWeight={400} color={theme.deprecated_text2}>
-              <Trans>Transaction deadline</Trans>
+              Transaction deadline
             </ThemedText.DeprecatedBlack>
-            <QuestionHelper
-              text={<Trans>Your transaction will revert if it is pending for more than this period of time.</Trans>}
-            />
+            <QuestionHelper text="Your transaction will revert if it is pending for more than this period of time." />
           </RowFixed>
           <RowFixed>
             <OptionCustom style={{ width: '80px' }} warning={!!deadlineError} tabIndex={-1}>
@@ -267,7 +258,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
               />
             </OptionCustom>
             <ThemedText.DeprecatedBody style={{ paddingLeft: '8px' }} fontSize={14}>
-              <Trans>minutes</Trans>
+              minutes
             </ThemedText.DeprecatedBody>
           </RowFixed>
         </AutoColumn>

@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import { TransactionSummary } from 'components/AccountDetailsV2'
 import { ButtonPrimary } from 'components/Button'
@@ -51,10 +50,10 @@ const ToggleMenuItem = styled.button`
     color: ${({ theme }) => theme.textPrimary};
     background-color: ${({ theme }) => theme.backgroundModule};
     transition: ${({
-  theme: {
-    transition: { duration, timing },
-  },
-}) => `${duration.fast} all ${timing.in}`};
+      theme: {
+        transition: { duration, timing },
+      },
+    }) => `${duration.fast} all ${timing.in}`};
   }
 `
 
@@ -131,12 +130,8 @@ const WalletDropdown = ({ setMenu }: { setMenu: (state: MenuState) => void }) =>
         <>
           <ToggleMenuItem data-testid="wallet-transactions" onClick={() => setMenu(MenuState.TRANSACTIONS)}>
             <DefaultText>
-              <Trans>Transactions</Trans>{' '}
-              {pendingTransactions.length > 0 && (
-                <PendingBadge>
-                  {pendingTransactions.length} <Trans>Pending</Trans>
-                </PendingBadge>
-              )}
+              Transactions{' '}
+              {pendingTransactions.length > 0 && <PendingBadge>{pendingTransactions.length} Pending</PendingBadge>}
             </DefaultText>
             <IconWrap>
               <ChevronRight size={16} strokeWidth={3} />

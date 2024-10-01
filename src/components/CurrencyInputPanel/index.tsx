@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { Currency, CurrencyAmount, Percent, Token } from '@uniswap/sdk-core'
@@ -234,7 +233,7 @@ export default function CurrencyInputPanel({
           <AutoColumn gap="sm" justify="center">
             <Lock />
             <ThemedText.DeprecatedLabel fontSize="12px" textAlign="center" padding="0 12px">
-              <Trans>The market price is outside your specified price range. Single-asset deposit only.</Trans>
+              The market price is outside your specified price range. Single-asset deposit only.
             </ThemedText.DeprecatedLabel>
           </AutoColumn>
         </FixedContainer>
@@ -282,7 +281,7 @@ export default function CurrencyInputPanel({
                       ? currency.symbol.slice(0, 4) +
                         '...' +
                         currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
-                      : currency?.symbol) || <Trans>Select a token</Trans>}
+                      : currency?.symbol) || 'Select a token'}
                   </StyledTokenName>
                 )}
               </RowFixed>
@@ -305,13 +304,11 @@ export default function CurrencyInputPanel({
                     fontSize={14}
                     style={{ display: 'inline', cursor: 'pointer' }}
                   >
-                    {!hideBalance && currency && selectedCurrencyBalance ? (
-                      renderBalance ? (
-                        renderBalance(selectedCurrencyBalance)
-                      ) : (
-                        <Trans>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</Trans>
-                      )
-                    ) : null}
+                    {!hideBalance && currency && selectedCurrencyBalance
+                      ? renderBalance
+                        ? renderBalance(selectedCurrencyBalance)
+                        : `Balance: ${formatCurrencyAmount(selectedCurrencyBalance, 4)}`
+                      : null}
                   </ThemedText.DeprecatedBody>
                   {showMaxButton && selectedCurrencyBalance ? (
                     <TraceEvent
@@ -319,9 +316,7 @@ export default function CurrencyInputPanel({
                       name={EventName.SWAP_MAX_TOKEN_AMOUNT_SELECTED}
                       element={ElementName.MAX_TOKEN_AMOUNT_BUTTON}
                     >
-                      <StyledBalanceMax onClick={onMax}>
-                        <Trans>MAX</Trans>
-                      </StyledBalanceMax>
+                      <StyledBalanceMax onClick={onMax}>MAX</StyledBalanceMax>
                     </TraceEvent>
                   ) : null}
                 </RowFixed>

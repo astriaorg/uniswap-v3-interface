@@ -1,8 +1,5 @@
-// eslint-disable-next-line no-restricted-imports
-import { t, Trans } from '@lingui/macro'
 import { Percent } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
-import { sendEvent } from 'components/analytics'
 import { isSupportedChainId } from 'lib/hooks/routing/clientSideSmartOrderRouter'
 import { useRef, useState } from 'react'
 import { Settings, X } from 'react-feather'
@@ -144,34 +141,32 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
             <RowBetween style={{ padding: '0 2rem' }}>
               <div />
               <Text fontWeight={500} fontSize={20}>
-                <Trans>Are you sure?</Trans>
+                Are you sure?
               </Text>
               <StyledCloseIcon onClick={() => setShowConfirmation(false)} />
             </RowBetween>
             <Break />
             <AutoColumn gap="lg" style={{ padding: '0 2rem' }}>
               <Text fontWeight={500} fontSize={20}>
-                <Trans>
-                  Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result
-                  in bad rates and lost funds.
-                </Trans>
+                Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result
+                in bad rates and lost funds.
               </Text>
               <Text fontWeight={600} fontSize={20}>
-                <Trans>ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.</Trans>
+                ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.
               </Text>
               <ButtonError
                 error={true}
                 padding="12px"
                 onClick={() => {
-                  const confirmWord = t`confirm`
-                  if (window.prompt(t`Please type the word "${confirmWord}" to enable expert mode.`) === confirmWord) {
+                  const confirmWord = `confirm`
+                  if (window.prompt(`Please type the word "${confirmWord}" to enable expert mode.`) === confirmWord) {
                     toggleExpertMode()
                     setShowConfirmation(false)
                   }
                 }}
               >
                 <Text fontSize={20} fontWeight={500} id="confirm-expert-mode">
-                  <Trans>Turn On Expert Mode</Trans>
+                  Turn On Expert Mode
                 </Text>
               </ButtonError>
             </AutoColumn>
@@ -182,7 +177,7 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
         disabled={!isSupportedChainId(chainId)}
         onClick={toggle}
         id="open-settings-dialog-button"
-        aria-label={t`Transaction Settings`}
+        aria-label="Transaction Settings"
       >
         <StyledMenuIcon />
         {expertMode ? (
@@ -197,22 +192,18 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
         <MenuFlyout>
           <AutoColumn gap="md" style={{ padding: '1rem' }}>
             <Text fontWeight={600} fontSize={14}>
-              <Trans>Settings</Trans>
+              Settings
             </Text>
             <TransactionSettings placeholderSlippage={placeholderSlippage} />
             <Text fontWeight={600} fontSize={14}>
-              <Trans>Interface Settings</Trans>
+              Interface Settings
             </Text>
             <RowBetween>
               <RowFixed>
                 <ThemedText.DeprecatedBlack fontWeight={400} fontSize={14} color={theme.deprecated_text2}>
-                  <Trans>Expert Mode</Trans>
+                  Expert Mode
                 </ThemedText.DeprecatedBlack>
-                <QuestionHelper
-                  text={
-                    <Trans>Allow high price impact trades and skip the confirm screen. Use at your own risk.</Trans>
-                  }
-                />
+                <QuestionHelper text="Allow high price impact trades and skip the confirm screen. Use at your own risk." />
               </RowFixed>
               <Toggle
                 id="toggle-expert-mode-button"
@@ -220,13 +211,13 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
                 toggle={
                   expertMode
                     ? () => {
-                      toggleExpertMode()
-                      setShowConfirmation(false)
-                    }
+                        toggleExpertMode()
+                        setShowConfirmation(false)
+                      }
                     : () => {
-                      toggle()
-                      setShowConfirmation(true)
-                    }
+                        toggle()
+                        setShowConfirmation(true)
+                      }
                 }
               />
             </RowBetween>

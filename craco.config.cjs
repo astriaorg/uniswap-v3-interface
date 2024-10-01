@@ -31,6 +31,11 @@ module.exports = {
       // This is required because conedison uses * to redirect all imports to its dist.
       webpackConfig.resolve.alias['@uniswap/conedison'] = '@uniswap/conedison/dist'
 
+      // Disable source map generation for production builds
+      if (process.env.NODE_ENV === 'production') {
+        webpackConfig.devtool = false;
+      }
+
       return webpackConfig
     },
   },

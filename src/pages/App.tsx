@@ -1,10 +1,8 @@
 import Loader from 'components/Loader'
-import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import { LandingPageVariant, useLandingPageFlag } from 'featureFlags/flags/landingPage'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
-import { useBag } from 'nft/hooks'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { flexRowNoWrap } from 'theme/styles'
@@ -25,9 +23,6 @@ import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
-import Tokens from './Tokens'
-
-const TokenDetails = lazy(() => import('./TokenDetails'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -85,9 +80,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', scrollListener)
   }, [])
 
-  const isBagExpanded = useBag((state) => state.bagExpanded)
-
-  const isHeaderTransparent = !scrolledState && !isBagExpanded
+  const isHeaderTransparent = !scrolledState
 
   const landingPageFlag = useLandingPageFlag()
 
@@ -102,15 +95,10 @@ export default function App() {
         <BodyWrapper>
           <Popups />
           <Polling />
-          <TopLevelModals />
           <Suspense fallback={<Loader />}>
             {isLoaded ? (
               <Routes>
                 {landingPageFlag === LandingPageVariant.Enabled && <Route path="/" element={<Landing />} />}
-                {/* <Route path="tokens" element={<Tokens />}>
-                  <Route path=":chainName" />
-                </Route>
-                <Route path="tokens/:chainName/:tokenAddress" element={<TokenDetails />} /> */}
 
                 <Route path="swap" element={<Swap />} />
 

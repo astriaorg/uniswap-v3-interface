@@ -15,12 +15,7 @@ export const LoadingRows = styled.div`
   & > div {
     animation: ${loadingAnimation} 1.5s infinite;
     animation-fill-mode: both;
-    background: linear-gradient(
-      to left,
-      ${({ theme }) => theme.deprecated_bg1} 25%,
-      ${({ theme }) => theme.deprecated_bg2} 50%,
-      ${({ theme }) => theme.deprecated_bg1} 75%
-    );
+    background: linear-gradient(to left, #0d0d0d 25%, #181818 50%, #0d0d0d 75%);
     background-size: 400%;
     border-radius: 12px;
     height: 2.4em;

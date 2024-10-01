@@ -1,16 +1,12 @@
-import { Trans } from '@lingui/macro'
-import { Trace, TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName, PageName } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
 import { ButtonGray, ButtonPrimary, ButtonText } from 'components/Button'
 import { AutoColumn } from 'components/Column'
-import { FlyoutAlignment, Menu } from 'components/Menu'
+import { Menu } from 'components/Menu'
 import PositionList from 'components/PositionList'
 import { RowBetween, RowFixed } from 'components/Row'
-import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSupportedChain } from 'constants/chains'
 import { useV3Positions } from 'hooks/useV3Positions'
-import { AlertTriangle, BookOpen, ChevronDown, ChevronsRight, Inbox, Layers, PlusCircle } from 'react-feather'
+import { AlertTriangle, Inbox } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useToggleWalletModal } from 'state/application/hooks'
 import { useUserHideClosedPositions } from 'state/user/hooks'
@@ -18,7 +14,6 @@ import styled, { css, useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
 
-import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
 import { LoadingRows } from './styleds'
 
 const PageWrapper = styled(AutoColumn)`
@@ -42,6 +37,16 @@ const PageWrapper = styled(AutoColumn)`
     padding-top: 20px;
   }
 `
+
+export const PoolWrapper = styled(AutoColumn)`
+  position: relative;
+  background: radial-gradient(100% 100% at 50.15% 0%, #221f1f 0%, #050a0d 100%);
+  border-radius: 32px;
+  box-shadow: inset 1px 1px 1px -1px rgba(255, 255, 255, 0.5);
+  padding: 40px;
+  transition: transform 250ms ease;
+`
+
 const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.deprecated_text2};
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
@@ -122,7 +127,7 @@ const InboxIcon = styled(Inbox)`
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 12px;
   font-size: 16px;
-  padding: 6px 8px;
+  padding: 12px 20px;
   width: fit-content;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     flex: 1 1 auto;
@@ -131,14 +136,11 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
 `
 
 const MainContentWrapper = styled.main`
-  background-color: ${({ theme }) => theme.deprecated_bg0};
-  border: 1px solid ${({ theme }) => theme.backgroundOutline};
-  padding: 0;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);
 `
 
 function PositionsLoadingPlaceholder() {
@@ -164,31 +166,24 @@ function WrongNetworkCard() {
   const theme = useTheme()
 
   return (
-    <>
-      <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding="0">
-              <ThemedText.LargeHeader>
-                <Trans>Pools</Trans>
-              </ThemedText.LargeHeader>
-            </TitleRow>
+    <PageWrapper>
+      <AutoColumn gap="lg" justify="center">
+        <PoolWrapper gap="lg" style={{ width: '100%' }}>
+          <TitleRow padding="0">
+            <ThemedText.LargeHeader>Pools</ThemedText.LargeHeader>
+          </TitleRow>
 
-            <MainContentWrapper>
-              <ErrorContainer>
-                <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
-                  <NetworkIcon strokeWidth={1.2} />
-                  <div data-testid="pools-unsupported-err">
-                    <Trans>Your connected network is unsupported.</Trans>
-                  </div>
-                </ThemedText.DeprecatedBody>
-              </ErrorContainer>
-            </MainContentWrapper>
-          </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
-      <SwitchLocaleLink />
-    </>
+          <MainContentWrapper>
+            <ErrorContainer>
+              <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
+                <NetworkIcon strokeWidth={1.2} />
+                <div data-testid="pools-unsupported-err">Your connected network is unsupported.</div>
+              </ThemedText.DeprecatedBody>
+            </ErrorContainer>
+          </MainContentWrapper>
+        </PoolWrapper>
+      </AutoColumn>
+    </PageWrapper>
   )
 }
 
@@ -217,70 +212,54 @@ export default function Pool() {
   const showConnectAWallet = Boolean(!account)
 
   return (
-    <Trace page={PageName.POOL_PAGE} shouldLogImpression>
-      <>
-        <PageWrapper>
-          <AutoColumn gap="lg" justify="center">
-            <AutoColumn gap="lg" style={{ width: '100%' }}>
-              <TitleRow padding="0">
-                <ThemedText.LargeHeader>
-                  <Trans>Pools</Trans>
-                </ThemedText.LargeHeader>
-                <ButtonRow>
-                  <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/TIA">
-                    + <Trans>New Position</Trans>
-                  </ResponsiveButtonPrimary>
-                </ButtonRow>
-              </TitleRow>
+    <PageWrapper>
+      <AutoColumn gap="lg" justify="center">
+        <PoolWrapper gap="lg" style={{ width: '100%' }}>
+          <TitleRow padding="0">
+            <ThemedText.LargeHeader>Pools</ThemedText.LargeHeader>
+            <ButtonRow>
+              <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/TIA">
+                + New Position
+              </ResponsiveButtonPrimary>
+            </ButtonRow>
+          </TitleRow>
 
-              <MainContentWrapper>
-                {positionsLoading ? (
-                  <PositionsLoadingPlaceholder />
-                ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
-                  <PositionList
-                    positions={filteredPositions}
-                    setUserHideClosedPositions={setUserHideClosedPositions}
-                    userHideClosedPositions={userHideClosedPositions}
-                  />
-                ) : (
-                  <ErrorContainer>
-                    <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
-                      <InboxIcon strokeWidth={1} style={{ marginTop: '2em' }} />
-                      <div>
-                        <Trans>Your active V3 liquidity positions will appear here.</Trans>
-                      </div>
-                    </ThemedText.DeprecatedBody>
-                    {!showConnectAWallet && closedPositions.length > 0 && (
-                      <ButtonText
-                        style={{ marginTop: '.5rem' }}
-                        onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
-                      >
-                        <Trans>Show closed positions</Trans>
-                      </ButtonText>
-                    )}
-                    {showConnectAWallet && (
-                      <TraceEvent
-                        events={[BrowserEvent.onClick]}
-                        name={EventName.CONNECT_WALLET_BUTTON_CLICKED}
-                        properties={{ received_swap_quote: false }}
-                        element={ElementName.CONNECT_WALLET_BUTTON}
-                      >
-                        <ButtonPrimary
-                          style={{ marginTop: '2em', marginBottom: '2em', padding: '8px 16px' }}
-                          onClick={toggleWalletModal}
-                        >
-                          <Trans>Connect a wallet</Trans>
-                        </ButtonPrimary>
-                      </TraceEvent>
-                    )}
-                  </ErrorContainer>
+          <MainContentWrapper>
+            {positionsLoading ? (
+              <PositionsLoadingPlaceholder />
+            ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
+              <PositionList
+                positions={filteredPositions}
+                setUserHideClosedPositions={setUserHideClosedPositions}
+                userHideClosedPositions={userHideClosedPositions}
+              />
+            ) : (
+              <ErrorContainer>
+                <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
+                  <InboxIcon strokeWidth={1} style={{ marginTop: '2em' }} />
+                  <div>Your active V3 liquidity positions will appear here.</div>
+                </ThemedText.DeprecatedBody>
+                {!showConnectAWallet && closedPositions.length > 0 && (
+                  <ButtonText
+                    style={{ marginTop: '.5rem' }}
+                    onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
+                  >
+                    Show closed positions
+                  </ButtonText>
                 )}
-              </MainContentWrapper>
-            </AutoColumn>
-          </AutoColumn>
-        </PageWrapper>
-        <SwitchLocaleLink />
-      </>
-    </Trace>
+                {showConnectAWallet && (
+                  <ButtonPrimary
+                    style={{ marginTop: '2em', marginBottom: '2em', padding: '8px 16px' }}
+                    onClick={toggleWalletModal}
+                  >
+                    Connect a wallet
+                  </ButtonPrimary>
+                )}
+              </ErrorContainer>
+            )}
+          </MainContentWrapper>
+        </PoolWrapper>
+      </AutoColumn>
+    </PageWrapper>
   )
 }

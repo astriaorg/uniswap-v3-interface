@@ -7,7 +7,7 @@ import { RowBetween } from '../Row'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 
-export const BaseButton = styled(RebassButton) <
+export const BaseButton = styled(RebassButton)<
   {
     padding?: string
     width?: string
@@ -51,12 +51,12 @@ export const BaseButton = styled(RebassButton) <
 `
 
 export const ButtonPrimary = styled(BaseButton)`
-  background: linear-gradient(90deg, #F19727 0%, #DD5022 100%);
+  background: linear-gradient(90deg, #f19727 0%, #dd5022 100%);
   font-size: 20px;
   font-weight: 600;
   padding: 16px;
-  color: #FFFFFF;
-  border-color: #F19727;
+  color: #ffffff;
+  border-color: #f19727;
   &:focus {
     border-color: #fff;
   }
@@ -74,29 +74,23 @@ export const ButtonPrimary = styled(BaseButton)`
 `
 
 export const ButtonLight = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.accentActionSoft};
-  color: ${({ theme }) => theme.accentAction};
+  background: #000;
+  border-color: #f19727;
+  color: #fff;
   font-size: 20px;
   font-weight: 600;
 
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-  }
-  &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-  }
+  &:focus,
+  &:hover,
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
-    background-color: ${({ theme, disabled }) => !disabled && theme.accentActionSoft};
+    background: linear-gradient(90deg, #f19727 0%, #dd5022 100%);
   }
+
   :disabled {
     opacity: 0.4;
     :hover {
       cursor: auto;
       background-color: transparent;
-      box-shadow: none;
-      border: 1px solid transparent;
       outline: none;
     }
   }
@@ -500,7 +494,7 @@ const BaseThemeButton = styled.button<BaseButtonProps>`
   }
 `
 
-interface ThemeButtonProps extends React.ComponentPropsWithoutRef<'button'>, BaseButtonProps { }
+interface ThemeButtonProps extends React.ComponentPropsWithoutRef<'button'>, BaseButtonProps {}
 
 export const ThemeButton = ({ children, ...rest }: ThemeButtonProps) => {
   return (

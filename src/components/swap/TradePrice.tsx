@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Currency, Price } from '@uniswap/sdk-core'
 import useStablecoinPrice from 'hooks/useStablecoinPrice'
 import { useCallback } from 'react'
@@ -63,7 +62,7 @@ export default function TradePrice({ price, showInverted, setShowInverted }: Tra
       </Text>{' '}
       {usdcPrice && (
         <ThemedText.DeprecatedDarkGray>
-          <Trans>({formatDollar({ num: priceToPreciseFloat(usdcPrice), isPrice: true })})</Trans>
+          ({formatDollar({ num: priceToPreciseFloat(usdcPrice), isPrice: true })})
         </ThemedText.DeprecatedDarkGray>
       )}
     </StyledPriceContainer>

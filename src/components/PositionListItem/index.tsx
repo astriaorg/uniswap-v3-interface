@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Percent, Price, Token } from '@uniswap/sdk-core'
 import { Position } from '@uniswap/v3-sdk'
 import Badge from 'components/Badge'
@@ -217,9 +216,7 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
           </DataText>
           &nbsp;
           <Badge>
-            <BadgeText>
-              <Trans>{new Percent(feeAmount, 1_000_000).toSignificant()}%</Trans>
-            </BadgeText>
+            <BadgeText>{new Percent(feeAmount, 1_000_000).toSignificant()}%</BadgeText>
           </Badge>
         </PrimaryPositionIdData>
         <RangeBadge removed={removed} inRange={!outOfRange} />
@@ -228,13 +225,9 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
       {priceLower && priceUpper ? (
         <RangeLineItem>
           <RangeText>
-            <ExtentsText>
-              <Trans>Min: </Trans>
-            </ExtentsText>
-            <Trans>
-              {formatTickPrice(priceLower, tickAtLimit, Bound.LOWER)} <HoverInlineText text={currencyQuote?.symbol} />{' '}
-              per <HoverInlineText text={currencyBase?.symbol ?? ''} />
-            </Trans>
+            <ExtentsText>Min:</ExtentsText>
+            {formatTickPrice(priceLower, tickAtLimit, Bound.LOWER)} <HoverInlineText text={currencyQuote?.symbol} /> per{' '}
+            <HoverInlineText text={currencyBase?.symbol ?? ''} />
           </RangeText>{' '}
           <HideSmall>
             <DoubleArrow>⟷</DoubleArrow>{' '}
@@ -243,13 +236,9 @@ export default function PositionListItem({ positionDetails }: PositionListItemPr
             <DoubleArrow>⟷</DoubleArrow>{' '}
           </SmallOnly>
           <RangeText>
-            <ExtentsText>
-              <Trans>Max:</Trans>
-            </ExtentsText>
-            <Trans>
-              {formatTickPrice(priceUpper, tickAtLimit, Bound.UPPER)} <HoverInlineText text={currencyQuote?.symbol} />{' '}
-              per <HoverInlineText maxCharacters={10} text={currencyBase?.symbol} />
-            </Trans>
+            <ExtentsText>Max:</ExtentsText>
+            {formatTickPrice(priceUpper, tickAtLimit, Bound.UPPER)} <HoverInlineText text={currencyQuote?.symbol} /> per{' '}
+            <HoverInlineText maxCharacters={10} text={currencyBase?.symbol} />
           </RangeText>
         </RangeLineItem>
       ) : (

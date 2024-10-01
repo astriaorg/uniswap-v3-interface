@@ -1,6 +1,3 @@
-import { Trans } from '@lingui/macro'
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { Currency, CurrencyAmount, Percent, Token } from '@uniswap/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
 import { useWeb3React } from '@web3-react/core'
@@ -59,9 +56,8 @@ const CurrencySelect = styled(ButtonGray)<{
   disabled?: boolean
 }>`
   align-items: center;
-  background-color: ${({ selected, theme }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+  background-color: #333;
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
-  box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   color: ${({ selected, theme }) => (selected ? theme.deprecated_text1 : theme.deprecated_white)};
   cursor: pointer;
   height: unset;
@@ -79,7 +75,7 @@ const CurrencySelect = styled(ButtonGray)<{
 
   &:hover,
   &:active {
-    background-color: ${({ theme, selected }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+    background-color: #454545;
   }
 
   &:before {
@@ -251,7 +247,7 @@ export default function SwapCurrencyInputPanel({
           <AutoColumn gap="sm" justify="center">
             <Lock />
             <ThemedText.DeprecatedLabel fontSize="12px" textAlign="center" padding="0 12px">
-              <Trans>The market price is outside your specified price range. Single-asset deposit only.</Trans>
+              The market price is outside your specified price range. Single-asset deposit only.
             </ThemedText.DeprecatedLabel>
           </AutoColumn>
         </FixedContainer>
@@ -299,7 +295,7 @@ export default function SwapCurrencyInputPanel({
                       ? currency.symbol.slice(0, 4) +
                         '...' +
                         currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
-                      : currency?.symbol) || <Trans>Select token</Trans>}
+                      : currency?.symbol) || 'Select token'}
                   </StyledTokenName>
                 )}
               </RowFixed>
@@ -321,24 +317,14 @@ export default function SwapCurrencyInputPanel({
                     fontSize={14}
                     style={{ display: 'inline' }}
                   >
-                    {!hideBalance && currency && selectedCurrencyBalance ? (
-                      renderBalance ? (
-                        renderBalance(selectedCurrencyBalance)
-                      ) : (
-                        <Trans>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</Trans>
-                      )
-                    ) : null}
+                    {!hideBalance && currency && selectedCurrencyBalance
+                      ? renderBalance
+                        ? renderBalance(selectedCurrencyBalance)
+                        : `Balance: ${formatCurrencyAmount(selectedCurrencyBalance, 4)}`
+                      : null}
                   </ThemedText.DeprecatedBody>
                   {showMaxButton && selectedCurrencyBalance ? (
-                    <TraceEvent
-                      events={[BrowserEvent.onClick]}
-                      name={EventName.SWAP_MAX_TOKEN_AMOUNT_SELECTED}
-                      element={ElementName.MAX_TOKEN_AMOUNT_BUTTON}
-                    >
-                      <StyledBalanceMax onClick={onMax}>
-                        <Trans>Max</Trans>
-                      </StyledBalanceMax>
-                    </TraceEvent>
+                    <StyledBalanceMax onClick={onMax}>Max</StyledBalanceMax>
                   ) : null}
                 </RowFixed>
               ) : (

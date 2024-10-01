@@ -17,7 +17,6 @@ import { HashRouter } from 'react-router-dom'
 import { isProductionEnv } from 'utils/env'
 
 import Web3Provider from './components/Web3Provider'
-import { LanguageProvider } from './i18n'
 import App from './pages/App'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import store from './state'
@@ -64,19 +63,17 @@ createRoot(container).render(
       <FeatureFlagsProvider>
         <QueryClientProvider client={queryClient}>
           <HashRouter>
-            <LanguageProvider>
-              <Web3Provider>
-                <RelayEnvironmentProvider environment={RelayEnvironment}>
-                  <BlockNumberProvider>
-                    <Updaters />
-                    <ThemeProvider>
-                      <ThemedGlobalStyle />
-                      <App />
-                    </ThemeProvider>
-                  </BlockNumberProvider>
-                </RelayEnvironmentProvider>
-              </Web3Provider>
-            </LanguageProvider>
+            <Web3Provider>
+              <RelayEnvironmentProvider environment={RelayEnvironment}>
+                <BlockNumberProvider>
+                  <Updaters />
+                  <ThemeProvider>
+                    <ThemedGlobalStyle />
+                    <App />
+                  </ThemeProvider>
+                </BlockNumberProvider>
+              </RelayEnvironmentProvider>
+            </Web3Provider>
           </HashRouter>
         </QueryClientProvider>
       </FeatureFlagsProvider>

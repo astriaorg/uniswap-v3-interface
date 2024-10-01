@@ -1,13 +1,10 @@
-import { Trans } from '@lingui/macro'
 import { Fraction, TradeType } from '@uniswap/sdk-core'
 import JSBI from 'jsbi'
 
 import { nativeOnChain } from '../../constants/tokens'
 import { useCurrency, useToken } from '../../hooks/Tokens'
 import useENSName from '../../hooks/useENSName'
-import { VoteOption } from '../../state/governance/types'
 import {
-  AddLiquidityV2PoolTransactionInfo,
   AddLiquidityV3PoolTransactionInfo,
   ApproveTransactionInfo,
   ClaimTransactionInfo,
@@ -18,13 +15,10 @@ import {
   ExactInputSwapTransactionInfo,
   ExactOutputSwapTransactionInfo,
   ExecuteTransactionInfo,
-  MigrateV2LiquidityToV3TransactionInfo,
   QueueTransactionInfo,
   RemoveLiquidityV3TransactionInfo,
-  SubmitProposalTransactionInfo,
   TransactionInfo,
   TransactionType,
-  VoteTransactionInfo,
   WithdrawLiquidityStakingTransactionInfo,
   WrapTransactionInfo,
 } from '../../state/transactions/types'
@@ -74,73 +68,34 @@ function FormattedCurrencyAmountManaged({
 function ClaimSummary({ info: { recipient, uniAmountRaw } }: { info: ClaimTransactionInfo }) {
   const { ENSName } = useENSName()
   return typeof uniAmountRaw === 'string' ? (
-    <Trans>
+    <>
       Claim <FormattedCurrencyAmount rawAmount={uniAmountRaw} symbol="UNI" decimals={18} sigFigs={4} /> for{' '}
       {ENSName ?? recipient}
-    </Trans>
+    </>
   ) : (
-    <Trans>Claim UNI reward for {ENSName ?? recipient}</Trans>
+    <>Claim UNI reward for {ENSName ?? recipient}</>
   )
-}
-
-function SubmitProposalTransactionSummary(_: { info: SubmitProposalTransactionInfo }) {
-  return <Trans>Submit new proposal</Trans>
 }
 
 function ApprovalSummary({ info }: { info: ApproveTransactionInfo }) {
   const token = useToken(info.tokenAddress)
 
-  return <Trans>Approve {token?.symbol}</Trans>
-}
-
-function VoteSummary({ info }: { info: VoteTransactionInfo }) {
-  const proposalKey = `${info.governorAddress}/${info.proposalId}`
-  if (info.reason && info.reason.trim().length > 0) {
-    switch (info.decision) {
-      case VoteOption.For:
-        return <Trans>Vote for proposal {proposalKey}</Trans>
-      case VoteOption.Abstain:
-        return <Trans>Vote to abstain on proposal {proposalKey}</Trans>
-      case VoteOption.Against:
-        return <Trans>Vote against proposal {proposalKey}</Trans>
-    }
-  } else {
-    switch (info.decision) {
-      case VoteOption.For:
-        return (
-          <Trans>
-            Vote for proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-      case VoteOption.Abstain:
-        return (
-          <Trans>
-            Vote to abstain on proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-      case VoteOption.Against:
-        return (
-          <Trans>
-            Vote against proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-    }
-  }
+  return <>Approve {token?.symbol}</>
 }
 
 function QueueSummary({ info }: { info: QueueTransactionInfo }) {
   const proposalKey = `${info.governorAddress}/${info.proposalId}`
-  return <Trans>Queue proposal {proposalKey}.</Trans>
+  return <>Queue proposal {proposalKey}.</>
 }
 
 function ExecuteSummary({ info }: { info: ExecuteTransactionInfo }) {
   const proposalKey = `${info.governorAddress}/${info.proposalId}`
-  return <Trans>Execute proposal {proposalKey}.</Trans>
+  return <>Execute proposal {proposalKey}.</>
 }
 
 function DelegateSummary({ info: { delegatee } }: { info: DelegateTransactionInfo }) {
   const { ENSName } = useENSName(delegatee)
-  return <Trans>Delegate voting power to {ENSName ?? delegatee}</Trans>
+  return <>Delegate voting power to {ENSName ?? delegatee}</>
 }
 
 function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info: WrapTransactionInfo }) {
@@ -148,7 +103,7 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
 
   if (unwrapped) {
     return (
-      <Trans>
+      <>
         Unwrap{' '}
         <FormattedCurrencyAmount
           rawAmount={currencyAmountRaw}
@@ -157,11 +112,11 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
           sigFigs={6}
         />{' '}
         to {native?.symbol ?? 'ETH'}
-      </Trans>
+      </>
     )
   } else {
     return (
-      <Trans>
+      <>
         Wrap{' '}
         <FormattedCurrencyAmount
           rawAmount={currencyAmountRaw}
@@ -170,7 +125,7 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
           sigFigs={6}
         />{' '}
         to {native?.wrapped?.symbol ?? 'WETH'}
-      </Trans>
+      </>
     )
   }
 }
@@ -178,26 +133,11 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
 function DepositLiquidityStakingSummary(_: { info: DepositLiquidityStakingTransactionInfo }) {
   // not worth rendering the tokens since you can should no longer deposit liquidity in the staking contracts
   // todo: deprecate and delete the code paths that allow this, show user more information
-  return <Trans>Deposit liquidity</Trans>
+  return <>Deposit liquidity</>
 }
 
 function WithdrawLiquidityStakingSummary(_: { info: WithdrawLiquidityStakingTransactionInfo }) {
-  return <Trans>Withdraw deposited liquidity</Trans>
-}
-
-function MigrateLiquidityToV3Summary({
-  info: { baseCurrencyId, quoteCurrencyId },
-}: {
-  info: MigrateV2LiquidityToV3TransactionInfo
-}) {
-  const baseCurrency = useCurrency(baseCurrencyId)
-  const quoteCurrency = useCurrency(quoteCurrencyId)
-
-  return (
-    <Trans>
-      Migrate {baseCurrency?.symbol}/{quoteCurrency?.symbol} liquidity to V3
-    </Trans>
-  )
+  return <>Withdraw deposited liquidity</>
 }
 
 function CreateV3PoolSummary({ info: { quoteCurrencyId, baseCurrencyId } }: { info: CreateV3PoolTransactionInfo }) {
@@ -205,9 +145,9 @@ function CreateV3PoolSummary({ info: { quoteCurrencyId, baseCurrencyId } }: { in
   const quoteCurrency = useCurrency(quoteCurrencyId)
 
   return (
-    <Trans>
+    <>
       Create {baseCurrency?.symbol}/{quoteCurrency?.symbol} V3 pool
-    </Trans>
+    </>
   )
 }
 
@@ -216,9 +156,9 @@ function CollectFeesSummary({ info: { currencyId0, currencyId1 } }: { info: Coll
   const currency1 = useCurrency(currencyId1)
 
   return (
-    <Trans>
+    <>
       Collect {currency0?.symbol}/{currency1?.symbol} fees
-    </Trans>
+    </>
   )
 }
 
@@ -228,11 +168,11 @@ function RemoveLiquidityV3Summary({
   info: RemoveLiquidityV3TransactionInfo
 }) {
   return (
-    <Trans>
+    <>
       Remove{' '}
       <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} /> and{' '}
       <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} />
-    </Trans>
+    </>
   )
 }
 
@@ -245,34 +185,20 @@ function AddLiquidityV3PoolSummary({
   const quoteCurrency = useCurrency(quoteCurrencyId)
 
   return createPool ? (
-    <Trans>
+    <>
       Create pool and add {baseCurrency?.symbol}/{quoteCurrency?.symbol} V3 liquidity
-    </Trans>
+    </>
   ) : (
-    <Trans>
+    <>
       Add {baseCurrency?.symbol}/{quoteCurrency?.symbol} V3 liquidity
-    </Trans>
-  )
-}
-
-function AddLiquidityV2PoolSummary({
-  info: { quoteCurrencyId, expectedAmountBaseRaw, expectedAmountQuoteRaw, baseCurrencyId },
-}: {
-  info: AddLiquidityV2PoolTransactionInfo
-}) {
-  return (
-    <Trans>
-      Add <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} />{' '}
-      and <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} />{' '}
-      to Uniswap V2
-    </Trans>
+    </>
   )
 }
 
 function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo }) {
   if (info.tradeType === TradeType.EXACT_INPUT) {
     return (
-      <Trans>
+      <>
         Swap exactly{' '}
         <FormattedCurrencyAmountManaged
           rawAmount={info.inputCurrencyAmountRaw}
@@ -285,11 +211,11 @@ function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutp
           currencyId={info.outputCurrencyId}
           sigFigs={6}
         />
-      </Trans>
+      </>
     )
   } else {
     return (
-      <Trans>
+      <>
         Swap{' '}
         <FormattedCurrencyAmountManaged
           rawAmount={info.expectedInputCurrencyAmountRaw}
@@ -302,7 +228,7 @@ function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutp
           currencyId={info.outputCurrencyId}
           sigFigs={6}
         />
-      </Trans>
+      </>
     )
   }
 }
@@ -311,9 +237,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
   switch (info.type) {
     case TransactionType.ADD_LIQUIDITY_V3_POOL:
       return <AddLiquidityV3PoolSummary info={info} />
-
-    case TransactionType.ADD_LIQUIDITY_V2_POOL:
-      return <AddLiquidityV2PoolSummary info={info} />
 
     case TransactionType.CLAIM:
       return <ClaimSummary info={info} />
@@ -330,9 +253,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
     case TransactionType.APPROVAL:
       return <ApprovalSummary info={info} />
 
-    case TransactionType.VOTE:
-      return <VoteSummary info={info} />
-
     case TransactionType.DELEGATE:
       return <DelegateSummary info={info} />
 
@@ -341,9 +261,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
 
     case TransactionType.CREATE_V3_POOL:
       return <CreateV3PoolSummary info={info} />
-
-    case TransactionType.MIGRATE_LIQUIDITY_V3:
-      return <MigrateLiquidityToV3Summary info={info} />
 
     case TransactionType.COLLECT_FEES:
       return <CollectFeesSummary info={info} />
@@ -357,7 +274,7 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
     case TransactionType.EXECUTE:
       return <ExecuteSummary info={info} />
 
-    case TransactionType.SUBMIT_PROPOSAL:
-      return <SubmitProposalTransactionSummary info={info} />
+    default:
+      return <></>
   }
 }

@@ -15,7 +15,7 @@ function getDeprecatedTheme(darkMode: boolean) {
     deprecated_text5: darkMode ? colors.gray500 : colors.gray50,
 
     // backgrounds / grays
-    deprecated_bg0: darkMode ? colors.gray900 : colors.white,
+    deprecated_bg0: darkMode ? colors.gray800 : colors.white,
     deprecated_bg1: darkMode ? colors.gray800 : colors.gray50,
     deprecated_bg2: darkMode ? colors.gray700 : colors.gray100,
     deprecated_bg3: darkMode ? colors.gray600 : colors.gray200,

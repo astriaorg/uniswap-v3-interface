@@ -15,11 +15,11 @@ import {
   sETH2,
   SWISE,
   TRIBE,
+  USDC_FLAME_DEVNET,
   USDC_MAINNET,
   USDT,
   WBTC,
   WRAPPED_NATIVE_CURRENCY,
-  USDC_FLAME_DEVNET,
 } from './tokens'
 
 type ChainTokenList = {

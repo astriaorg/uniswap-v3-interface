@@ -1,9 +1,9 @@
 import { BigintIsh, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
-// This file is lazy-loaded, so the import of smart-order-router is intentional.
-// eslint-disable-next-line no-restricted-imports
-import { AlphaRouter, AlphaRouterConfig, ChainId } from '@uniswap/smart-order-router'
 import { SupportedChainId } from 'constants/chains'
 import JSBI from 'jsbi'
+// This file is lazy-loaded, so the import of smart-order-router is intentional.
+// eslint-disable-next-line no-restricted-imports
+import { AlphaRouter, AlphaRouterConfig, ChainId } from 'smart-order-router'
 import { GetQuoteResult } from 'state/routing/types'
 import { transformSwapRouteToGetQuoteResult } from 'utils/transformSwapRouteToGetQuoteResult'
 
@@ -45,7 +45,7 @@ async function getQuote(
     config
   )
   if (!swapRoute) {
-    console.log("Failed to generate client side quote")
+    console.log('Failed to generate client side quote')
     throw new Error('Failed to generate client side quote')
   }
 

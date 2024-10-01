@@ -38,7 +38,6 @@ import confirmPriceImpactWithoutFee from '../../components/swap/confirmPriceImpa
 import ConfirmSwapModal from '../../components/swap/ConfirmSwapModal'
 import { ArrowWrapper, PageWrapper, SwapCallbackError, SwapWrapper } from '../../components/swap/styleds'
 import SwapHeader from '../../components/swap/SwapHeader'
-import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { TOKEN_SHORTHANDS } from '../../constants/tokens'
 import { useAllTokens, useCurrency } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
@@ -74,40 +73,25 @@ const ArrowContainer = styled.div`
 
 const SwapSection = styled.div`
   position: relative;
-  background-color: transparent;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 16px;
   color: ${({ theme }) => theme.textSecondary};
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
+  border: 1px solid transparent;
 
-  &:before {
-    box-sizing: border-box;
-    background-size: 100%;
-    border-radius: inherit;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    content: '';
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  &:hover {
+    border-color: #454545;
   }
 
-  &:hover:before {
-    border-color: rgba(255, 255, 255, 0.6);
-  }
-
-  &:focus-within:before {
-    border-color: rgba(255, 255, 255, 0.6);
+  &:focus-within {
+    border-color: #454545;
   }
 `
 
-const OutputSwapSection = styled(SwapSection) <{ showDetailsDropdown: boolean }>`
+const OutputSwapSection = styled(SwapSection)<{ showDetailsDropdown: boolean }>`
   border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
   border-bottom-left-radius: ${({ showDetailsDropdown }) => showDetailsDropdown && '0'};
   border-bottom-right-radius: ${({ showDetailsDropdown }) => showDetailsDropdown && '0'};
@@ -212,13 +196,13 @@ export default function Swap({ className }: { className?: string }) {
     () =>
       showWrap
         ? {
-          [Field.INPUT]: parsedAmount,
-          [Field.OUTPUT]: parsedAmount,
-        }
+            [Field.INPUT]: parsedAmount,
+            [Field.OUTPUT]: parsedAmount,
+          }
         : {
-          [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
-          [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
-        },
+            [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
+            [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
+          },
     [independentField, parsedAmount, showWrap, trade]
   )
 
@@ -314,11 +298,7 @@ export default function Swap({ className }: { className?: string }) {
     } finally {
       setIsPermitPending(false)
     }
-  }, [
-    addTransaction,
-    isApprovalPending,
-    permit,
-  ])
+  }, [addTransaction, isApprovalPending, permit])
 
   // check whether the user has approved the router on the input token
   const [approvalState, approveCallback] = useApproveCallbackFromTrade(
@@ -399,12 +379,7 @@ export default function Swap({ className }: { className?: string }) {
           txHash: undefined,
         })
       })
-  }, [
-    swapCallback,
-    stablecoinPriceImpact,
-    tradeToConfirm,
-    showConfirm,
-  ])
+  }, [swapCallback, stablecoinPriceImpact, tradeToConfirm, showConfirm])
 
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
@@ -531,14 +506,8 @@ export default function Swap({ className }: { className?: string }) {
           <div style={{ display: 'relative' }}>
             <SwapSection>
               <SwapCurrencyInputPanel
-                label={
-                  independentField === Field.OUTPUT && !showWrap ? (
-                    'From (at most)'
-                  ) : (
-                    'From'
-                  )
-                }
-                id='swap-currency-input'
+                label={independentField === Field.OUTPUT && !showWrap ? 'From (at most)' : 'From'}
+                id="swap-currency-input"
                 value={formattedAmounts[Field.INPUT]}
                 showMaxButton={showMaxButton}
                 currency={currencies[Field.INPUT] ?? null}
@@ -576,10 +545,8 @@ export default function Swap({ className }: { className?: string }) {
                 <SwapCurrencyInputPanel
                   value={formattedAmounts[Field.OUTPUT]}
                   onUserInput={handleTypeOutput}
-                  label={
-                    independentField === Field.INPUT && !showWrap ? 'To (at least)' : 'To'
-                  }
-                  id='swap-currency-output'
+                  label={independentField === Field.INPUT && !showWrap ? 'To (at least)' : 'To'}
+                  id="swap-currency-output"
                   showMaxButton={false}
                   hideBalance={false}
                   fiatValue={fiatValueOutput ?? undefined}
@@ -622,9 +589,7 @@ export default function Swap({ className }: { className?: string }) {
             <div>
               {swapIsUnsupported ? (
                 <ButtonPrimary disabled={true}>
-                  <ThemedText.DeprecatedMain mb="4px">
-                    Unsupported Asset
-                  </ThemedText.DeprecatedMain>
+                  <ThemedText.DeprecatedMain mb="4px">Unsupported Asset</ThemedText.DeprecatedMain>
                 </ButtonPrimary>
               ) : !account ? (
                 <ButtonLight onClick={toggleWalletModal} fontWeight={600}>
@@ -642,9 +607,7 @@ export default function Swap({ className }: { className?: string }) {
                 </ButtonPrimary>
               ) : routeNotFound && userHasSpecifiedInputOutput && !routeIsLoading && !routeIsSyncing ? (
                 <GrayCard style={{ textAlign: 'center' }}>
-                  <ThemedText.DeprecatedMain mb="4px">
-                    Insufficient liquidity for this trade.
-                  </ThemedText.DeprecatedMain>
+                  <ThemedText.DeprecatedMain mb="4px">Insufficient liquidity for this trade.</ThemedText.DeprecatedMain>
                 </GrayCard>
               ) : showApproveFlow ? (
                 <AutoRow style={{ flexWrap: 'nowrap', width: '100%' }}>
@@ -715,13 +678,11 @@ export default function Swap({ className }: { className?: string }) {
                       error={isValid && priceImpactSeverity > 2}
                     >
                       <Text fontSize={16} fontWeight={600}>
-                        {priceImpactTooHigh ? (
-                          'High Price Impact'
-                        ) : trade && priceImpactSeverity > 2 ? (
-                          'Swap Anyway'
-                        ) : (
-                          'Swap'
-                        )}
+                        {priceImpactTooHigh
+                          ? 'High Price Impact'
+                          : trade && priceImpactSeverity > 2
+                          ? 'Swap Anyway'
+                          : 'Swap'}
                       </Text>
                     </ButtonError>
                   </AutoColumn>
@@ -735,32 +696,22 @@ export default function Swap({ className }: { className?: string }) {
                   {isPermitPending ? (
                     <>
                       <Loader size="20px" stroke={theme.accentWarning} />
-                      <ThemedText.SubHeader color="accentWarning">
-                        Approve in your wallet
-                      </ThemedText.SubHeader>
+                      <ThemedText.SubHeader color="accentWarning">Approve in your wallet</ThemedText.SubHeader>
                     </>
                   ) : isPermitFailed ? (
                     <>
                       <AlertTriangle size={20} stroke={theme.accentWarning} />
-                      <ThemedText.SubHeader color="accentWarning">
-                        Approval failed. Try again.
-                      </ThemedText.SubHeader>
+                      <ThemedText.SubHeader color="accentWarning">Approval failed. Try again.</ThemedText.SubHeader>
                     </>
                   ) : isApprovalPending ? (
                     <>
                       <Loader size="20px" stroke={theme.accentWarning} />
-                      <ThemedText.SubHeader color="accentWarning">
-                        Approval pending
-                      </ThemedText.SubHeader>
+                      <ThemedText.SubHeader color="accentWarning">Approval pending</ThemedText.SubHeader>
                     </>
                   ) : (
                     <>
                       <div style={{ height: 20 }}>
-                        <MouseoverTooltip
-                          text={
-                            'Permission is required for Uniswap to swap each token. This will expire after one month for your security.'
-                          }
-                        >
+                        <MouseoverTooltip text="Permission is required for Uniswap to swap each token. This will expire after one month for your security.">
                           <Info size={20} color={theme.accentWarning} />
                         </MouseoverTooltip>
                       </div>
@@ -796,17 +747,15 @@ export default function Swap({ className }: { className?: string }) {
                   error={isValid && priceImpactSeverity > 2 && (permit2Enabled || !swapCallbackError)}
                 >
                   <Text fontSize={20} fontWeight={600}>
-                    {swapInputError ? (
-                      swapInputError
-                    ) : routeIsSyncing || routeIsLoading ? (
-                      'Swap'
-                    ) : priceImpactSeverity > 2 ? (
-                      'Swap Anyway'
-                    ) : priceImpactTooHigh ? (
-                      'Price Impact Too High'
-                    ) : (
-                      'Swap'
-                    )}
+                    {swapInputError
+                      ? swapInputError
+                      : routeIsSyncing || routeIsLoading
+                      ? 'Swap'
+                      : priceImpactSeverity > 2
+                      ? 'Swap Anyway'
+                      : priceImpactTooHigh
+                      ? 'Price Impact Too High'
+                      : 'Swap'}
                   </Text>
                 </ButtonError>
               )}
@@ -816,7 +765,6 @@ export default function Swap({ className }: { className?: string }) {
         </SwapWrapper>
         <NetworkAlert />
       </PageWrapper>
-      <SwitchLocaleLink />
       {!swapIsUnsupported ? null : (
         <UnsupportedCurrencyFooter
           show={swapIsUnsupported}

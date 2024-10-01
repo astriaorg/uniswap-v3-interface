@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Trace } from '@uniswap/analytics'
 import { ModalName } from '@uniswap/analytics-events'
 import { Trade } from '@uniswap/router-sdk'
@@ -99,12 +98,8 @@ export default function ConfirmSwapModal({
   ])
 
   // text to show while loading
-  const pendingText = (
-    <Trans>
-      Swapping {trade?.inputAmount?.toSignificant(6)} {trade?.inputAmount?.currency?.symbol} for{' '}
-      {trade?.outputAmount?.toSignificant(6)} {trade?.outputAmount?.currency?.symbol}
-    </Trans>
-  )
+  const pendingText = `Swapping ${trade?.inputAmount?.toSignificant(6)} ${trade?.inputAmount?.currency?.symbol} for 
+      ${trade?.outputAmount?.toSignificant(6)} ${trade?.outputAmount?.currency?.symbol}`
 
   const confirmationContent = useCallback(
     () =>
@@ -112,7 +107,7 @@ export default function ConfirmSwapModal({
         <TransactionErrorContent onDismiss={onModalDismiss} message={swapErrorMessage} />
       ) : (
         <ConfirmationModalContent
-          title={<Trans>Confirm Swap</Trans>}
+          title="Confirm Swap"
           onDismiss={onModalDismiss}
           topContent={modalHeader}
           bottomContent={modalBottom}

@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { sendAnalyticsEvent, user } from '@uniswap/analytics'
 import { CustomUserProperties, EventName, WalletConnectionResult } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
@@ -311,9 +310,7 @@ export default function WalletModal({
     } else {
       headerRow = (
         <HeaderRow>
-          <HoverText>
-            <Trans>Connect a wallet</Trans>
-          </HoverText>
+          <HoverText>Connect a wallet</HoverText>
         </HeaderRow>
       )
     }
@@ -322,11 +319,11 @@ export default function WalletModal({
       if (walletView === WALLET_VIEWS.PENDING) return null
 
       const content = (
-        <Trans>
-          By connecting a wallet, you agree to Uniswap Labs’{' '}
+        <>
+          By connecting a wallet, you agree to Uniswap Labs&apos;{' '}
           <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and consent to its{' '}
           <ExternalLink href="https://uniswap.org/privacy-policy">Privacy Policy</ExternalLink>.
-        </Trans>
+        </>
       )
       return (
         <AutoRow style={{ flexWrap: 'nowrap', padding: '4px 16px' }}>

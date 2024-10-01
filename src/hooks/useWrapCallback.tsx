@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { sendAnalyticsEvent } from '@uniswap/analytics'
 import { EventName } from '@uniswap/analytics-events'
 import { Currency } from '@uniswap/sdk-core'
@@ -36,16 +35,16 @@ export function WrapErrorText({ wrapInputError }: { wrapInputError: WrapInputErr
 
   switch (wrapInputError) {
     case WrapInputError.NO_ERROR:
-      return null
+      return <></>
     case WrapInputError.ENTER_NATIVE_AMOUNT:
-      return <Trans>Enter {native?.symbol} amount</Trans>
+      return <>`Enter ${native?.symbol} amount`</>
     case WrapInputError.ENTER_WRAPPED_AMOUNT:
-      return <Trans>Enter {wrapped?.symbol} amount</Trans>
+      return <>`Enter ${wrapped?.symbol} amount`</>
 
     case WrapInputError.INSUFFICIENT_NATIVE_BALANCE:
-      return <Trans>Insufficient {native?.symbol} balance</Trans>
+      return <>`Insufficient ${native?.symbol} balance`</>
     case WrapInputError.INSUFFICIENT_WRAPPED_BALANCE:
-      return <Trans>Insufficient {wrapped?.symbol} balance</Trans>
+      return <>`Insufficient ${wrapped?.symbol} balance`</>
   }
 }
 

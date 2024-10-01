@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import * as Sentry from '@sentry/react'
 import { ButtonLight, ButtonPrimary } from 'components/Button'
 import { ChevronUpIcon } from 'nft/components/icons'
@@ -111,14 +110,10 @@ const Fallback = ({ error, eventId }: { error: Error; eventId: string | null }) 
       <BodyWrapper>
         <Column gap="xl">
           <Column gap="sm">
-            <Title textAlign="center">
-              <Trans>Something went wrong</Trans>
-            </Title>
+            <Title textAlign="center">Something went wrong</Title>
             <Description textAlign="center" color="textSecondary">
-              <Trans>
-                Sorry, an error occured while processing your request. If you request support, be sure to provide your
-                error ID.
-              </Trans>
+              Sorry, an error occured while processing your request. If you request support, be sure to provide your
+              error ID.
             </Description>
           </Column>
           <CodeBlockWrapper>
@@ -136,20 +131,14 @@ const Fallback = ({ error, eventId }: { error: Error; eventId: string | null }) 
               </>
             )}
             <ShowMoreButton onClick={() => setExpanded((s) => !s)}>
-              <ThemedText.Link color="textSecondary">
-                <Trans>{isExpanded ? 'Show less' : 'Show more'}</Trans>
-              </ThemedText.Link>
+              <ThemedText.Link color="textSecondary">{isExpanded ? 'Show less' : 'Show more'}</ThemedText.Link>
               <ShowMoreIcon $isExpanded={isExpanded} secondaryWidth="20" secondaryHeight="20" />
             </ShowMoreButton>
           </CodeBlockWrapper>
           <StretchedRow>
-            <SmallButtonPrimary onClick={() => window.location.reload()}>
-              <Trans>Reload the app</Trans>
-            </SmallButtonPrimary>
+            <SmallButtonPrimary onClick={() => window.location.reload()}>Reload the app</SmallButtonPrimary>
             <ExternalLink id="get-support-on-discord" href="https://discord.gg/FCfyBSbCU5" target="_blank">
-              <SmallButtonLight>
-                <Trans>Get support</Trans>
-              </SmallButtonLight>
+              <SmallButtonLight>Get support</SmallButtonLight>
             </ExternalLink>
           </StretchedRow>
         </Column>

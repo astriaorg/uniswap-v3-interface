@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
-import { t, Trans } from '@lingui/macro'
 import { Trace } from '@uniswap/analytics'
 import { EventName, ModalName } from '@uniswap/analytics-events'
 import { Currency, Token } from '@uniswap/sdk-core'
@@ -185,7 +183,7 @@ export function CurrencySearch({
         <PaddedColumn gap="16px">
           <RowBetween>
             <Text fontWeight={500} fontSize={16}>
-              <Trans>Select a token</Trans>
+              Select a token
             </Text>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
@@ -193,7 +191,7 @@ export function CurrencySearch({
             <SearchInput
               type="text"
               id="token-search-input"
-              placeholder={t`Search name or paste address`}
+              placeholder="Search name or paste address"
               autoComplete="off"
               value={searchQuery}
               ref={inputRef as RefObject<HTMLInputElement>}
@@ -252,7 +250,7 @@ export function CurrencySearch({
         ) : (
           <Column style={{ padding: '20px', height: '100%' }}>
             <ThemedText.DeprecatedMain color={theme.deprecated_text3} textAlign="center" mb="20px">
-              <Trans>No results found.</Trans>
+              No results found.
             </ThemedText.DeprecatedMain>
           </Column>
         )}

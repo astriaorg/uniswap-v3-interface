@@ -1,7 +1,7 @@
 import { Protocol } from '@uniswap/router-sdk'
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core'
-import { routeAmountsToString, SwapRoute } from '@uniswap/smart-order-router'
 import { Pool } from '@uniswap/v3-sdk'
+import { routeAmountsToString, SwapRoute } from 'smart-order-router'
 import { GetQuoteResult, V2PoolInRoute, V3PoolInRoute } from 'state/routing/types'
 
 // from routing-api (https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/quote.ts#L243-L311)
@@ -20,14 +20,14 @@ export function transformSwapRouteToGetQuoteResult(
     blockNumber,
   }: SwapRoute
 ): GetQuoteResult {
-  console.log("transformSwapRouteToGetQuoteResult called")
+  console.log('transformSwapRouteToGetQuoteResult called')
   const routeResponse: Array<(V3PoolInRoute | V2PoolInRoute)[]> = []
 
   for (const subRoute of route) {
     const { amount, quote, tokenPath } = subRoute
 
     const pools = subRoute.protocol === Protocol.V2 ? subRoute.route.pairs : subRoute.route.pools
-console.log("pools", pools)
+    console.log('pools', pools)
     const curRoute: (V3PoolInRoute | V2PoolInRoute)[] = []
     for (let i = 0; i < pools.length; i++) {
       const nextPool = pools[i] as Pool
@@ -45,27 +45,27 @@ console.log("pools", pools)
       }
 
       // if (Object.hasOwn(nextPool, "sqrtRatioX96")) {
-        curRoute.push({
-          type: 'v3-pool',
-          tokenIn: {
-            chainId: tokenIn.chainId,
-            decimals: tokenIn.decimals,
-            address: tokenIn.address,
-            symbol: tokenIn.symbol,
-          },
-          tokenOut: {
-            chainId: tokenOut.chainId,
-            decimals: tokenOut.decimals,
-            address: tokenOut.address,
-            symbol: tokenOut.symbol,
-          },
-          fee: nextPool.fee.toString(),
-          liquidity: nextPool.liquidity.toString(),
-          sqrtRatioX96: nextPool.sqrtRatioX96.toString(),
-          tickCurrent: nextPool.tickCurrent.toString(),
-          amountIn: edgeAmountIn,
-          amountOut: edgeAmountOut,
-        })
+      curRoute.push({
+        type: 'v3-pool',
+        tokenIn: {
+          chainId: tokenIn.chainId,
+          decimals: tokenIn.decimals,
+          address: tokenIn.address,
+          symbol: tokenIn.symbol,
+        },
+        tokenOut: {
+          chainId: tokenOut.chainId,
+          decimals: tokenOut.decimals,
+          address: tokenOut.address,
+          symbol: tokenOut.symbol,
+        },
+        fee: nextPool.fee.toString(),
+        liquidity: nextPool.liquidity.toString(),
+        sqrtRatioX96: nextPool.sqrtRatioX96.toString(),
+        tickCurrent: nextPool.tickCurrent.toString(),
+        amountIn: edgeAmountIn,
+        amountOut: edgeAmountOut,
+      })
       // } else {
       //   const reserve0 = nextPool.reserve0
       //   const reserve1 = nextPool.reserve1
@@ -110,30 +110,30 @@ console.log("pools", pools)
 
     routeResponse.push(curRoute)
   }
-console.log("routeResponse", routeResponse);
-let result: GetQuoteResult;
-try {
-  result = {
-    methodParameters,
-    blockNumber: blockNumber.toString(),
-    amount: amount.quotient.toString(),
-    amountDecimals: amount.toExact(),
-    quote: quote.quotient.toString(),
-    quoteDecimals: quote.toExact(),
-    quoteGasAdjusted: quoteGasAdjusted.quotient.toString(),
-    quoteGasAdjustedDecimals: quoteGasAdjusted.toExact(),
-    gasUseEstimateQuote: estimatedGasUsedQuoteToken.quotient.toString(),
-    gasUseEstimateQuoteDecimals: estimatedGasUsedQuoteToken.toExact(),
-    gasUseEstimate: estimatedGasUsed.toString(),
-    gasUseEstimateUSD: estimatedGasUsedUSD.toExact(),
-    gasPriceWei: gasPriceWei.toString(),
-    route: routeResponse,
-    routeString: routeAmountsToString(route),
+  console.log('routeResponse', routeResponse)
+  let result: GetQuoteResult
+  try {
+    result = {
+      methodParameters,
+      blockNumber: blockNumber.toString(),
+      amount: amount.quotient.toString(),
+      amountDecimals: amount.toExact(),
+      quote: quote.quotient.toString(),
+      quoteDecimals: quote.toExact(),
+      quoteGasAdjusted: quoteGasAdjusted.quotient.toString(),
+      quoteGasAdjustedDecimals: quoteGasAdjusted.toExact(),
+      gasUseEstimateQuote: estimatedGasUsedQuoteToken.quotient.toString(),
+      gasUseEstimateQuoteDecimals: estimatedGasUsedQuoteToken.toExact(),
+      gasUseEstimate: estimatedGasUsed.toString(),
+      gasUseEstimateUSD: estimatedGasUsedUSD.toExact(),
+      gasPriceWei: gasPriceWei.toString(),
+      route: routeResponse,
+      routeString: routeAmountsToString(route),
+    }
+  } catch (e) {
+    console.log('transformSwapRouteToGetQuoteResult error', e)
+    throw new Error('Failed to transform swap route to quote result')
   }
-} catch (e) {
-  console.log("transformSwapRouteToGetQuoteResult error", e);
-  throw new Error("Failed to transform swap route to quote result");
-}
-console.log("transformSwapRouteToGetQuoteResult", result);
+  console.log('transformSwapRouteToGetQuoteResult', result)
   return result
 }

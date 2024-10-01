@@ -19,9 +19,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     'https://rpc.ankr.com/eth',
     'https://eth-mainnet.public.blastapi.io',
   ],
-  [SupportedChainId.FLAME_DEVNET]: [
-    `https://rpc.evm.dusk-10.devnet.astria.org/`,
-  ],
+  [SupportedChainId.FLAME_DEVNET]: [`https://rpc.evm.dusk-10.devnet.astria.org/`],
 }
 
 /**

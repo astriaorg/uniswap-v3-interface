@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/macro'
-import { CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { getConnection } from 'connection/utils'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
@@ -7,12 +5,8 @@ import { SupportedChainId } from 'constants/chains'
 import useCopyClipboard from 'hooks/useCopyClipboard'
 import useStablecoinPrice from 'hooks/useStablecoinPrice'
 import useNativeCurrency from 'lib/hooks/useNativeCurrency'
-import { useProfilePageState, useSellAsset, useWalletCollections } from 'nft/hooks'
-import { useIsNftClaimAvailable } from 'nft/hooks/useIsNftClaimAvailable'
-import { ProfilePageStateType } from 'nft/types'
 import { useCallback, useMemo } from 'react'
 import { Copy, ExternalLink, Power } from 'react-feather'
-import { useNavigate } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useCurrencyBalanceString } from 'state/connection/hooks'
 import { useAppDispatch } from 'state/hooks'
@@ -21,31 +15,8 @@ import styled, { css } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
 import { shortenAddress } from '../../nft/utils/address'
-import { useCloseModal, useToggleModal } from '../../state/application/hooks'
-import { ApplicationModal } from '../../state/application/reducer'
-import { useUserHasAvailableClaim, useUserUnclaimedAmount } from '../../state/claim/hooks'
-import { ButtonEmphasis, ButtonSize, ThemeButton } from '../Button'
 import StatusIcon from '../Identicon/StatusIcon'
 import IconButton, { IconHoverText } from './IconButton'
-
-const WalletButton = styled(ThemeButton)`
-  border-radius: 12px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 12px;
-  color: white;
-  border: none;
-`
-
-const ProfileButton = styled(WalletButton)`
-  background: ${({ theme }) => theme.accentAction};
-  transition: ${({ theme }) => theme.transition.duration.fast} ${({ theme }) => theme.transition.timing.ease}
-    background-color;
-`
-
-const UNIButton = styled(WalletButton)`
-  background: linear-gradient(to right, #9139b0 0%, #4261d6 100%);
-`
 
 const Column = styled.div`
   display: flex;
@@ -135,21 +106,10 @@ const AuthenticatedHeader = () => {
     nativeCurrency: { symbol: nativeCurrencySymbol },
     explorer,
   } = getChainInfoOrDefault(chainId ? chainId : SupportedChainId.MAINNET)
-  const navigate = useNavigate()
-  const closeModal = useCloseModal(ApplicationModal.WALLET_DROPDOWN)
 
-  const setSellPageState = useProfilePageState((state) => state.setProfilePageState)
-  const resetSellAssets = useSellAsset((state) => state.reset)
-  const clearCollectionFilters = useWalletCollections((state) => state.clearCollectionFilters)
-  const isClaimAvailable = useIsNftClaimAvailable((state) => state.isClaimAvailable)
-
-  const unclaimedAmount: CurrencyAmount<Token> | undefined = useUserUnclaimedAmount(account)
-  const isUnclaimed = useUserHasAvailableClaim(account)
   const connectionType = getConnection(connector).type
   const nativeCurrency = useNativeCurrency()
   const nativeCurrencyPrice = useStablecoinPrice(nativeCurrency ?? undefined) || 0
-  const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-  const openNftModal = useToggleModal(ApplicationModal.UNISWAP_NFT_AIRDROP_CLAIM)
   const disconnect = useCallback(() => {
     if (connector && connector.deactivate) {
       connector.deactivate()
@@ -163,14 +123,6 @@ const AuthenticatedHeader = () => {
     const balance = parseFloat(balanceString || '0')
     return price * balance
   }, [balanceString, nativeCurrencyPrice])
-
-  const navigateToProfile = () => {
-    resetSellAssets()
-    setSellPageState(ProfilePageStateType.VIEWING)
-    clearCollectionFilters()
-    navigate('/nfts/profile')
-    closeModal()
-  }
 
   return (
     <AuthenticatedHeaderWrapper>
@@ -190,13 +142,13 @@ const AuthenticatedHeader = () => {
         </StatusWrapper>
         <IconContainer>
           <IconButton onClick={copy} Icon={Copy}>
-            {isCopied ? <Trans>Copied!</Trans> : <Trans>Copy</Trans>}
+            {isCopied ? 'Copied!' : 'Copy'}
           </IconButton>
           <IconButton href={`${explorer}address/${account}`} target="_blank" Icon={ExternalLink}>
-            <Trans>Explore</Trans>
+            Explore
           </IconButton>
           <IconButton data-testid="wallet-disconnect" onClick={disconnect} Icon={Power}>
-            <Trans>Disconnect</Trans>
+            Disconnect
           </IconButton>
         </IconContainer>
       </HeaderWrapper>
@@ -207,19 +159,6 @@ const AuthenticatedHeader = () => {
           </Text>
           <USDText>${amountUSD.toFixed(2)} USD</USDText>
         </BalanceWrapper>
-        {/* <ProfileButton onClick={navigateToProfile} size={ButtonSize.medium} emphasis={ButtonEmphasis.medium}>
-          <Trans>View and sell NFTs</Trans>
-        </ProfileButton> */}
-        {isUnclaimed && (
-          <UNIButton onClick={openClaimModal} size={ButtonSize.medium} emphasis={ButtonEmphasis.medium}>
-            <Trans>Claim</Trans> {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} <Trans>reward</Trans>
-          </UNIButton>
-        )}
-        {isClaimAvailable && (
-          <UNIButton size={ButtonSize.medium} emphasis={ButtonEmphasis.medium} onClick={openNftModal}>
-            <Trans>Claim Uniswap NFT Airdrop</Trans>
-          </UNIButton>
-        )}
       </Column>
     </AuthenticatedHeaderWrapper>
   )

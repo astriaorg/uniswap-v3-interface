@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 import { ButtonOutlined } from 'components/Button'
 import { AutoRow } from 'components/Row'
@@ -26,9 +25,7 @@ export default function PresetsButtons({ setFullRange }: { setFullRange: () => v
           })
         }}
       >
-        <ThemedText.DeprecatedBody fontSize={12}>
-          <Trans>Full Range</Trans>
-        </ThemedText.DeprecatedBody>
+        <ThemedText.DeprecatedBody fontSize={12}>Full Range</ThemedText.DeprecatedBody>
       </Button>
     </AutoRow>
   )

@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Currency } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { ButtonEmpty } from 'components/Button'
@@ -71,9 +70,7 @@ export default function UnsupportedCurrencyFooter({
         <Card padding="2rem">
           <AutoColumn gap="lg">
             <RowBetween>
-              <ThemedText.DeprecatedMediumHeader>
-                <Trans>Unsupported Assets</Trans>
-              </ThemedText.DeprecatedMediumHeader>
+              <ThemedText.DeprecatedMediumHeader>Unsupported Assets</ThemedText.DeprecatedMediumHeader>
               <CloseIcon onClick={() => setShowDetails(false)} />
             </RowBetween>
             {tokens.map((token) => {
@@ -99,19 +96,15 @@ export default function UnsupportedCurrencyFooter({
             })}
             <AutoColumn gap="lg">
               <ThemedText.DeprecatedBody fontWeight={500}>
-                <Trans>
-                  Some assets are not available through this interface because they may not work well with the smart
-                  contracts or we are unable to allow trading for legal reasons.
-                </Trans>
+                Some assets are not available through this interface because they may not work well with the smart
+                contracts or we are unable to allow trading for legal reasons.
               </ThemedText.DeprecatedBody>
             </AutoColumn>
           </AutoColumn>
         </Card>
       </Modal>
       <StyledButtonEmpty padding="0" onClick={() => setShowDetails(true)}>
-        <ThemedText.DeprecatedBlue>
-          <Trans>Read more about unsupported assets</Trans>
-        </ThemedText.DeprecatedBlue>
+        <ThemedText.DeprecatedBlue>Read more about unsupported assets</ThemedText.DeprecatedBlue>
       </StyledButtonEmpty>
     </DetailsFooter>
   )

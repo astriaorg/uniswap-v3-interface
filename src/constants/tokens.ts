@@ -21,7 +21,7 @@ export const USDC_MAINNET = new Token(
 export const USDC_FLAME_DEVNET = new Token(
   SupportedChainId.FLAME_DEVNET,
   '0xaACbd969a9570363E296327E17e4dCe1cb5B5834',
-  18,
+  6,
   'fUSDC',
   'Fake USDC'
 )

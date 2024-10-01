@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { sendAnalyticsEvent } from '@uniswap/analytics'
 import { EventName, SwapPriceUpdateUserResponse } from '@uniswap/analytics-events'
 import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
@@ -163,15 +162,13 @@ export default function SwapModalHeader({
           <RowBetween>
             <RowFixed>
               <AlertTriangle size={20} style={{ marginRight: '8px', minWidth: 24 }} />
-              <ThemedText.DeprecatedMain color={theme.deprecated_primary1}>
-                <Trans>Price Updated</Trans>
-              </ThemedText.DeprecatedMain>
+              <ThemedText.DeprecatedMain color={theme.deprecated_primary1}>Price Updated</ThemedText.DeprecatedMain>
             </RowFixed>
             <ButtonPrimary
               style={{ padding: '.5rem', width: 'fit-content', fontSize: '0.825rem', borderRadius: '12px' }}
               onClick={onAcceptChanges}
             >
-              <Trans>Accept</Trans>
+              Accept
             </ButtonPrimary>
           </RowBetween>
         </SwapShowAcceptChanges>
@@ -180,33 +177,27 @@ export default function SwapModalHeader({
       <AutoColumn justify="flex-start" gap="sm" style={{ padding: '.75rem 1rem' }}>
         {trade.tradeType === TradeType.EXACT_INPUT ? (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
-            <Trans>
-              Output is estimated. You will receive at least{' '}
-              <b>
-                {trade.minimumAmountOut(allowedSlippage).toSignificant(6)} {trade.outputAmount.currency.symbol}
-              </b>{' '}
-              or the transaction will revert.
-            </Trans>
+            Output is estimated. You will receive at least{' '}
+            <b>
+              {trade.minimumAmountOut(allowedSlippage).toSignificant(6)} {trade.outputAmount.currency.symbol}
+            </b>{' '}
+            or the transaction will revert.
           </ThemedText.DeprecatedItalic>
         ) : (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
-            <Trans>
-              Input is estimated. You will sell at most{' '}
-              <b>
-                {trade.maximumAmountIn(allowedSlippage).toSignificant(6)} {trade.inputAmount.currency.symbol}
-              </b>{' '}
-              or the transaction will revert.
-            </Trans>
+            Input is estimated. You will sell at most{' '}
+            <b>
+              {trade.maximumAmountIn(allowedSlippage).toSignificant(6)} {trade.inputAmount.currency.symbol}
+            </b>{' '}
+            or the transaction will revert.
           </ThemedText.DeprecatedItalic>
         )}
       </AutoColumn>
       {recipient !== null ? (
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
           <ThemedText.DeprecatedMain>
-            <Trans>
-              Output will be sent to{' '}
-              <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
-            </Trans>
+            Output will be sent to{' '}
+            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
           </ThemedText.DeprecatedMain>
         </AutoColumn>
       ) : null}

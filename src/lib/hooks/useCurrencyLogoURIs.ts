@@ -3,9 +3,7 @@ import useHttpLocations from 'hooks/useHttpLocations'
 import { useMemo } from 'react'
 import { isAddress } from 'utils'
 
-import EthereumLogo from '../../assets/images/ethereum-logo.png'
-import CeloLogo from '../../assets/svg/celo_logo.svg'
-import MaticLogo from '../../assets/svg/matic-token-icon.svg'
+import CelestiaLogo from '../../assets/images/celestia-logo.png'
 import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
 
 type Network = 'ethereum' | 'flame-devnet'
@@ -21,13 +19,8 @@ export function chainIdToNetworkName(networkId: SupportedChainId): Network {
   }
 }
 
-export function getNativeLogoURI(chainId: SupportedChainId = SupportedChainId.MAINNET): string {
-  switch (chainId) {
-    case SupportedChainId.FLAME_DEVNET:
-      return CeloLogo
-    default:
-      return EthereumLogo
-  }
+export function getNativeLogoURI(_chainId: SupportedChainId = SupportedChainId.MAINNET): string {
+  return CelestiaLogo
 }
 
 function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedChainId.MAINNET): string | void {

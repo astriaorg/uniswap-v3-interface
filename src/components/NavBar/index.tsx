@@ -1,7 +1,4 @@
-import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import Web3Status from 'components/Web3Status'
-import { chainIdToBackendName } from 'graphql/data/util'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { FlameIcon } from 'nft/components/icons'
@@ -10,7 +7,6 @@ import { NavLink, NavLinkProps, useLocation, useNavigate } from 'react-router-do
 import styled from 'styled-components/macro'
 
 import { ChainSelector } from './ChainSelector'
-import { SearchBar } from './SearchBar'
 import * as styles from './style.css'
 
 const MobileBottomBar = styled.div`
@@ -61,8 +57,6 @@ const MenuItem = ({ href, dataTestId, id, isActive, children }: MenuItemProps) =
 
 const PageTabs = () => {
   const { pathname } = useLocation()
-  const { chainId: connectedChainId } = useWeb3React()
-  const chainName = chainIdToBackendName(connectedChainId)
 
   const isPoolActive =
     pathname.startsWith('/pool') ||
@@ -74,10 +68,10 @@ const PageTabs = () => {
   return (
     <>
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
-        <Trans>Swap</Trans>
+        Swap
       </MenuItem>
       <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
-        <Trans>Pool</Trans>
+        Pool
       </MenuItem>
     </>
   )
