@@ -26,7 +26,7 @@ export default function FailedNetworkSwitchPopup({ chainId }: { chainId: Support
         </RowNoFlex>
 
         <ThemedText.BodySmall>
-          To use Uniswap on {chainInfo.label}, switch the network in your wallet&apos;s settings.
+          To use Flame DEX on {chainInfo.label}, switch the network in your wallet&apos;s settings.
         </ThemedText.BodySmall>
       </AutoColumn>
     </RowNoFlex>

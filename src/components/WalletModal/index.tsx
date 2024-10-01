@@ -316,22 +316,23 @@ export default function WalletModal({
     }
 
     function getTermsOfService(walletView: string) {
-      if (walletView === WALLET_VIEWS.PENDING) return null
+      return null
+      // if (walletView === WALLET_VIEWS.PENDING) return null
 
-      const content = (
-        <>
-          By connecting a wallet, you agree to Uniswap Labs&apos;{' '}
-          <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and consent to its{' '}
-          <ExternalLink href="https://uniswap.org/privacy-policy">Privacy Policy</ExternalLink>.
-        </>
-      )
-      return (
-        <AutoRow style={{ flexWrap: 'nowrap', padding: '4px 16px' }}>
-          <ThemedText.BodySecondary fontSize={16} lineHeight="24px">
-            {content}
-          </ThemedText.BodySecondary>
-        </AutoRow>
-      )
+      // const content = (
+      //   <>
+      //     By connecting a wallet, you agree to Uniswap Labs&apos;{' '}
+      //     <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and consent to its{' '}
+      //     <ExternalLink href="https://uniswap.org/privacy-policy">Privacy Policy</ExternalLink>.
+      //   </>
+      // )
+      // return (
+      //   <AutoRow style={{ flexWrap: 'nowrap', padding: '4px 16px' }}>
+      //     <ThemedText.BodySecondary fontSize={16} lineHeight="24px">
+      //       {content}
+      //     </ThemedText.BodySecondary>
+      //   </AutoRow>
+      // )
     }
 
     return (
