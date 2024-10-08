@@ -1,5 +1,3 @@
-import { Trace } from '@uniswap/analytics'
-import { PageName } from '@uniswap/analytics-events'
 import { BaseButton } from 'components/Button'
 import { LandingPageVariant, useLandingPageFlag } from 'featureFlags/flags/landingPage'
 import Swap from 'pages/Swap'
@@ -210,28 +208,26 @@ export default function Landing() {
   if (landingPageFlag === LandingPageVariant.Control || !isOpen) return null
 
   return (
-    <Trace page={PageName.LANDING_PAGE} shouldLogImpression>
-      <PageWrapper>
-        <Link to="/swap">
-          <LandingSwap />
-        </Link>
-        <Glow />
-        <Gradient isDarkMode={isDarkMode} />
-        <ContentWrapper isDarkMode={isDarkMode}>
-          <TitleText isDarkMode={isDarkMode}>Trade crypto & NFTs with confidence</TitleText>
-          <SubTextContainer>
-            <SubText>Buy, sell, and explore tokens and NFTs</SubText>
-          </SubTextContainer>
-          <ActionsWrapper>
-            <ButtonCTA as={Link} to="/swap">
-              <ButtonCTAText>Continue</ButtonCTAText>
-            </ButtonCTA>
-            <ButtonCTASecondary as={Link} to="/about">
-              <ButtonCTAText>Learn more</ButtonCTAText>
-            </ButtonCTASecondary>
-          </ActionsWrapper>
-        </ContentWrapper>
-      </PageWrapper>
-    </Trace>
+    <PageWrapper>
+      <Link to="/swap">
+        <LandingSwap />
+      </Link>
+      <Glow />
+      <Gradient isDarkMode={isDarkMode} />
+      <ContentWrapper isDarkMode={isDarkMode}>
+        <TitleText isDarkMode={isDarkMode}>Trade crypto & NFTs with confidence</TitleText>
+        <SubTextContainer>
+          <SubText>Buy, sell, and explore tokens and NFTs</SubText>
+        </SubTextContainer>
+        <ActionsWrapper>
+          <ButtonCTA as={Link} to="/swap">
+            <ButtonCTAText>Continue</ButtonCTAText>
+          </ButtonCTA>
+          <ButtonCTASecondary as={Link} to="/about">
+            <ButtonCTAText>Learn more</ButtonCTAText>
+          </ButtonCTASecondary>
+        </ActionsWrapper>
+      </ContentWrapper>
+    </PageWrapper>
   )
 }

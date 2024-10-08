@@ -1,10 +1,6 @@
-import { sendAnalyticsEvent, user } from '@uniswap/analytics'
-import { CustomUserProperties, EventName, WalletConnectionResult } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
-import { sendEvent } from 'components/analytics'
 import { AutoColumn } from 'components/Column'
-// import { AutoRow } from 'components/Row'
 import { networkConnection } from 'connection'
 import { getConnection, getConnectionName, getIsCoinbaseWallet, getIsInjected, getIsMetaMask } from 'connection/utils'
 import usePrevious from 'hooks/usePrevious'
@@ -22,7 +18,6 @@ import { isMobile } from 'utils/userAgent'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { useModalIsOpen, useToggleWalletModal } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
-// import { ExternalLink, ThemedText } from '../../theme'
 import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
 import { CoinbaseWalletOption, OpenCoinbaseWalletOption } from './CoinbaseWalletOption'
@@ -118,26 +113,6 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 }
 
-const sendAnalyticsEventAndUserInfo = (
-  account: string,
-  walletType: string,
-  chainId: number | undefined,
-  isReconnect: boolean
-) => {
-  sendAnalyticsEvent(EventName.WALLET_CONNECT_TXN_COMPLETED, {
-    result: WalletConnectionResult.SUCCEEDED,
-    wallet_address: account,
-    wallet_type: walletType,
-    is_reconnect: isReconnect,
-  })
-  user.set(CustomUserProperties.WALLET_ADDRESS, account)
-  user.set(CustomUserProperties.WALLET_TYPE, walletType)
-  if (chainId) {
-    user.postInsert(CustomUserProperties.ALL_WALLET_CHAIN_IDS, chainId)
-  }
-  user.postInsert(CustomUserProperties.ALL_WALLET_ADDRESSES_CONNECTED, account)
-}
-
 export default function WalletModal({
   pendingTransactions,
   confirmedTransactions,
@@ -193,20 +168,17 @@ export default function WalletModal({
     }
   }, [pendingConnector, walletView])
 
-  // Keep the network connector in sync with any active user connector to prevent chain-switching on wallet disconnection.
   useEffect(() => {
     if (chainId && connector !== networkConnection.connector) {
       networkConnection.connector.activate(chainId)
     }
   }, [chainId, connector])
 
-  // When new wallet is successfully set by the user, trigger logging of Amplitude analytics event.
   useEffect(() => {
     if (account && account !== lastActiveWalletAddress) {
       const walletType = getConnectionName(getConnection(connector).type, getIsMetaMask())
       const isReconnect =
         connectedWallets.filter((wallet) => wallet.account === account && wallet.walletType === walletType).length > 0
-      sendAnalyticsEventAndUserInfo(account, walletType, chainId, isReconnect)
       if (!isReconnect) addWalletToConnectedWallets({ account, walletType })
     }
     setLastActiveWalletAddress(account)
@@ -215,13 +187,6 @@ export default function WalletModal({
   const tryActivation = useCallback(
     async (connector: Connector) => {
       const connectionType = getConnection(connector).type
-
-      // log selected wallet
-      sendEvent({
-        category: 'Wallet',
-        action: 'Change Wallet',
-        label: connectionType,
-      })
 
       try {
         setPendingConnector(connector)
@@ -234,11 +199,6 @@ export default function WalletModal({
       } catch (error) {
         console.debug(`web3-react connection error: ${error}`)
         dispatch(updateConnectionError({ connectionType, error: error.message }))
-
-        sendAnalyticsEvent(EventName.WALLET_CONNECT_TXN_COMPLETED, {
-          result: WalletConnectionResult.FAILED,
-          wallet_type: getConnectionName(connectionType, getIsMetaMask()),
-        })
       }
     },
     [dispatch]
@@ -317,22 +277,6 @@ export default function WalletModal({
 
     function getTermsOfService(walletView: string) {
       return null
-      // if (walletView === WALLET_VIEWS.PENDING) return null
-
-      // const content = (
-      //   <>
-      //     By connecting a wallet, you agree to Uniswap Labs&apos;{' '}
-      //     <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and consent to its{' '}
-      //     <ExternalLink href="https://uniswap.org/privacy-policy">Privacy Policy</ExternalLink>.
-      //   </>
-      // )
-      // return (
-      //   <AutoRow style={{ flexWrap: 'nowrap', padding: '4px 16px' }}>
-      //     <ThemedText.BodySecondary fontSize={16} lineHeight="24px">
-      //       {content}
-      //     </ThemedText.BodySecondary>
-      //   </AutoRow>
-      // )
     }
 
     return (

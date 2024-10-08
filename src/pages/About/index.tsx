@@ -1,5 +1,3 @@
-import { Trace } from '@uniswap/analytics'
-import { PageName } from '@uniswap/analytics-events'
 import { ButtonOutlined } from 'components/Button'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { BookOpen, Globe, Heart, Twitter } from 'react-feather'
@@ -224,76 +222,74 @@ export default function About() {
   const thumbnailImgSrc = isDarkMode ? selectedStep?.darkImgSrc : selectedStep?.lightImgSrc
 
   return (
-    <Trace page={PageName.ABOUT_PAGE} shouldLogImpression>
-      <Page isDarkMode={isDarkMode} titleHeight={titleHeight}>
-        <Content>
-          <Title ref={titleRef} isDarkMode={isDarkMode}>
-            Uniswap is the leading on-chain marketplace for tokens and NFTs
-          </Title>
-          <Panels>
-            <div>
-              <SubTitle isDarkMode={isDarkMode}>Powered by the Uniswap Protocol</SubTitle>
-            </div>
-            <Intro>
-              <IntroCopy>The leading decentralized crypto trading protocol, governed by a global community</IntroCopy>
-              <ActionsContainer>
-                <InfoButton as="a" rel="noopener noreferrer" href="https://uniswap.org" target="_blank">
-                  Learn more<WrappedExternalArrow> ↗</WrappedExternalArrow>
-                </InfoButton>
-                <InfoButton as="a" rel="noopener noreferrer" href="https://docs.uniswap.org" target="_blank">
-                  Read docs<WrappedExternalArrow> ↗</WrappedExternalArrow>
-                </InfoButton>
-              </ActionsContainer>
-            </Intro>
-          </Panels>
-          <CardGrid>
-            {CARDS.map(({ darkBackgroundImgSrc, lightBackgroundImgSrc, ...card }) => (
-              <Card
-                key={card.title}
-                {...card}
-                backgroundImgSrc={isDarkMode ? darkBackgroundImgSrc : lightBackgroundImgSrc}
-              />
-            ))}
-          </CardGrid>
+    <Page isDarkMode={isDarkMode} titleHeight={titleHeight}>
+      <Content>
+        <Title ref={titleRef} isDarkMode={isDarkMode}>
+          Uniswap is the leading on-chain marketplace for tokens and NFTs
+        </Title>
+        <Panels>
           <div>
-            <SubTitle isDarkMode={isDarkMode}>Get Started</SubTitle>
-            <Panels>
-              <ThumbnailContainer>
-                <Thumbnail alt="Thumbnail" src={thumbnailImgSrc} />
-              </ThumbnailContainer>
-              <StepList>
-                {STEPS.map((step, index) => (
-                  <Step
-                    selected={selectedStepIndex === index}
-                    onSelect={() => setSelectedStepIndex(index)}
-                    index={index}
-                    key={step.title}
-                    title={step.title}
-                  />
-                ))}
-              </StepList>
-            </Panels>
+            <SubTitle isDarkMode={isDarkMode}>Powered by the Uniswap Protocol</SubTitle>
           </div>
-          <Footer>
-            <FooterLinks>
-              <FooterLink rel="noopener noreferrer" target="_blank" href="https://support.uniswap.org">
-                <Globe /> Support
-              </FooterLink>
-              <FooterLink rel="noopener noreferrer" target="_blank" href="https://twitter.com/uniswap">
-                <Twitter /> Twitter
-              </FooterLink>
-              <FooterLink rel="noopener noreferrer" target="_blank" href="https://uniswap.org/blog">
-                <BookOpen /> Blog
-              </FooterLink>
-              <FooterLink rel="noopener noreferrer" target="_blank" href="https://boards.greenhouse.io/uniswaplabs">
-                <Heart /> Careers
-              </FooterLink>
-            </FooterLinks>
-            <Copyright>© {new Date().getFullYear()} Uniswap Labs</Copyright>
-          </Footer>
-        </Content>
-        <PageBackground isDarkMode={isDarkMode} />
-      </Page>
-    </Trace>
+          <Intro>
+            <IntroCopy>The leading decentralized crypto trading protocol, governed by a global community</IntroCopy>
+            <ActionsContainer>
+              <InfoButton as="a" rel="noopener noreferrer" href="https://uniswap.org" target="_blank">
+                Learn more<WrappedExternalArrow> ↗</WrappedExternalArrow>
+              </InfoButton>
+              <InfoButton as="a" rel="noopener noreferrer" href="https://docs.uniswap.org" target="_blank">
+                Read docs<WrappedExternalArrow> ↗</WrappedExternalArrow>
+              </InfoButton>
+            </ActionsContainer>
+          </Intro>
+        </Panels>
+        <CardGrid>
+          {CARDS.map(({ darkBackgroundImgSrc, lightBackgroundImgSrc, ...card }) => (
+            <Card
+              key={card.title}
+              {...card}
+              backgroundImgSrc={isDarkMode ? darkBackgroundImgSrc : lightBackgroundImgSrc}
+            />
+          ))}
+        </CardGrid>
+        <div>
+          <SubTitle isDarkMode={isDarkMode}>Get Started</SubTitle>
+          <Panels>
+            <ThumbnailContainer>
+              <Thumbnail alt="Thumbnail" src={thumbnailImgSrc} />
+            </ThumbnailContainer>
+            <StepList>
+              {STEPS.map((step, index) => (
+                <Step
+                  selected={selectedStepIndex === index}
+                  onSelect={() => setSelectedStepIndex(index)}
+                  index={index}
+                  key={step.title}
+                  title={step.title}
+                />
+              ))}
+            </StepList>
+          </Panels>
+        </div>
+        <Footer>
+          <FooterLinks>
+            <FooterLink rel="noopener noreferrer" target="_blank" href="https://support.uniswap.org">
+              <Globe /> Support
+            </FooterLink>
+            <FooterLink rel="noopener noreferrer" target="_blank" href="https://twitter.com/uniswap">
+              <Twitter /> Twitter
+            </FooterLink>
+            <FooterLink rel="noopener noreferrer" target="_blank" href="https://uniswap.org/blog">
+              <BookOpen /> Blog
+            </FooterLink>
+            <FooterLink rel="noopener noreferrer" target="_blank" href="https://boards.greenhouse.io/uniswaplabs">
+              <Heart /> Careers
+            </FooterLink>
+          </FooterLinks>
+          <Copyright>© {new Date().getFullYear()} Uniswap Labs</Copyright>
+        </Footer>
+      </Content>
+      <PageBackground isDarkMode={isDarkMode} />
+    </Page>
   )
 }

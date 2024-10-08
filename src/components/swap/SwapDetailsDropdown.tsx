@@ -1,5 +1,3 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import AnimatedDropdown from 'components/AnimatedDropdown'
@@ -129,74 +127,67 @@ export default function SwapDetailsDropdown({
   return (
     <Wrapper style={{ marginTop: '0' }}>
       <AutoColumn gap="sm" style={{ width: '100%', marginBottom: '-8px' }}>
-        <TraceEvent
-          events={[BrowserEvent.onClick]}
-          name={EventName.SWAP_DETAILS_EXPANDED}
-          element={ElementName.SWAP_DETAILS_DROPDOWN}
-          shouldLogImpression={!showDetails}
-        >
-          <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={!trade} open={showDetails}>
-            <RowFixed style={{ position: 'relative' }}>
-              {loading || syncing ? (
-                <StyledPolling>
-                  <StyledPollingDot>
-                    <Spinner />
-                  </StyledPollingDot>
-                </StyledPolling>
-              ) : (
-                <HideSmall>
-                  <MouseoverTooltipContent
-                    wrap={false}
-                    content={
-                      <ResponsiveTooltipContainer origin="top right" style={{ padding: '0' }}>
-                        <Card padding="12px">
-                          <AdvancedSwapDetails
-                            trade={trade}
-                            allowedSlippage={allowedSlippage}
-                            syncing={syncing}
-                            hideInfoTooltips={true}
-                          />
-                        </Card>
-                      </ResponsiveTooltipContainer>
-                    }
-                    placement="bottom"
-                    disableHover={showDetails}
-                  >
-                    <StyledInfoIcon color={trade ? theme.deprecated_text3 : theme.deprecated_bg3} />
-                  </MouseoverTooltipContent>
-                </HideSmall>
-              )}
-              {trade ? (
-                <LoadingOpacityContainer $loading={syncing}>
-                  <TradePrice
-                    price={trade.executionPrice}
-                    showInverted={showInverted}
-                    setShowInverted={setShowInverted}
-                  />
-                </LoadingOpacityContainer>
-              ) : loading || syncing ? (
-                <ThemedText.DeprecatedMain fontSize={14}>Fetching best price...</ThemedText.DeprecatedMain>
-              ) : null}
-            </RowFixed>
-            <RowFixed>
-              {!trade?.gasUseEstimateUSD ||
-              showDetails ||
-              !chainId ||
-              !SUPPORTED_GAS_ESTIMATE_CHAIN_IDS.includes(chainId) ? null : (
-                <GasEstimateBadge
-                  trade={trade}
-                  loading={syncing || loading}
-                  showRoute={!showDetails}
+        <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={!trade} open={showDetails}>
+          <RowFixed style={{ position: 'relative' }}>
+            {loading || syncing ? (
+              <StyledPolling>
+                <StyledPollingDot>
+                  <Spinner />
+                </StyledPollingDot>
+              </StyledPolling>
+            ) : (
+              <HideSmall>
+                <MouseoverTooltipContent
+                  wrap={false}
+                  content={
+                    <ResponsiveTooltipContainer origin="top right" style={{ padding: '0' }}>
+                      <Card padding="12px">
+                        <AdvancedSwapDetails
+                          trade={trade}
+                          allowedSlippage={allowedSlippage}
+                          syncing={syncing}
+                          hideInfoTooltips={true}
+                        />
+                      </Card>
+                    </ResponsiveTooltipContainer>
+                  }
+                  placement="bottom"
                   disableHover={showDetails}
+                >
+                  <StyledInfoIcon color={trade ? theme.deprecated_text3 : theme.deprecated_bg3} />
+                </MouseoverTooltipContent>
+              </HideSmall>
+            )}
+            {trade ? (
+              <LoadingOpacityContainer $loading={syncing}>
+                <TradePrice
+                  price={trade.executionPrice}
+                  showInverted={showInverted}
+                  setShowInverted={setShowInverted}
                 />
-              )}
-              <RotatingArrow
-                stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
-                open={Boolean(trade && showDetails)}
+              </LoadingOpacityContainer>
+            ) : loading || syncing ? (
+              <ThemedText.DeprecatedMain fontSize={14}>Fetching best price...</ThemedText.DeprecatedMain>
+            ) : null}
+          </RowFixed>
+          <RowFixed>
+            {!trade?.gasUseEstimateUSD ||
+            showDetails ||
+            !chainId ||
+            !SUPPORTED_GAS_ESTIMATE_CHAIN_IDS.includes(chainId) ? null : (
+              <GasEstimateBadge
+                trade={trade}
+                loading={syncing || loading}
+                showRoute={!showDetails}
+                disableHover={showDetails}
               />
-            </RowFixed>
-          </StyledHeaderRow>
-        </TraceEvent>
+            )}
+            <RotatingArrow
+              stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
+              open={Boolean(trade && showDetails)}
+            />
+          </RowFixed>
+        </StyledHeaderRow>
         <AnimatedDropdown open={showDetails}>
           <AutoColumn gap="sm" style={{ padding: '0', paddingBottom: '8px' }}>
             {trade ? (

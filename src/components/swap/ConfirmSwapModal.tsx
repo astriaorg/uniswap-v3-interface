@@ -1,8 +1,6 @@
-import { Trace } from '@uniswap/analytics'
-import { ModalName } from '@uniswap/analytics-events'
 import { Trade } from '@uniswap/router-sdk'
 import { Currency, CurrencyAmount, Percent, Token, TradeType } from '@uniswap/sdk-core'
-import { ReactNode, useCallback, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useMemo } from 'react'
 import { InterfaceTrade } from 'state/routing/types'
 import { tradeMeaningfullyDiffers } from 'utils/tradeMeaningFullyDiffer'
 
@@ -44,32 +42,26 @@ export default function ConfirmSwapModal({
   fiatValueInput?: CurrencyAmount<Token> | null
   fiatValueOutput?: CurrencyAmount<Token> | null
 }) {
-  // shouldLogModalCloseEvent lets the child SwapModalHeader component know when modal has been closed
-  // and an event triggered by modal closing should be logged.
-  const [shouldLogModalCloseEvent, setShouldLogModalCloseEvent] = useState(false)
   const showAcceptChanges = useMemo(
     () => Boolean(trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)),
     [originalTrade, trade]
   )
 
   const onModalDismiss = useCallback(() => {
-    if (isOpen) setShouldLogModalCloseEvent(true)
     onDismiss()
-  }, [isOpen, onDismiss])
+  }, [onDismiss])
 
   const modalHeader = useCallback(() => {
     return trade ? (
       <SwapModalHeader
         trade={trade}
-        shouldLogModalCloseEvent={shouldLogModalCloseEvent}
-        setShouldLogModalCloseEvent={setShouldLogModalCloseEvent}
         allowedSlippage={allowedSlippage}
         recipient={recipient}
         showAcceptChanges={showAcceptChanges}
         onAcceptChanges={onAcceptChanges}
       />
     ) : null
-  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade, shouldLogModalCloseEvent])
+  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade])
 
   const modalBottom = useCallback(() => {
     return trade ? (
@@ -117,16 +109,14 @@ export default function ConfirmSwapModal({
   )
 
   return (
-    <Trace modal={ModalName.CONFIRM_SWAP}>
-      <TransactionConfirmationModal
-        isOpen={isOpen}
-        onDismiss={onModalDismiss}
-        attemptingTxn={attemptingTxn}
-        hash={txHash}
-        content={confirmationContent}
-        pendingText={pendingText}
-        currencyToAdd={trade?.outputAmount.currency}
-      />
-    </Trace>
+    <TransactionConfirmationModal
+      isOpen={isOpen}
+      onDismiss={onModalDismiss}
+      attemptingTxn={attemptingTxn}
+      hash={txHash}
+      content={confirmationContent}
+      pendingText={pendingText}
+      currencyToAdd={trade?.outputAmount.currency}
+    />
   )
 }

@@ -1,5 +1,3 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
 import { IconWrapper } from 'components/Identicon/StatusIcon'
 import WalletDropdown from 'components/WalletDropdown'
@@ -264,22 +262,15 @@ function Web3StatusInner() {
       'data-testid': 'navbar-wallet-dropdown',
     }
     return (
-      <TraceEvent
-        events={[BrowserEvent.onClick]}
-        name={EventName.CONNECT_WALLET_BUTTON_CLICKED}
-        properties={{ received_swap_quote: validSwapQuote }}
-        element={ElementName.CONNECT_WALLET_BUTTON}
-      >
-        <Web3StatusConnectWrapper faded={!account}>
-          <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
-            Connect
-          </StyledConnectButton>
-          <VerticalDivider />
-          <ChevronWrapper onClick={toggleWalletDropdown}>
-            {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
-          </ChevronWrapper>
-        </Web3StatusConnectWrapper>
-      </TraceEvent>
+      <Web3StatusConnectWrapper faded={!account}>
+        <StyledConnectButton data-testid="navbar-connect-wallet" onClick={toggleWalletModal}>
+          Connect
+        </StyledConnectButton>
+        <VerticalDivider />
+        <ChevronWrapper onClick={toggleWalletDropdown}>
+          {walletIsOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
+        </ChevronWrapper>
+      </Web3StatusConnectWrapper>
     )
   }
 }

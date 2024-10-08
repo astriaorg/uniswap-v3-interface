@@ -1,6 +1,4 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
-import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import TokenSafetyIcon from 'components/TokenSafety/TokenSafetyIcon'
 import { checkWarning } from 'constants/tokenSafety'
@@ -109,7 +107,6 @@ export function CurrencyRow({
   otherSelected,
   style,
   showCurrencyAmount,
-  eventProperties,
 }: {
   currency: Currency
   onSelect: (hasWarning: boolean) => void
@@ -117,7 +114,6 @@ export function CurrencyRow({
   otherSelected: boolean
   style?: CSSProperties
   showCurrencyAmount?: boolean
-  eventProperties: Record<string, unknown>
 }) {
   const { account } = useWeb3React()
   const key = currencyKey(currency)
@@ -129,59 +125,48 @@ export function CurrencyRow({
 
   // only show add or remove buttons if not on selected list
   return (
-    <TraceEvent
-      events={[BrowserEvent.onClick, BrowserEvent.onKeyPress]}
-      name={EventName.TOKEN_SELECTED}
-      properties={{ is_imported_by_user: customAdded, ...eventProperties }}
-      element={ElementName.TOKEN_SELECTOR_ROW}
+    <MenuItem
+      tabIndex={0}
+      style={style}
+      className={`token-item-${key}`}
+      onKeyPress={(e) => (!isSelected && e.key === 'Enter' ? onSelect(!!warning) : null)}
+      onClick={() => (isSelected ? null : onSelect(!!warning))}
+      disabled={isSelected}
+      selected={otherSelected}
+      dim={isBlockedToken}
     >
-      <MenuItem
-        tabIndex={0}
-        style={style}
-        className={`token-item-${key}`}
-        onKeyPress={(e) => (!isSelected && e.key === 'Enter' ? onSelect(!!warning) : null)}
-        onClick={() => (isSelected ? null : onSelect(!!warning))}
-        disabled={isSelected}
-        selected={otherSelected}
-        dim={isBlockedToken}
-      >
-        <Column>
-          <CurrencyLogo
-            currency={currency}
-            size="36px"
-            style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }}
-          />
-        </Column>
-        <AutoColumn style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }}>
-          <Row>
-            <CurrencyName title={currency.name}>{currency.name}</CurrencyName>
-            <WarningContainer>
-              <TokenSafetyIcon warning={warning} />
-            </WarningContainer>
-          </Row>
-          <ThemedText.DeprecatedDarkGray ml="0px" fontSize="12px" fontWeight={300}>
-            {currency.symbol}
-          </ThemedText.DeprecatedDarkGray>
-        </AutoColumn>
-        <Column>
+      <Column>
+        <CurrencyLogo currency={currency} size="36px" style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }} />
+      </Column>
+      <AutoColumn style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }}>
+        <Row>
+          <CurrencyName title={currency.name}>{currency.name}</CurrencyName>
+          <WarningContainer>
+            <TokenSafetyIcon warning={warning} />
+          </WarningContainer>
+        </Row>
+        <ThemedText.DeprecatedDarkGray ml="0px" fontSize="12px" fontWeight={300}>
+          {currency.symbol}
+        </ThemedText.DeprecatedDarkGray>
+      </AutoColumn>
+      <Column>
+        <RowFixed style={{ justifySelf: 'flex-end' }}>
+          <TokenTags currency={currency} />
+        </RowFixed>
+      </Column>
+      {showCurrencyAmount ? (
+        <RowFixed style={{ justifySelf: 'flex-end' }}>
+          {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
+          {isSelected && <CheckIcon />}
+        </RowFixed>
+      ) : (
+        isSelected && (
           <RowFixed style={{ justifySelf: 'flex-end' }}>
-            <TokenTags currency={currency} />
+            <CheckIcon />
           </RowFixed>
-        </Column>
-        {showCurrencyAmount ? (
-          <RowFixed style={{ justifySelf: 'flex-end' }}>
-            {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
-            {isSelected && <CheckIcon />}
-          </RowFixed>
-        ) : (
-          isSelected && (
-            <RowFixed style={{ justifySelf: 'flex-end' }}>
-              <CheckIcon />
-            </RowFixed>
-          )
-        )}
-      </MenuItem>
-    </TraceEvent>
+        )
+      )}
+    </MenuItem>
   )
 }
 
@@ -190,25 +175,6 @@ interface TokenRowProps {
   index: number
   style: CSSProperties
 }
-
-export const formatAnalyticsEventProperties = (
-  token: Token,
-  index: number,
-  data: any[],
-  searchQuery: string,
-  isAddressSearch: string | false
-) => ({
-  token_symbol: token?.symbol,
-  token_address: token?.address,
-  is_suggested_token: false,
-  is_selected_from_list: true,
-  scroll_position: '',
-  token_list_index: index,
-  token_list_length: data.length,
-  ...(isAddressSearch === false
-    ? { search_token_symbol_input: searchQuery }
-    : { search_token_address_input: isAddressSearch }),
-})
 
 const LoadingRow = () => (
   <LoadingRows>
@@ -228,8 +194,6 @@ export default function CurrencyList({
   fixedListRef,
   showCurrencyAmount,
   isLoading,
-  searchQuery,
-  isAddressSearch,
 }: {
   height: number
   currencies: Currency[]
@@ -240,8 +204,6 @@ export default function CurrencyList({
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   showCurrencyAmount?: boolean
   isLoading: boolean
-  searchQuery: string
-  isAddressSearch: string | false
 }) {
   const itemData: Currency[] = useMemo(() => {
     if (otherListTokens && otherListTokens?.length > 0) {
@@ -260,8 +222,6 @@ export default function CurrencyList({
       const otherSelected = Boolean(currency && otherCurrency && otherCurrency.equals(currency))
       const handleSelect = (hasWarning: boolean) => currency && onCurrencySelect(currency, hasWarning)
 
-      const token = currency?.wrapped
-
       if (isLoading) {
         return LoadingRow()
       } else if (currency) {
@@ -273,14 +233,13 @@ export default function CurrencyList({
             onSelect={handleSelect}
             otherSelected={otherSelected}
             showCurrencyAmount={showCurrencyAmount}
-            eventProperties={formatAnalyticsEventProperties(token, index, data, searchQuery, isAddressSearch)}
           />
         )
       } else {
         return null
       }
     },
-    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading, isAddressSearch, searchQuery]
+    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading]
   )
 
   const itemKey = useCallback((index: number, data: typeof itemData) => {

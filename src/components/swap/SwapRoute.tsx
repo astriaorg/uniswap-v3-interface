@@ -1,5 +1,3 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, ElementName, EventName } from '@uniswap/analytics-events'
 import { Protocol } from '@uniswap/router-sdk'
 import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
@@ -63,20 +61,13 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...r
 
   return (
     <Wrapper {...rest} darkMode={darkMode} fixedOpen={fixedOpen}>
-      <TraceEvent
-        events={[BrowserEvent.onClick]}
-        name={EventName.SWAP_AUTOROUTER_VISUALIZATION_EXPANDED}
-        element={ElementName.AUTOROUTER_VISUALIZATION_ROW}
-        shouldLogImpression={!open}
-      >
-        <RowBetween onClick={() => setOpen(!open)}>
-          <AutoRow gap="4px" width="auto">
-            <AutoRouterLogo />
-            <AutoRouterLabel />
-          </AutoRow>
-          {fixedOpen ? null : <OpenCloseIcon open={open} />}
-        </RowBetween>
-      </TraceEvent>
+      <RowBetween onClick={() => setOpen(!open)}>
+        <AutoRow gap="4px" width="auto">
+          <AutoRouterLogo />
+          <AutoRouterLabel />
+        </AutoRow>
+        {fixedOpen ? null : <OpenCloseIcon open={open} />}
+      </RowBetween>
       <AnimatedDropdown open={open || fixedOpen}>
         <AutoRow gap="4px" width="auto" style={{ paddingTop: '12px', margin: 0 }}>
           {syncing ? (
