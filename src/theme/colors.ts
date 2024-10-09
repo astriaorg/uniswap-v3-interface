@@ -37,7 +37,7 @@ export const colors = {
   red50: '#FAECEA',
   red100: '#FED5CF',
   red200: '#FEA79B',
-  red300: '#FD766B',
+  red300: '#dd5022',
   red400: '#FA2B39',
   red500: '#C4292F',
   red600: '#891E20',
@@ -132,8 +132,8 @@ export const darkTheme = {
   backgroundInteractive: colors.gray700,
   backgroundFloating: opacify(12, colors.black),
   backgroundOutline: '#373b3d',
-  backgroundScrim: opacify(72, colors.gray900),
-  backgroundScrolledSurface: opacify(72, colors.gray900),
+  backgroundScrim: opacify(72, colors.gray950),
+  backgroundScrolledSurface: opacify(72, colors.gray950),
 
   textPrimary: colors.white,
   textSecondary: colors.gray300,
@@ -153,9 +153,9 @@ export const darkTheme = {
   accentWarningBold: colors.gold200,
   accentFailureSoft: opacify(12, colors.red400),
 
-  accentTextDarkPrimary: opacify(80, colors.gray900),
-  accentTextDarkSecondary: opacify(60, colors.gray900),
-  accentTextDarkTertiary: opacify(24, colors.gray900),
+  accentTextDarkPrimary: opacify(80, colors.gray950),
+  accentTextDarkSecondary: opacify(60, colors.gray950),
+  accentTextDarkTertiary: opacify(24, colors.gray950),
 
   accentTextLightPrimary: colors.gray50,
   accentTextLightSecondary: opacify(72, colors.gray50),
