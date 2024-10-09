@@ -5,7 +5,7 @@ import { darkTheme } from 'theme/colors'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
 
-export const AVERAGE_L1_BLOCK_TIME = ms`12s`
+export const AVERAGE_L1_BLOCK_TIME = ms`4s`
 
 export enum NetworkType {
   L1,

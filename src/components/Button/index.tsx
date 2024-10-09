@@ -158,17 +158,17 @@ export const ButtonOutlined = styled(BaseButton)`
 `
 
 export const ButtonYellow = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.accentWarningSoft};
-  color: ${({ theme }) => theme.accentWarning};
+  background-color: ${({ theme }) => theme.accentWarning};
+  color: ${({ theme }) => theme.white};
   &:focus {
-    background-color: ${({ theme }) => theme.accentWarningSoft};
+    background-color: ${({ theme }) => theme.accentWarningBold};
   }
   &:hover {
-    background: ${({ theme }) => theme.stateOverlayHover};
+    background: ${({ theme }) => theme.accentWarningBold};
     mix-blend-mode: normal;
   }
   &:active {
-    background-color: ${({ theme }) => theme.accentWarningSoft};
+    background-color: ${({ theme }) => theme.accentWarningBold};
   }
   &:disabled {
     background-color: ${({ theme }) => theme.accentWarningSoft};

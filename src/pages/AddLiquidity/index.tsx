@@ -49,7 +49,7 @@ import { Bound, Field } from '../../state/mint/v3/actions'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
 import { useIsExpertMode, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
-import { ExternalLink, ThemedText } from '../../theme'
+import { ThemedText } from '../../theme'
 import approveAmountCalldata from '../../utils/approveAmountCalldata'
 import { calculateGasMargin } from '../../utils/calculateGasMargin'
 import { currencyId } from '../../utils/currencyId'
@@ -825,14 +825,7 @@ export default function AddLiquidity() {
                                 </RowFixed>
                                 <RowFixed>
                                   <ThemedText.DeprecatedYellow ml="12px" fontSize="13px" margin={0} fontWeight={400}>
-                                    Full range positions may earn less fees than concentrated positions. Learn more{' '}
-                                    <ExternalLink
-                                      style={{ color: theme.deprecated_yellow3, textDecoration: 'underline' }}
-                                      href="https://help.uniswap.org/en/articles/5434296-can-i-provide-liquidity-over-the-full-range-in-v3"
-                                    >
-                                      here
-                                    </ExternalLink>
-                                    .
+                                    Full range positions may earn less fees than concentrated positions.
                                   </ThemedText.DeprecatedYellow>
                                 </RowFixed>
                                 <Row>
@@ -846,9 +839,9 @@ export default function AddLiquidity() {
                                       getSetFullRange()
                                     }}
                                   >
-                                    <ThemedText.DeprecatedBlack fontSize={13} color="black">
+                                    <ThemedText.DeprecatedWhite fontSize={13} color="white">
                                       I understand
-                                    </ThemedText.DeprecatedBlack>
+                                    </ThemedText.DeprecatedWhite>
                                   </ButtonYellow>
                                 </Row>
                               </AutoColumn>

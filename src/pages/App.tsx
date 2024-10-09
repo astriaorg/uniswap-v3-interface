@@ -14,7 +14,6 @@ import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'
 import DarkModeQueryParamReader from '../theme/components/DarkModeQueryParamReader'
-import About from './About'
 import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import Landing from './Landing'
@@ -120,8 +119,6 @@ export default function App() {
                 </Route>
 
                 <Route path="remove/:tokenId" element={<RemoveLiquidityV3 />} />
-
-                <Route path="about" element={<About />} />
 
                 <Route path="*" element={<RedirectPathToSwapOnly />} />
               </Routes>
