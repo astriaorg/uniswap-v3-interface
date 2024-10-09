@@ -40,9 +40,9 @@ const PageWrapper = styled(AutoColumn)`
 
 export const PoolWrapper = styled(AutoColumn)`
   position: relative;
-  background: radial-gradient(100% 100% at 50.15% 0%, #221f1f 0%, #050a0d 100%);
+  background: radial-gradient(144.23% 141.13% at 50.15% 0,#221f1f 0,#050a0d 100%);
+  box-shadow: inset 1px 1px 1px -1px #ffffff80;
   border-radius: 32px;
-  box-shadow: inset 1px 1px 1px -1px rgba(255, 255, 255, 0.5);
   padding: 40px;
   transition: transform 250ms ease;
 `
