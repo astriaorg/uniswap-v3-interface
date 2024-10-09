@@ -44,7 +44,7 @@ export const printV2SubgraphPool = (s: V2SubgraphPool) => `${s.token0.id}/${s.to
 
 const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
-  [ChainId.FLAME_DEVNET]: 'http://localhost:8000/subgraphs/name/uniswap-v3',
+  [ChainId.FLAME_DEVNET]: 'https://graph-node.evm.dusk-10.devnet.astria.org/subgraphs/name/uniswap-v3',
 }
 
 const PAGE_SIZE = 1000 // 1k is max possible query size from subgraph.

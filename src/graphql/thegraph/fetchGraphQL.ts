@@ -13,7 +13,7 @@ import store, { AppState } from '../../state/index'
 const CHAIN_SUBGRAPH_URL: Record<number, string> = {
   [SupportedChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
 
-  [SupportedChainId.FLAME_DEVNET]: 'http://localhost:8000/subgraphs/name/uniswap-v3',
+  [SupportedChainId.FLAME_DEVNET]: 'https://graph-node.evm.dusk-10.devnet.astria.org/subgraphs/name/uniswap-v3',
 }
 
 const headers = {
