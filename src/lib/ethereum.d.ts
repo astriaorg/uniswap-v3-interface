@@ -7,5 +7,11 @@ export interface EthereumProvider {
 declare global {
   interface Window {
     ethereum?: EthereumProvider
+    leap?: {
+      ethereum: EthereumProvider
+    }
+    keplr?: {
+      ethereum: EthereumProvider
+    }
   }
 }
