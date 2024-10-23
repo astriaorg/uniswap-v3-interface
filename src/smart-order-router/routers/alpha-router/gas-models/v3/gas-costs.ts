@@ -10,6 +10,7 @@ export const BASE_SWAP_COST = (id: ChainId): BigNumber => {
   switch (id) {
     case ChainId.MAINNET:
     case ChainId.FLAME_DEVNET:
+    case ChainId.FLAME_TESTNET:
       return BigNumber.from(2000)
   }
 }
@@ -17,6 +18,7 @@ export const COST_PER_INIT_TICK = (id: ChainId): BigNumber => {
   switch (id) {
     case ChainId.MAINNET:
     case ChainId.FLAME_DEVNET:
+    case ChainId.FLAME_TESTNET:
       return BigNumber.from(31000)
   }
 }
@@ -25,6 +27,7 @@ export const COST_PER_HOP = (id: ChainId): BigNumber => {
   switch (id) {
     case ChainId.MAINNET:
     case ChainId.FLAME_DEVNET:
+    case ChainId.FLAME_TESTNET:
       return BigNumber.from(80000)
   }
 }

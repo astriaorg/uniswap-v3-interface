@@ -12,6 +12,7 @@ export default multicall
 function getBlocksPerFetchForChainId(chainId: number | undefined): number {
   switch (chainId) {
     case SupportedChainId.FLAME_DEVNET:
+    case SupportedChainId.FLAME_TESTNET:
       return 15
     default:
       return 1

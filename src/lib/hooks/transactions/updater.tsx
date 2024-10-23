@@ -32,6 +32,7 @@ export function shouldCheck(lastBlockNumber: number, tx: Transaction): boolean {
 
 const RETRY_OPTIONS_BY_CHAIN_ID: { [chainId: number]: RetryOptions } = {
   [SupportedChainId.FLAME_DEVNET]: { n: 10, minWait: 250, maxWait: 1000 },
+  [SupportedChainId.FLAME_TESTNET]: { n: 10, minWait: 250, maxWait: 1000 },
 }
 const DEFAULT_RETRY_OPTIONS: RetryOptions = { n: 1, minWait: 0, maxWait: 0 }
 

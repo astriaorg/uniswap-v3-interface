@@ -6,13 +6,14 @@ import { RouterPreference } from 'state/routing/slice'
 import { useRoutingAPITrade } from 'state/routing/useRoutingAPITrade'
 
 import { SupportedChainId } from '../constants/chains'
-import { USDC_FLAME_DEVNET, USDC_MAINNET } from '../constants/tokens'
+import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, USDC_MAINNET } from '../constants/tokens'
 
 // Stablecoin amounts used when calculating spot price for a given currency.
 // The amount is large enough to filter low liquidity pairs.
 const STABLECOIN_AMOUNT_OUT: { [chainId: number]: CurrencyAmount<Token> } = {
   [SupportedChainId.MAINNET]: CurrencyAmount.fromRawAmount(USDC_MAINNET, 100_000e6),
   [SupportedChainId.FLAME_DEVNET]: CurrencyAmount.fromRawAmount(USDC_FLAME_DEVNET, 5e6),
+  [SupportedChainId.FLAME_TESTNET]: CurrencyAmount.fromRawAmount(USDC_FLAME_TESTNET, 5e6),
 }
 
 /**

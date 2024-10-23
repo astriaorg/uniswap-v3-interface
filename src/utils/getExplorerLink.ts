@@ -2,7 +2,8 @@ import { SupportedChainId } from '../constants/chains'
 
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [SupportedChainId.MAINNET]: 'https://etherscan.io',
-  [SupportedChainId.FLAME_DEVNET]: 'https://explorer.evm.dusk-10.devnet.astria.org',
+  [SupportedChainId.FLAME_DEVNET]: 'https://explorer.evm.dusk-11.devnet.astria.org',
+  [SupportedChainId.FLAME_TESTNET]: 'https://explorer.flame.dawn-1.astria.org',
 }
 
 export enum ExplorerDataType {

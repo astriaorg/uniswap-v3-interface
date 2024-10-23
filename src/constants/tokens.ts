@@ -25,6 +25,15 @@ export const USDC_FLAME_DEVNET = new Token(
   'fUSDC',
   'Fake USDC'
 )
+
+export const USDC_FLAME_TESTNET = new Token(
+  SupportedChainId.FLAME_TESTNET,
+  '0x6e18cE6Ec3Fc7b8E3EcFca4fA35e25F3f6FA879a',
+  18,
+  'USDC',
+  'USDC (Noble)'
+)
+
 // const USDC_ROPSTEN = new Token(
 //   SupportedChainId.ROPSTEN,
 //   '0x07865c6e87b9f70255377e024ace6630c1eaa37f',
@@ -201,10 +210,33 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WRIA',
     'Wrapped RIA'
   ),
+  [SupportedChainId.FLAME_TESTNET]: new Token(
+    SupportedChainId.FLAME_TESTNET,
+    '0xb1ed550217B33fdBeA6aA81b074A2DF8979AfA94',
+    18,
+    'WTIA',
+    'Wrapped Celestia'
+  ),
 }
 
 export function isCelo(chainId: number) {
   return false
+}
+
+class FlameDevnetNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    super(chainId, 18, 'RIA', 'RIA')
+  }
 }
 
 class FlameNativeCurrency extends NativeCurrency {
@@ -219,7 +251,7 @@ class FlameNativeCurrency extends NativeCurrency {
   }
 
   public constructor(chainId: number) {
-    super(chainId, 18, 'RIA', 'RIA')
+    super(chainId, 18, 'TIA', 'TIA')
   }
 }
 
@@ -243,8 +275,10 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
   let nativeCurrency: NativeCurrency | Token
   if (chainId === SupportedChainId.MAINNET) {
     nativeCurrency = ExtendedEther.onChain(chainId)
-  } else {
+  } else if (chainId === SupportedChainId.FLAME_TESTNET) {
     nativeCurrency = new FlameNativeCurrency(chainId)
+  } else {
+    nativeCurrency = new FlameDevnetNativeCurrency(chainId)
   }
   return (cachedNativeCurrency[chainId] = nativeCurrency)
 }
@@ -252,5 +286,7 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
 export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedChainId]?: string } } = {
   USDC: {
     [SupportedChainId.MAINNET]: USDC_MAINNET.address,
+    [SupportedChainId.FLAME_DEVNET]: USDC_FLAME_DEVNET.address,
+    [SupportedChainId.FLAME_TESTNET]: USDC_FLAME_TESTNET.address,
   },
 }

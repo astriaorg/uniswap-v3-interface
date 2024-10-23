@@ -16,6 +16,7 @@ import {
   SWISE,
   TRIBE,
   USDC_FLAME_DEVNET,
+  USDC_FLAME_TESTNET,
   USDC_MAINNET,
   USDT,
   WBTC,
@@ -50,13 +51,10 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_DEVNET],
     USDC_FLAME_DEVNET,
   ],
-  // [SupportedChainId.OPTIMISM]: [
-  //   ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.OPTIMISM],
-  //   DAI_OPTIMISM,
-  //   USDT_OPTIMISM,
-  //   WBTC_OPTIMISM,
-  // ],
-  // [SupportedChainId.CELO]: [CUSD_CELO, CEUR_CELO, CMC02_CELO, PORTAL_USDC_CELO, PORTAL_ETH_CELO],
+  [SupportedChainId.FLAME_TESTNET]: [
+    ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_TESTNET],
+    USDC_FLAME_TESTNET,
+  ],
 }
 export const ADDITIONAL_BASES: { [chainId: number]: { [tokenAddress: string]: Token[] } } = {
   [SupportedChainId.MAINNET]: {
@@ -97,6 +95,11 @@ export const COMMON_BASES: ChainCurrencyList = {
     nativeOnChain(SupportedChainId.FLAME_DEVNET),
     USDC_FLAME_DEVNET,
     WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_DEVNET] as Token,
+  ],
+  [SupportedChainId.FLAME_TESTNET]: [
+    nativeOnChain(SupportedChainId.FLAME_TESTNET),
+    USDC_FLAME_TESTNET,
+    WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_TESTNET] as Token,
   ],
   // [SupportedChainId.ROPSTEN]: [
   //   nativeOnChain(SupportedChainId.ROPSTEN),
@@ -177,6 +180,10 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
     ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_DEVNET],
     USDC_FLAME_DEVNET,
   ],
+  [SupportedChainId.FLAME_TESTNET]: [
+    ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_TESTNET],
+    USDC_FLAME_TESTNET,
+  ],
 }
 export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
   [SupportedChainId.MAINNET]: [
@@ -195,5 +202,8 @@ export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
   ],
   [SupportedChainId.FLAME_DEVNET]: [
     [WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_DEVNET][0], USDC_FLAME_DEVNET],
+  ],
+  [SupportedChainId.FLAME_TESTNET]: [
+    [WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.FLAME_TESTNET][0], USDC_FLAME_TESTNET],
   ],
 }

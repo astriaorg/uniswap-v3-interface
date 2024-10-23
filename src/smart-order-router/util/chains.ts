@@ -5,9 +5,10 @@ export enum ChainId {
 
   // Flame
   FLAME_DEVNET = 912559,
+  FLAME_TESTNET = 16604737732183,
 }
 
-export const SUPPORTED_CHAINS: ChainId[] = [ChainId.FLAME_DEVNET]
+export const SUPPORTED_CHAINS: ChainId[] = [ChainId.FLAME_DEVNET, ChainId.FLAME_TESTNET]
 
 export const V2_SUPPORTED = [ChainId.MAINNET]
 
@@ -21,6 +22,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.MAINNET
     case 912559:
       return ChainId.FLAME_DEVNET
+    case 16604737732183:
+      return ChainId.FLAME_TESTNET
     default:
       throw new Error(`Unknown chain id: ${id}`)
   }
@@ -29,6 +32,7 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
 export enum ChainName {
   MAINNET = 'mainnet',
   FLAME_DEVNET = 'flame-devnet',
+  FLAME_TESTNET = 'flame-testnet',
 }
 
 export enum NativeCurrencyName {
@@ -44,11 +48,13 @@ export enum NativeCurrencyName {
 export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
   [ChainId.MAINNET]: ['ETH', 'ETHER', '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'],
   [ChainId.FLAME_DEVNET]: ['RIA', 'TIA'],
+  [ChainId.FLAME_TESTNET]: ['TIA'],
 }
 
 export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.MAINNET]: NativeCurrencyName.ETHER,
   [ChainId.FLAME_DEVNET]: NativeCurrencyName.RIA,
+  [ChainId.FLAME_TESTNET]: NativeCurrencyName.TIA,
 }
 
 export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
@@ -57,6 +63,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.MAINNET
     case 912559:
       return ChainName.FLAME_DEVNET
+    case 16604737732183:
+      return ChainName.FLAME_TESTNET
     default:
       throw new Error(`Unknown chain id: ${id}`)
   }
@@ -70,6 +78,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER!
     case ChainId.FLAME_DEVNET:
       return process.env.JSON_RPC_PROVIDER_FLAME_DEVNET!
+    case ChainId.FLAME_TESTNET:
+      return process.env.JSON_RPC_PROVIDER_FLAME_TESTNET!
     default:
       throw new Error(`Chain id: ${id} not supported`)
   }
@@ -84,10 +94,17 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
     'WRIA',
     'Wrapped RIA'
   ),
+  [ChainId.FLAME_TESTNET]: new Token(
+    ChainId.FLAME_TESTNET,
+    '0xb1ed550217B33fdBeA6aA81b074A2DF8979AfA94',
+    18,
+    'WTIA',
+    'Wrapped TIA'
+  ),
 }
 
-function isFlame(chainId: number): chainId is ChainId.FLAME_DEVNET {
-  return chainId === ChainId.FLAME_DEVNET
+function isFlame(chainId: number): chainId is ChainId.FLAME_DEVNET | ChainId.FLAME_TESTNET {
+  return chainId === ChainId.FLAME_DEVNET || chainId === ChainId.FLAME_TESTNET
 }
 
 class FlameNativeCurrency extends NativeCurrency {
@@ -106,7 +123,12 @@ class FlameNativeCurrency extends NativeCurrency {
 
   public constructor(chainId: number) {
     if (!isFlame(chainId)) throw new Error('Not flame')
-    super(chainId, 18, 'RIA', 'RIA')
+    super(
+      chainId,
+      18,
+      chainId === ChainId.FLAME_DEVNET ? 'RIA' : 'TIA',
+      chainId === ChainId.FLAME_DEVNET ? 'RIA' : 'TIA'
+    )
   }
 }
 

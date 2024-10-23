@@ -6,7 +6,7 @@ import { isAddress } from 'utils'
 import CelestiaLogo from '../../assets/images/celestia-logo.png'
 import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
 
-type Network = 'ethereum' | 'flame-devnet'
+type Network = 'ethereum' | 'flame-devnet' | 'flame-testnet'
 
 export function chainIdToNetworkName(networkId: SupportedChainId): Network {
   switch (networkId) {
@@ -14,6 +14,8 @@ export function chainIdToNetworkName(networkId: SupportedChainId): Network {
       return 'ethereum'
     case SupportedChainId.FLAME_DEVNET:
       return 'flame-devnet'
+    case SupportedChainId.FLAME_TESTNET:
+      return 'flame-testnet'
     default:
       return 'ethereum'
   }

@@ -7,6 +7,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   ...constructSameAddressMap(FACTORY_ADDRESS),
 
   [ChainId.FLAME_DEVNET]: '0xc40CAc88C65B5fa4B3EE4FEAe2Cea443287f3879',
+  [ChainId.FLAME_TESTNET]: '0xbdb7C721ae69f36A303162E1e1FBC5ec445824E7',
 
   // TODO: Gnosis + Moonbeam contracts to be deployed
 }
@@ -15,7 +16,7 @@ export const QUOTER_V2_ADDRESSES: AddressMap = {
   ...constructSameAddressMap('0x61fFE014bA17989E743c5F6cB21bF9697530B21e'),
 
   [ChainId.FLAME_DEVNET]: '0x5293068Cf96795c0cda7144Fa57B58cbAEfFf711',
-
+  [ChainId.FLAME_TESTNET]: '0xa96ad5AC05cFd6a6c3D4FC4fe95f97262266ea18',
   // TODO: Gnosis + Moonbeam contracts to be deployed
 }
 
@@ -27,6 +28,7 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
   ...constructSameAddressMap('0x1F98415757620B543A52E61c46B32eB19261F984'),
 
   [ChainId.FLAME_DEVNET]: '0x247718235bec841187bb46C70cdEA0fd6EEa316E',
+  [ChainId.FLAME_TESTNET]: '0x6536Ed5401F595dcFE055Eeb0829C0537eF2d247',
   // TODO: Gnosis + Moonbeam contracts to be deployed
 }
 
@@ -69,5 +71,12 @@ export const WETH9: {
     18,
     'WRIA',
     'Wrapped RIA'
+  ),
+  [ChainId.FLAME_TESTNET]: new Token(
+    ChainId.FLAME_TESTNET,
+    '0xb1ed550217B33fdBeA6aA81b074A2DF8979AfA94',
+    18,
+    'WTIA',
+    'Wrapped Celestia'
   ),
 }

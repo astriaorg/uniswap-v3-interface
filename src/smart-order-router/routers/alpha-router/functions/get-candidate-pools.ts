@@ -9,10 +9,12 @@ import {
   FEI_MAINNET,
   ITokenProvider,
   USDC_FLAME_DEVNET,
+  USDC_FLAME_TESTNET,
   USDC_MAINNET,
   USDT_MAINNET,
   WBTC_MAINNET,
   WRIA_FLAME_DEVNET,
+  WRIA_FLAME_TESTNET,
 } from '../../../providers/token-provider'
 import { IV2PoolProvider, V2PoolAccessor } from '../../../providers/v2/pool-provider'
 import { IV3PoolProvider, V3PoolAccessor } from '../../../providers/v3/pool-provider'
@@ -83,6 +85,7 @@ export type MixedRouteGetCandidatePoolsParams = {
 const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.MAINNET]: [USDC_MAINNET, USDT_MAINNET, WBTC_MAINNET, DAI_MAINNET, WRAPPED_NATIVE_CURRENCY[1]!, FEI_MAINNET],
   [ChainId.FLAME_DEVNET]: [USDC_FLAME_DEVNET, WRAPPED_NATIVE_CURRENCY[ChainId.FLAME_DEVNET]],
+  [ChainId.FLAME_TESTNET]: [USDC_FLAME_TESTNET, WRAPPED_NATIVE_CURRENCY[ChainId.FLAME_TESTNET]],
 }
 
 export async function getV3CandidatePools({
@@ -246,7 +249,10 @@ export async function getV3CandidatePools({
       tokenOut.symbol != 'ETH') ||
     (WRAPPED_NATIVE_CURRENCY[chainId]?.symbol == WRIA_FLAME_DEVNET.symbol &&
       tokenOut.symbol != 'RIA' &&
-      tokenOut.symbol != 'WRIA')
+      tokenOut.symbol != 'WRIA') ||
+    (WRAPPED_NATIVE_CURRENCY[chainId]?.symbol == WRIA_FLAME_TESTNET.symbol &&
+      tokenOut.symbol != 'TIA' &&
+      tokenOut.symbol != 'WTIA')
   ) {
     top2EthQuoteTokenPool = _(subgraphPoolsSorted)
       .filter((subgraphPool) => {

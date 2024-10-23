@@ -89,6 +89,22 @@ export const WRIA_FLAME_DEVNET = new Token(
   'Wrapped RIA'
 )
 
+export const USDC_FLAME_TESTNET = new Token(
+  ChainId.FLAME_TESTNET,
+  '0x6e18cE6Ec3Fc7b8E3EcFca4fA35e25F3f6FA879a',
+  18,
+  'USDC',
+  'USDC (Noble)'
+)
+
+export const WRIA_FLAME_TESTNET = new Token(
+  ChainId.FLAME_TESTNET,
+  '0xb1ed550217B33fdBeA6aA81b074A2DF8979AfA94',
+  18,
+  'WTIA',
+  'Wrapped Celestia'
+)
+
 export class TokenProvider implements ITokenProvider {
   constructor(private chainId: ChainId, protected multicall2Provider: IMulticallProvider) {}
 
@@ -189,6 +205,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_MAINNET
     case ChainId.FLAME_DEVNET:
       return USDC_FLAME_DEVNET
+    case ChainId.FLAME_TESTNET:
+      return USDC_FLAME_TESTNET
     default:
       throw new Error(`Chain id: ${chainId} not supported`)
   }

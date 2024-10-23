@@ -19,7 +19,8 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     'https://rpc.ankr.com/eth',
     'https://eth-mainnet.public.blastapi.io',
   ],
-  [SupportedChainId.FLAME_DEVNET]: [`https://rpc.evm.dusk-10.devnet.astria.org/`],
+  [SupportedChainId.FLAME_DEVNET]: [`https://rpc.evm.dusk-11.devnet.astria.org/`],
+  [SupportedChainId.FLAME_TESTNET]: [`https://rpc.flame.dawn-1.astria.org/`],
 }
 
 /**
@@ -29,4 +30,5 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
 export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
   [SupportedChainId.MAINNET]: FALLBACK_URLS[SupportedChainId.MAINNET],
   [SupportedChainId.FLAME_DEVNET]: FALLBACK_URLS[SupportedChainId.FLAME_DEVNET],
+  [SupportedChainId.FLAME_TESTNET]: FALLBACK_URLS[SupportedChainId.FLAME_TESTNET],
 }
