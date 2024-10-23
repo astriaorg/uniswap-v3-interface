@@ -1,8 +1,10 @@
 import { CoinbaseWallet } from '@web3-react/coinbase-wallet'
 import { initializeConnector, Web3ReactHooks } from '@web3-react/core'
+import { Empty } from '@web3-react/empty'
 import { GnosisSafe } from '@web3-react/gnosis-safe'
 import { MetaMask } from '@web3-react/metamask'
 import { Network } from '@web3-react/network'
+import { Provider } from '@web3-react/types'
 import { Connector } from '@web3-react/types'
 import { WalletConnect } from '@web3-react/walletconnect'
 import { SupportedChainId } from 'constants/chains'
@@ -10,6 +12,7 @@ import { SupportedChainId } from 'constants/chains'
 import FLAME_LOGO_URL from '../assets/images/flame-logo.png'
 import { RPC_URLS } from '../constants/networks'
 import { RPC_PROVIDERS } from '../constants/providers'
+import { InjectedConnector } from './injectedConnector'
 
 export enum ConnectionType {
   INJECTED = 'INJECTED',
@@ -17,6 +20,8 @@ export enum ConnectionType {
   WALLET_CONNECT = 'WALLET_CONNECT',
   NETWORK = 'NETWORK',
   GNOSIS_SAFE = 'GNOSIS_SAFE',
+  LEAP = 'LEAP',
+  KEPLR = 'KEPLR',
 }
 
 export interface Connection {
@@ -30,7 +35,7 @@ function onError(error: Error) {
 }
 
 const [web3Network, web3NetworkHooks] = initializeConnector<Network>(
-  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: SupportedChainId.FLAME_DEVNET })
+  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: SupportedChainId.FLAME_TESTNET })
 )
 export const networkConnection: Connection = {
   connector: web3Network,
@@ -94,4 +99,26 @@ export const coinbaseWalletConnection: Connection = {
   connector: web3CoinbaseWallet,
   hooks: web3CoinbaseWalletHooks,
   type: ConnectionType.COINBASE_WALLET,
+}
+
+const [web3Leap, web3LeapHooks] = initializeConnector<InjectedConnector | Empty>((actions) =>
+  window.leap?.ethereum
+    ? new InjectedConnector({ actions, provider: window.leap?.ethereum as Provider, onError })
+    : new Empty(actions, onError)
+)
+export const leapConnection: Connection = {
+  connector: web3Leap,
+  hooks: web3LeapHooks,
+  type: ConnectionType.LEAP,
+}
+
+const [web3Keplr, web3KeplrHooks] = initializeConnector<InjectedConnector | Empty>((actions) =>
+  window.keplr?.ethereum
+    ? new InjectedConnector({ actions, provider: window.keplr?.ethereum as Provider, onError })
+    : new Empty(actions, onError)
+)
+export const keplrConnection: Connection = {
+  connector: web3Keplr,
+  hooks: web3KeplrHooks,
+  type: ConnectionType.KEPLR,
 }

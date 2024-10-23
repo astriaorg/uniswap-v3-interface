@@ -4,6 +4,8 @@ import {
   ConnectionType,
   gnosisSafeConnection,
   injectedConnection,
+  keplrConnection,
+  leapConnection,
   networkConnection,
   walletConnectConnection,
 } from 'connection'
@@ -26,6 +28,8 @@ const CONNECTIONS = [
   coinbaseWalletConnection,
   walletConnectConnection,
   networkConnection,
+  leapConnection,
+  keplrConnection,
 ]
 export function getConnection(c: Connector | ConnectionType) {
   if (c instanceof Connector) {
@@ -46,6 +50,10 @@ export function getConnection(c: Connector | ConnectionType) {
         return networkConnection
       case ConnectionType.GNOSIS_SAFE:
         return gnosisSafeConnection
+      case ConnectionType.LEAP:
+        return leapConnection
+      case ConnectionType.KEPLR:
+        return keplrConnection
     }
   }
 }
@@ -62,5 +70,9 @@ export function getConnectionName(connectionType: ConnectionType, isMetaMask?: b
       return 'Network'
     case ConnectionType.GNOSIS_SAFE:
       return 'Gnosis Safe'
+    case ConnectionType.LEAP:
+      return 'Leap'
+    case ConnectionType.KEPLR:
+      return 'Keplr'
   }
 }

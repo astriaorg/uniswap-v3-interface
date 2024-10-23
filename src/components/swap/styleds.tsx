@@ -25,7 +25,7 @@ export const PageWrapper = styled.div`
 // Mostly copied from `AppBody` but it was getting too hard to maintain backwards compatibility.
 export const SwapWrapper = styled.main`
   position: relative;
-  background: radial-gradient(144.23% 141.13% at 50.15% 0,#221f1f 0,#050a0d 100%);
+  background: radial-gradient(144.23% 141.13% at 50.15% 0, #221f1f 0, #050a0d 100%);
   box-shadow: inset 1px 1px 1px -1px #ffffff80;
   border-radius: 32px;
   box-shadow: inset 1px 1px 1px -1px rgba(255, 255, 255, 0.5);
@@ -59,15 +59,15 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
       : null}
 `
 
-export const ErrorText = styled(Text) <{ severity?: 0 | 1 | 2 | 3 | 4 }>`
+export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
   color: ${({ theme, severity }) =>
     severity === 3 || severity === 4
       ? theme.deprecated_red1
       : severity === 2
-        ? theme.deprecated_yellow2
-        : severity === 1
-          ? theme.deprecated_text1
-          : theme.deprecated_text2};
+      ? theme.deprecated_yellow2
+      : severity === 1
+      ? theme.deprecated_text1
+      : theme.deprecated_text2};
 `
 
 export const TruncatedText = styled(Text)`
@@ -147,7 +147,7 @@ export const SwapShowAcceptChanges = styled(AutoColumn)`
   margin-top: 8px;
 `
 
-export const ResponsiveTooltipContainer = styled(TooltipContainer) <{ origin?: string; width?: string }>`
+export const ResponsiveTooltipContainer = styled(TooltipContainer)<{ origin?: string; width?: string }>`
   background-color: ${({ theme }) => theme.deprecated_bg0};
   border: 1px solid ${({ theme }) => theme.deprecated_bg2};
   padding: 1rem;

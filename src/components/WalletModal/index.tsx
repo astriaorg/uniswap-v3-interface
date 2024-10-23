@@ -21,7 +21,7 @@ import { ApplicationModal } from '../../state/application/reducer'
 import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
 import { CoinbaseWalletOption, OpenCoinbaseWalletOption } from './CoinbaseWalletOption'
-import { InjectedOption, InstallMetaMaskOption, MetaMaskOption } from './InjectedOption'
+import { InjectedOption, InstallMetaMaskOption, KeplrOption, LeapOption, MetaMaskOption } from './InjectedOption'
 import PendingView from './PendingView'
 import { WalletConnectOption } from './WalletConnectOption'
 
@@ -236,9 +236,17 @@ export default function WalletModal({
     const walletConnectionOption =
       (!isInjectedMobileBrowser && <WalletConnectOption tryActivation={tryActivation} />) ?? null
 
+    const isLeapInstalled = Boolean(window.leap?.ethereum)
+    const leapOption = isLeapInstalled ? <LeapOption tryActivation={tryActivation} /> : null
+
+    const isKeplrInstalled = Boolean(window.keplr?.ethereum)
+    const keplrOption = isKeplrInstalled ? <KeplrOption tryActivation={tryActivation} /> : null
+
     return (
       <>
         {injectedOption}
+        {leapOption}
+        {keplrOption}
         {coinbaseWalletOption}
         {walletConnectionOption}
       </>
