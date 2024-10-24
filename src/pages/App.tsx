@@ -10,6 +10,7 @@ import { Z_INDEX } from 'theme/zIndex'
 
 import { useAnalyticsReporter } from '../components/analytics'
 import ErrorBoundary from '../components/ErrorBoundary'
+import { Footer } from '../components/Footer'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'
@@ -22,19 +23,17 @@ import { PositionPage } from './Pool/PositionPage'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
-
 const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  height: 100%;
+  min-height: 100vh;
 `
 
 const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: 72px 0px 0px 0px;
   align-items: center;
   flex: 1;
@@ -128,6 +127,7 @@ export default function App() {
           </Suspense>
           <Marginer />
         </BodyWrapper>
+        <Footer />
       </AppWrapper>
     </ErrorBoundary>
   )
