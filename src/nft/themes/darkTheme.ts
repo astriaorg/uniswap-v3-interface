@@ -27,7 +27,7 @@ export const darkTheme: Theme = {
     stateOverlayHover: `rgba(153,161,189,0.08)`,
 
     textPrimary: '#FFFFFF',
-    textSecondary: vars.color.gray300,
+    textSecondary: '#9b9d9e',
     textTertiary: vars.color.gray500,
 
     dropShadow: `0px 4px 16px rgba(76, 130, 251, 0.4)`,

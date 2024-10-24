@@ -33,6 +33,9 @@ export const leftSideContainer = style([
   sprinkles({
     justifyContent: 'flex-start',
   }),
+  {
+    alignItems: 'center',
+  },
 ])
 
 export const middleContainer = style([
@@ -58,17 +61,25 @@ const baseMenuItem = style([
     paddingY: '8',
     paddingX: '16',
     marginY: '4',
-    borderRadius: '12',
+    borderRadius: '0',
     transition: '250',
     height: 'min',
     width: 'full',
     textAlign: 'center',
   }),
   {
+    fontFamily: 'NB Akademie Mono, monospace',
+    fontWeight: '500',
+    fontSize: '16px',
+    textTransform: 'uppercase',
+    borderBottom: '4px solid transparent',
     lineHeight: '24px',
     textDecoration: 'none',
+    margin: '0',
+    padding: '30px 8px 28px',
     ':hover': {
-      background: vars.color.lightGrayOverlay,
+      // background: vars.color.lightGrayOverlay,
+      borderBottomColor: vars.color.textSecondary,
     },
   },
 ])
@@ -86,4 +97,33 @@ export const activeMenuItem = style([
     color: 'textPrimary',
     background: 'backgroundFloating',
   }),
+  {
+    borderBottomColor: '#CB513F',
+    borderImageSource: 'linear-gradient(83.18deg, #EA9B57 0%, #CB513F 100%)',
+    borderImageSlice: '2',
+  },
+])
+
+export const mobileMenuItem = style([
+  menuItem,
+  {
+    paddingTop: '12px',
+    borderBottom: 'none',
+    borderTop: '4px solid transparent',
+    ':hover': {
+      borderTopColor: vars.color.textSecondary,
+    },
+  },
+])
+
+export const activeMobileMenuItem = style([
+  activeMenuItem,
+  {
+    paddingTop: '12px',
+    borderBottom: 'none',
+    borderTop: '4px solid transparent',
+    borderTopColor: '#CB513F',
+    borderImageSource: 'linear-gradient(83.18deg, #EA9B57 0%, #CB513F 100%)',
+    borderImageSlice: '2',
+  },
 ])

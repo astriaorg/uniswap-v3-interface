@@ -50,7 +50,7 @@ const opacities = {
 }
 
 const fonts = {
-  code: 'courier, courier new, serif',
+  code: 'NB Akademie Mono, monospace',
 }
 
 const deprecated_mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(
@@ -80,7 +80,7 @@ function getSettings(darkMode: boolean) {
     // media queries
     deprecated_mediaWidth: deprecated_mediaWidthTemplates,
 
-    navHeight: 72,
+    navHeight: 85,
     mobileBottomBarHeight: 52,
 
     // deprecated - please use hardcoded exported values instead of
