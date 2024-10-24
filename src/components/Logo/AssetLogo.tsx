@@ -26,7 +26,7 @@ const LogoImage = styled.img<{ size: string }>`
 
 export type AssetLogoBaseProps = {
   symbol?: string | null
-  backupImg?: string | null
+  backupImg?: string
   size?: string
   style?: React.CSSProperties
 }
@@ -53,10 +53,10 @@ export default function AssetLogo({
     ...rest,
   }
 
-  const [src, nextSrc] = useTokenLogoSource(address, chainId, isNative, backupImg)
+  const src = useTokenLogoSource(address, chainId, isNative, backupImg)
 
   if (src) {
-    return <LogoImage {...imageProps} src={src} onError={nextSrc} />
+    return <LogoImage {...imageProps} src={src} />
   } else {
     return (
       <MissingImageLogo size={size}>

@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { isAddress } from 'utils'
 
 import CelestiaLogo from '../../assets/images/celestia-logo.png'
-import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
+import { NATIVE_CHAIN_ID } from '../../constants/tokens'
 
 type Network = 'ethereum' | 'flame-devnet' | 'flame-testnet'
 
@@ -25,18 +25,28 @@ export function getNativeLogoURI(_chainId: SupportedChainId = SupportedChainId.M
   return CelestiaLogo
 }
 
+export function importTokenLogoFromAssets(networkName: string, address: string): string | undefined {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const logo = require(`../../assets/token-logos/${networkName}/${address}.png`)
+    return logo.default
+  } catch (error) {
+    console.warn(`Local token logo not found for ${address} on ${networkName}`)
+    return undefined
+  }
+}
+
 function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedChainId.MAINNET): string | void {
   const networkName = chainIdToNetworkName(chainId)
   const networksWithUrls: SupportedChainId[] = []
   if (networksWithUrls.includes(chainId)) {
-    return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
-  }
-
-  // Celo logo logo is hosted elsewhere.
-  if (isCelo(chainId)) {
-    if (address === nativeOnChain(chainId).wrapped.address) {
-      return 'https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_CELO.png'
+    // Try to import the local image
+    const localLogoURI = importTokenLogoFromAssets(networkName, address)
+    if (localLogoURI) {
+      return localLogoURI
     }
+    // Fallback to remote URL if local import fails
+    return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
   }
 }
 
