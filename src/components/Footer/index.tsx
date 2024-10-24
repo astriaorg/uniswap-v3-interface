@@ -2,20 +2,17 @@ import styled from 'styled-components/macro'
 
 const FooterWrapper = styled.footer`
   width: 100%;
-  padding: 12px;
-  background-color: ${({ theme }) => theme.backgroundSurface};
-  border-top: 1px solid ${({ theme }) => theme.backgroundOutline};
+  padding: 16px;
   text-align: center;
-  font-size: 12px;
-  color: ${({ theme }) => theme.textSecondary};
+  font-size: 16px;
+  color: ${({ theme }) => theme.textPrimary};
   @media screen and (max-width: ${({ theme }) => theme.breakpoint.md}px) {
     display: none;
   }
   a {
-    color: ${({ theme }) => theme.textSecondary};
     text-decoration: none;
     &:hover {
-      color: ${({ theme }) => theme.textPrimary};
+      text-decoration: underline;
     }
   }
 `
@@ -23,9 +20,7 @@ const FooterWrapper = styled.footer`
 export const Footer = () => {
   return (
     <FooterWrapper>
-      <p>
-        Powered by <a href="https://www.astria.org/">Astria</a>
-      </p>
+      Powered by <a href="https://www.astria.org/">Astria</a>
     </FooterWrapper>
   )
 }

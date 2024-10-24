@@ -2,7 +2,7 @@ import Loader from 'components/Loader'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import { LandingPageVariant, useLandingPageFlag } from 'featureFlags/flags/landingPage'
 import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { flexRowNoWrap } from 'theme/styles'
@@ -42,9 +42,10 @@ const BodyWrapper = styled.div`
   `};
 `
 
-const HeaderWrapper = styled.div<{ transparent?: boolean }>`
+const HeaderWrapper = styled.div`
   ${flexRowNoWrap};
-  background-color: ${({ theme, transparent }) => !transparent && theme.backgroundSurface};
+  background-color: rgba(5, 10, 13, 0.2);
+  backdrop-filter: blur(5px);
   border-bottom: 1px solid #333;
   width: 100%;
   justify-content: space-between;
@@ -61,24 +62,12 @@ export default function App() {
   const isLoaded = useFeatureFlagsIsLoaded()
 
   const { pathname } = useLocation()
-  const [scrolledState, setScrolledState] = useState(false)
 
   useAnalyticsReporter()
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    setScrolledState(false)
   }, [pathname])
-
-  useEffect(() => {
-    const scrollListener = () => {
-      setScrolledState(window.scrollY > 0)
-    }
-    window.addEventListener('scroll', scrollListener)
-    return () => window.removeEventListener('scroll', scrollListener)
-  }, [])
-
-  const isHeaderTransparent = !scrolledState
 
   const landingPageFlag = useLandingPageFlag()
 
@@ -87,7 +76,7 @@ export default function App() {
       <DarkModeQueryParamReader />
       <ApeModeQueryParamReader />
       <AppWrapper>
-        <HeaderWrapper transparent={isHeaderTransparent}>
+        <HeaderWrapper>
           <NavBar />
         </HeaderWrapper>
         <BodyWrapper>
