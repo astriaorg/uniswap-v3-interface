@@ -36,6 +36,8 @@ module.exports = {
         webpackConfig.devtool = false;
       }
 
+      webpackConfig.publicPath = '/';
+
       return webpackConfig
     },
   },
