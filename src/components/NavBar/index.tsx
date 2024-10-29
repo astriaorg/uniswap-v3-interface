@@ -71,14 +71,15 @@ const MenuItem = ({ to, dataTestId, id, isActive, children, isMobile = false }: 
   return (
     <NavLink
       to={to}
-      className={`${isActive
+      className={`${
+        isActive
           ? isMobile
             ? styles.activeMobileMenuItem
             : styles.activeMenuItem
           : isMobile
-            ? styles.mobileMenuItem
-            : styles.menuItem
-        }`}
+          ? styles.mobileMenuItem
+          : styles.menuItem
+      }`}
       id={id}
       style={{ textDecoration: 'none' }}
       data-testid={dataTestId}
