@@ -34,6 +34,7 @@ const MobileBottomBar = styled.div`
   height: ${({ theme }) => theme.mobileBottomBarHeight}px;
   background: ${({ theme }) => theme.backgroundSurface};
   border-top: 1px solid ${({ theme }) => theme.backgroundOutline};
+  z-index: ${Z_INDEX.fixed};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.md}px) {
     display: none;
@@ -70,15 +71,14 @@ const MenuItem = ({ to, dataTestId, id, isActive, children, isMobile = false }: 
   return (
     <NavLink
       to={to}
-      className={`${
-        isActive
+      className={`${isActive
           ? isMobile
             ? styles.activeMobileMenuItem
             : styles.activeMenuItem
           : isMobile
-          ? styles.mobileMenuItem
-          : styles.menuItem
-      }`}
+            ? styles.mobileMenuItem
+            : styles.menuItem
+        }`}
       id={id}
       style={{ textDecoration: 'none' }}
       data-testid={dataTestId}
