@@ -1,11 +1,9 @@
 import { ChainTokenMap, tokensToChainTokenMap } from 'lib/hooks/useTokenList/utils'
 import { useMemo } from 'react'
 import { useAppSelector } from 'state/hooks'
-import sortByListPriority from 'utils/listSort'
 
-import BROKEN_LIST from '../../constants/tokenLists/broken.tokenlist.json'
+import { BROKEN_TOKEN_LIST, DEFAULT_TOKEN_LIST, UNSUPPORTED_TOKEN_LIST } from '../../constants/tokenLists'
 import { AppState } from '../index'
-import { DEFAULT_ACTIVE_LIST_URLS, UNSUPPORTED_LIST_URLS } from './../../constants/lists'
 
 export type TokenAddressMap = ChainTokenMap
 
@@ -42,43 +40,18 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
   }, {}) as TokenAddressMap
 }
 
-// merge tokens contained within lists from urls
-function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMap {
-  const lists = useAllLists()
-  return useMemo(() => {
-    if (!urls) return {}
-    return (
-      urls
-        .slice()
-        // sort by priority so top priority goes last
-        .sort(sortByListPriority)
-        .reduce((allTokens, currentUrl) => {
-          const current = lists[currentUrl]?.current
-          if (!current) return allTokens
-          try {
-            return combineMaps(allTokens, tokensToChainTokenMap(current))
-          } catch (error) {
-            console.error('Could not show token list due to error', error)
-            return allTokens
-          }
-        }, {})
-    )
-  }, [lists, urls])
-}
-
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
-  const activeTokens = useCombinedTokenMapFromUrls(DEFAULT_ACTIVE_LIST_URLS)
-  return activeTokens
+  return useMemo(() => tokensToChainTokenMap(DEFAULT_TOKEN_LIST), [])
 }
 
 // list of tokens not supported on interface for various reasons, used to show warnings and prevent swaps and adds
 export function useUnsupportedTokenList(): TokenAddressMap {
   // get hard-coded broken tokens
-  const brokenListMap = useMemo(() => tokensToChainTokenMap(BROKEN_LIST), [])
+  const brokenListMap = useMemo(() => tokensToChainTokenMap(BROKEN_TOKEN_LIST), [])
 
   // get dynamic list of unsupported tokens
-  const loadedUnsupportedListMap = useCombinedTokenMapFromUrls(UNSUPPORTED_LIST_URLS)
+  const loadedUnsupportedListMap = useMemo(() => tokensToChainTokenMap(UNSUPPORTED_TOKEN_LIST), [])
 
   // format into one token address map
   return useMemo(() => combineMaps(brokenListMap, loadedUnsupportedListMap), [brokenListMap, loadedUnsupportedListMap])
