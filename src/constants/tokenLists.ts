@@ -47,6 +47,20 @@ export const DEFAULT_TOKEN_LIST: TokenInfo[] = [
     symbol: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.symbol!,
     decimals: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.decimals,
   },
+  {
+    chainId: SupportedChainId.MAINNET,
+    address: '0xdf941D092b10FF07eAb44bD174dEe915c13FECcd',
+    name: 'Stride TIA',
+    symbol: 'stTIA',
+    decimals: 18,
+  },
+  {
+    chainId: SupportedChainId.MAINNET,
+    address: '0xcbb93e854AA4EF5Db51c3b094F28952eF0dC67bE',
+    name: 'Milk TIA',
+    symbol: 'milkTIA',
+    decimals: 18,
+  },
 ]
 
 export const EXTENDED_TOKEN_LIST: TokenInfo[] = []
