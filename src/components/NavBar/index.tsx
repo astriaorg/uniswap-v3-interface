@@ -101,10 +101,7 @@ const PageTabs = ({ isMobile = false }: { isMobile?: boolean }) => {
 
   return (
     <>
-      <a
-        href="https://astria-bridge-web-app.vercel.app/"
-        className={`${isMobile ? styles.mobileMenuItem : styles.menuItem}`}
-      >
+      <a href="https://bridge.astria.org/" className={`${isMobile ? styles.mobileMenuItem : styles.menuItem}`}>
         Bridge
       </a>
       <MenuItem to="/swap" isActive={pathname.startsWith('/swap')} isMobile={isMobile}>
