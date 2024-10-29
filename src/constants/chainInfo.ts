@@ -1,11 +1,10 @@
-import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
 import flameLogoUrl from 'assets/images/flame-logo.png'
 import ms from 'ms.macro'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
 
-export const AVERAGE_L1_BLOCK_TIME = ms`4s`
+export const AVERAGE_L1_BLOCK_TIME = ms`2s`
 
 export enum NetworkType {
   L1,
@@ -49,25 +48,15 @@ type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & 
 
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.MAINNET]: {
-    networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://etherscan.io/',
-    infoLink: 'https://info.uniswap.org/#/',
-    label: 'Ethereum',
-    logoUrl: ethereumLogoUrl,
-    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-    color: darkTheme.chain_1,
-  },
-  [SupportedChainId.FLAME_DEVNET]: {
     networkType: NetworkType.L2,
     blockWaitMsBeforeWarning: ms`10m`,
     bridge: '',
     docs: 'https://docs.astria.org/',
-    explorer: 'https://explorer.evm.dusk-11.devnet.astria.org/',
+    explorer: 'https://explorer.flame.astria.org/',
     infoLink: 'https://docs.astria.org/',
-    label: 'Flame Devnet',
+    label: 'Flame',
     logoUrl: flameLogoUrl,
-    nativeCurrency: { name: 'RIA', symbol: 'RIA', decimals: 18 },
+    nativeCurrency: { name: 'TIA', symbol: 'TIA', decimals: 18 },
     color: darkTheme.chain_1,
     defaultListUrl: '',
   },
@@ -81,6 +70,19 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Flame Testnet',
     logoUrl: flameLogoUrl,
     nativeCurrency: { name: 'TIA', symbol: 'TIA', decimals: 18 },
+    color: darkTheme.chain_1,
+    defaultListUrl: '',
+  },
+  [SupportedChainId.FLAME_DEVNET]: {
+    networkType: NetworkType.L2,
+    blockWaitMsBeforeWarning: ms`10m`,
+    bridge: '',
+    docs: 'https://docs.astria.org/',
+    explorer: 'https://explorer.evm.dusk-11.devnet.astria.org/',
+    infoLink: 'https://docs.astria.org/',
+    label: 'Flame Devnet',
+    logoUrl: flameLogoUrl,
+    nativeCurrency: { name: 'RIA', symbol: 'RIA', decimals: 18 },
     color: darkTheme.chain_1,
     defaultListUrl: '',
   },

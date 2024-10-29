@@ -171,7 +171,7 @@ export class TenderlySimulator implements ISimulator {
     const currencyIn = swapRoute.trade.inputAmount.currency
     const tokenIn = currencyIn.wrapped
     const chainId = tokenIn.chainId
-    if ([ChainId.FLAME_DEVNET, ChainId.FLAME_TESTNET].includes(chainId)) {
+    if ([ChainId.MAINNET, ChainId.FLAME_DEVNET, ChainId.FLAME_TESTNET].includes(chainId)) {
       const msg = 'Flame not supported by Tenderly!'
       log.info(msg)
       return { ...swapRoute, simulationError: true }

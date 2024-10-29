@@ -1,7 +1,7 @@
 import { TokenInfo } from '@uniswap/token-lists'
 
 import { SupportedChainId } from './chains'
-import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, WRAPPED_NATIVE_CURRENCY } from './tokens'
+import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, USDC_MAINNET, WRAPPED_NATIVE_CURRENCY } from './tokens'
 
 // the ultra blessed tokens
 export const DEFAULT_TOKEN_LIST: TokenInfo[] = [
@@ -32,6 +32,20 @@ export const DEFAULT_TOKEN_LIST: TokenInfo[] = [
     name: WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_TESTNET]!.name!,
     symbol: WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_TESTNET]!.symbol!,
     decimals: WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_TESTNET]!.decimals,
+  },
+  {
+    chainId: SupportedChainId.MAINNET,
+    address: USDC_MAINNET.address,
+    name: USDC_MAINNET.name!,
+    symbol: USDC_MAINNET.symbol!,
+    decimals: USDC_MAINNET.decimals,
+  },
+  {
+    chainId: SupportedChainId.MAINNET,
+    address: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.address,
+    name: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.name!,
+    symbol: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.symbol!,
+    decimals: WRAPPED_NATIVE_CURRENCY[SupportedChainId.MAINNET]!.decimals,
   },
 ]
 

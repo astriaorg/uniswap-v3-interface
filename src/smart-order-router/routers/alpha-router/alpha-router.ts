@@ -843,14 +843,12 @@ export class AlphaRouter implements IRouter<AlphaRouterConfig>, ISwapToRatio<Alp
     }
 
     const routesWithValidQuotesByProtocol = await Promise.all(quotePromises)
-
     let allRoutesWithValidQuotes: RouteWithValidQuote[] = []
     let allCandidatePools: CandidatePoolsBySelectionCriteria[] = []
     for (const { routesWithValidQuotes, candidatePools } of routesWithValidQuotesByProtocol) {
       allRoutesWithValidQuotes = [...allRoutesWithValidQuotes, ...routesWithValidQuotes]
       allCandidatePools = [...allCandidatePools, candidatePools]
     }
-
     if (allRoutesWithValidQuotes.length == 0) {
       log.info({ allRoutesWithValidQuotes }, 'Received no valid quotes')
       return null

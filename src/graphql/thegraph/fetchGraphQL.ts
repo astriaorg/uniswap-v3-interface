@@ -11,8 +11,7 @@ import { GraphQLResponse, ObservableFromValue, RequestParameters } from 'relay-r
 import store, { AppState } from '../../state/index'
 
 const CHAIN_SUBGRAPH_URL: Record<number, string> = {
-  [SupportedChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
-
+  [SupportedChainId.MAINNET]: 'https://graph-node.flame.astria.org/subgraphs/name/uniswap-v3',
   [SupportedChainId.FLAME_DEVNET]: 'https://graph-node.evm.dusk-11.devnet.astria.org/subgraphs/name/uniswap-v3',
   [SupportedChainId.FLAME_TESTNET]: 'https://graph-node.flame.dawn-1.astria.org/subgraphs/name/uniswap-v3',
 }

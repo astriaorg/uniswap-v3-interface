@@ -49,7 +49,6 @@ export class InjectedConnector extends EIP1193 {
 
   /** {@inheritdoc Connector.activate} */
   public async activate(desiredChainIdOrChainParameters?: number | AddEthereumChainParameter): Promise<void> {
-    console.log('activate desiredChainIdOrChainParameters', desiredChainIdOrChainParameters)
     const cancelActivation = this.actions.startActivation()
 
     try {

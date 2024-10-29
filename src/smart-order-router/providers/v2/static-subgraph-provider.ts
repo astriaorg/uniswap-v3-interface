@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import { ChainId, WRAPPED_NATIVE_CURRENCY } from '../../util/chains'
 import { log } from '../../util/log'
-import { DAI_MAINNET, USDC_MAINNET, USDT_MAINNET, WBTC_MAINNET } from '../token-provider'
+import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, USDC_MAINNET } from '../token-provider'
 import { IV2SubgraphProvider, V2SubgraphPool } from './subgraph-provider'
 
 type ChainTokenList = {
@@ -12,9 +12,9 @@ type ChainTokenList = {
 }
 
 const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
-  [ChainId.MAINNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.MAINNET]!, DAI_MAINNET, USDC_MAINNET, USDT_MAINNET, WBTC_MAINNET],
-  [ChainId.FLAME_DEVNET]: [],
-  [ChainId.FLAME_TESTNET]: [],
+  [ChainId.MAINNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.MAINNET]!, USDC_MAINNET],
+  [ChainId.FLAME_DEVNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.FLAME_DEVNET]!, USDC_FLAME_DEVNET],
+  [ChainId.FLAME_TESTNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.FLAME_TESTNET]!, USDC_FLAME_TESTNET],
 }
 
 /**

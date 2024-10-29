@@ -19,7 +19,10 @@ import * as styles from './ChainSelector.css'
 import ChainSelectorRow from './ChainSelectorRow'
 import { NavDropdown } from './NavDropdown'
 
-const NETWORK_SELECTOR_CHAINS = [SupportedChainId.FLAME_DEVNET, SupportedChainId.FLAME_TESTNET]
+const NETWORK_SELECTOR_CHAINS =
+  process.env.NODE_ENV === 'development'
+    ? [SupportedChainId.MAINNET, SupportedChainId.FLAME_TESTNET, SupportedChainId.FLAME_DEVNET]
+    : [SupportedChainId.MAINNET, SupportedChainId.FLAME_TESTNET]
 
 interface ChainSelectorProps {
   leftAlign?: boolean

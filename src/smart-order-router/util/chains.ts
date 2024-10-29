@@ -1,24 +1,20 @@
 import { Currency, Ether, NativeCurrency, Token } from '@uniswap/sdk-core'
 
 export enum ChainId {
-  MAINNET = 1,
-
-  // Flame
+  MAINNET = 253368190,
   FLAME_DEVNET = 912559,
   FLAME_TESTNET = 16604737732183,
 }
 
-export const SUPPORTED_CHAINS: ChainId[] = [ChainId.FLAME_DEVNET, ChainId.FLAME_TESTNET]
+export const SUPPORTED_CHAINS: ChainId[] = [ChainId.MAINNET, ChainId.FLAME_DEVNET, ChainId.FLAME_TESTNET]
 
-export const V2_SUPPORTED = [ChainId.MAINNET]
+export const V2_SUPPORTED: ChainId[] = []
 
-export const HAS_L1_FEE = []
-
-export const NETWORKS_WITH_SAME_UNISWAP_ADDRESSES = [ChainId.MAINNET]
+export const HAS_L1_FEE: ChainId[] = []
 
 export const ID_TO_CHAIN_ID = (id: number): ChainId => {
   switch (id) {
-    case 1:
+    case 253368190:
       return ChainId.MAINNET
     case 912559:
       return ChainId.FLAME_DEVNET
@@ -30,36 +26,30 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
 }
 
 export enum ChainName {
-  MAINNET = 'mainnet',
+  MAINNET = 'flame',
   FLAME_DEVNET = 'flame-devnet',
   FLAME_TESTNET = 'flame-testnet',
 }
 
 export enum NativeCurrencyName {
-  // Strings match input for CLI
-  ETHER = 'ETH',
-  MATIC = 'MATIC',
-  CELO = 'CELO',
-  GNOSIS = 'XDAI',
-  MOONBEAM = 'GLMR',
   RIA = 'RIA',
   TIA = 'TIA',
 }
 export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
-  [ChainId.MAINNET]: ['ETH', 'ETHER', '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'],
+  [ChainId.MAINNET]: ['TIA', '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'],
   [ChainId.FLAME_DEVNET]: ['RIA', 'TIA'],
   [ChainId.FLAME_TESTNET]: ['TIA'],
 }
 
 export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
-  [ChainId.MAINNET]: NativeCurrencyName.ETHER,
+  [ChainId.MAINNET]: NativeCurrencyName.TIA,
   [ChainId.FLAME_DEVNET]: NativeCurrencyName.RIA,
   [ChainId.FLAME_TESTNET]: NativeCurrencyName.TIA,
 }
 
 export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
   switch (id) {
-    case 1:
+    case 253368190:
       return ChainName.MAINNET
     case 912559:
       return ChainName.FLAME_DEVNET
@@ -86,7 +76,13 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
 }
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
-  [ChainId.MAINNET]: new Token(1, '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', 18, 'WETH', 'Wrapped Ether'),
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0x61B7794B6A0Cc383B367c327B91E5Ba85915a071',
+    18,
+    'WTIA',
+    'Wrapped TIA'
+  ),
   [ChainId.FLAME_DEVNET]: new Token(
     ChainId.FLAME_DEVNET,
     '0x6D71eb44a65560D1E917861059288200209054b4',
@@ -104,7 +100,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
 }
 
 function isFlame(chainId: number): chainId is ChainId.FLAME_DEVNET | ChainId.FLAME_TESTNET {
-  return chainId === ChainId.FLAME_DEVNET || chainId === ChainId.FLAME_TESTNET
+  return chainId === ChainId.MAINNET || chainId === ChainId.FLAME_DEVNET || chainId === ChainId.FLAME_TESTNET
 }
 
 class FlameNativeCurrency extends NativeCurrency {

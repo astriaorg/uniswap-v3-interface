@@ -2,15 +2,13 @@
  * List of all the networks supported by the Uniswap Interface
  */
 export enum SupportedChainId {
-  MAINNET = 1,
-
-  // Flame
-  FLAME_DEVNET = 912559,
+  MAINNET = 253368190,
   FLAME_TESTNET = 16604737732183,
+  FLAME_DEVNET = 912559,
 }
 
 export const CHAIN_IDS_TO_NAMES = {
-  [SupportedChainId.MAINNET]: 'mainnet',
+  [SupportedChainId.MAINNET]: 'flame',
   [SupportedChainId.FLAME_DEVNET]: 'flame_devnet',
   [SupportedChainId.FLAME_TESTNET]: 'flame_testnet',
 }
@@ -26,12 +24,20 @@ export function isSupportedChain(chainId: number | null | undefined): chainId is
   return !!chainId && !!SupportedChainId[chainId]
 }
 
-export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [SupportedChainId.FLAME_DEVNET, SupportedChainId.FLAME_TESTNET]
+export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
+  SupportedChainId.FLAME_DEVNET,
+  SupportedChainId.FLAME_TESTNET,
+  SupportedChainId.MAINNET,
+]
 
 /**
  * Unsupported networks for V2 pool behavior.
  */
-export const UNSUPPORTED_V2POOL_CHAIN_IDS = [SupportedChainId.FLAME_DEVNET, SupportedChainId.FLAME_TESTNET]
+export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
+  SupportedChainId.FLAME_DEVNET,
+  SupportedChainId.FLAME_TESTNET,
+  SupportedChainId.MAINNET,
+]
 
 export const TESTNET_CHAIN_IDS = [SupportedChainId.FLAME_DEVNET, SupportedChainId.FLAME_TESTNET] as const
 
@@ -48,6 +54,10 @@ export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
  * Controls some L2 specific behavior, e.g. slippage tolerance, special UI behavior.
  * The expectation is that all of these networks have immediate transaction confirmation.
  */
-export const L2_CHAIN_IDS = [SupportedChainId.FLAME_DEVNET, SupportedChainId.FLAME_TESTNET] as const
+export const L2_CHAIN_IDS = [
+  SupportedChainId.FLAME_DEVNET,
+  SupportedChainId.FLAME_TESTNET,
+  SupportedChainId.MAINNET,
+] as const
 
 export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]

@@ -20,14 +20,12 @@ export function transformSwapRouteToGetQuoteResult(
     blockNumber,
   }: SwapRoute
 ): GetQuoteResult {
-  console.log('transformSwapRouteToGetQuoteResult called')
   const routeResponse: Array<(V3PoolInRoute | V2PoolInRoute)[]> = []
 
   for (const subRoute of route) {
     const { amount, quote, tokenPath } = subRoute
 
     const pools = subRoute.protocol === Protocol.V2 ? subRoute.route.pairs : subRoute.route.pools
-    console.log('pools', pools)
     const curRoute: (V3PoolInRoute | V2PoolInRoute)[] = []
     for (let i = 0; i < pools.length; i++) {
       const nextPool = pools[i] as Pool
@@ -110,7 +108,7 @@ export function transformSwapRouteToGetQuoteResult(
 
     routeResponse.push(curRoute)
   }
-  console.log('routeResponse', routeResponse)
+
   let result: GetQuoteResult
   try {
     result = {
@@ -131,9 +129,8 @@ export function transformSwapRouteToGetQuoteResult(
       routeString: routeAmountsToString(route),
     }
   } catch (e) {
-    console.log('transformSwapRouteToGetQuoteResult error', e)
     throw new Error('Failed to transform swap route to quote result')
   }
-  console.log('transformSwapRouteToGetQuoteResult', result)
+
   return result
 }

@@ -1,7 +1,7 @@
 import { SupportedChainId } from '../constants/chains'
 
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
-  [SupportedChainId.MAINNET]: 'https://etherscan.io',
+  [SupportedChainId.MAINNET]: 'https://explorer.flame.astria.org',
   [SupportedChainId.FLAME_DEVNET]: 'https://explorer.evm.dusk-11.devnet.astria.org',
   [SupportedChainId.FLAME_TESTNET]: 'https://explorer.flame.dawn-1.astria.org',
 }
@@ -20,7 +20,7 @@ export enum ExplorerDataType {
  * @param type the type of the data
  */
 export function getExplorerLink(chainId: number, data: string, type: ExplorerDataType): string {
-  const prefix = BLOCK_EXPLORER_PREFIXES[chainId] ?? 'https://etherscan.io'
+  const prefix = BLOCK_EXPLORER_PREFIXES[chainId] ?? 'https://explorer.flame.astria.org'
 
   switch (type) {
     case ExplorerDataType.TRANSACTION:

@@ -47,20 +47,16 @@ export default function RadialGradientByChainUpdater(): null {
     }
 
     switch (chainId) {
+      case SupportedChainId.MAINNET:
       case SupportedChainId.FLAME_DEVNET:
       case SupportedChainId.FLAME_TESTNET:
+      default:
         setBackground(backgroundResetStyles)
         const lightGradient =
           'radial-gradient(100% 100% at 50% 0%, rgba(255, 251, 242, 0.8) 0%, rgba(255, 244, 249, 0.6958) 50.52%, rgba(255, 255, 255, 0) 100%), #FFFFFF'
         const darkGradient = '#050A0D'
         backgroundRadialGradientElement.style.background = darkMode ? darkGradient : lightGradient
         break
-      default:
-        setBackground(initialStyles)
-        const defaultLightGradient =
-          'radial-gradient(100% 100% at 50% 0%, rgba(255, 184, 226, 0.51) 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF'
-        const defaultDarkGradient = 'linear-gradient(180deg, #202738 0%, #070816 100%)'
-        backgroundRadialGradientElement.style.background = darkMode ? defaultDarkGradient : defaultLightGradient
     }
   }, [darkMode, chainId, isNftPage])
   return null

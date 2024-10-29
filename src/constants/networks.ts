@@ -11,16 +11,9 @@ import { SupportedChainId } from './chains'
  * These "Safe" URLs are listed first, followed by other fallback URLs, which are taken from chainlist.org.
  */
 export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
-  [SupportedChainId.MAINNET]: [
-    // "Safe" URLs
-    // 'https://api.mycryptoapi.com/eth',
-    // 'https://cloudflare-eth.com',
-    // "Fallback" URLs
-    'https://rpc.ankr.com/eth',
-    'https://eth-mainnet.public.blastapi.io',
-  ],
-  [SupportedChainId.FLAME_DEVNET]: [`https://rpc.evm.dusk-11.devnet.astria.org/`],
-  [SupportedChainId.FLAME_TESTNET]: [`https://rpc.flame.dawn-1.astria.org/`],
+  [SupportedChainId.MAINNET]: ['https://rpc.flame.astria.org/'],
+  [SupportedChainId.FLAME_DEVNET]: ['https://rpc.evm.dusk-11.devnet.astria.org/'],
+  [SupportedChainId.FLAME_TESTNET]: ['https://rpc.flame.dawn-1.astria.org/'],
 }
 
 /**

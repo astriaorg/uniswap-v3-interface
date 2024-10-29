@@ -30,47 +30,14 @@ export type TokenAccessor = {
 }
 
 // Some well known tokens on each chain for seeding cache / testing.
-export const USDC_MAINNET = new Token(
+export const USDC_MAINNET = new Token(ChainId.MAINNET, '0x3f65144F387f6545bF4B19a1B39C94231E1c849F', 6, 'USDC', 'USDC')
+
+export const WTIA_MAINNET = new Token(
   ChainId.MAINNET,
-  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-  6,
-  'USDC',
-  'USD//C'
-)
-export const USDT_MAINNET = new Token(
-  ChainId.MAINNET,
-  '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-  6,
-  'USDT',
-  'Tether USD'
-)
-export const WBTC_MAINNET = new Token(
-  ChainId.MAINNET,
-  '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-  8,
-  'WBTC',
-  'Wrapped BTC'
-)
-export const DAI_MAINNET = new Token(
-  ChainId.MAINNET,
-  '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+  '0x61B7794B6A0Cc383B367c327B91E5Ba85915a071',
   18,
-  'DAI',
-  'Dai Stablecoin'
-)
-export const FEI_MAINNET = new Token(
-  ChainId.MAINNET,
-  '0x956F47F50A910163D8BF957Cf5846D573E7f87CA',
-  18,
-  'FEI',
-  'Fei USD'
-)
-export const UNI_MAINNET = new Token(
-  ChainId.MAINNET,
-  '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
-  18,
-  'UNI',
-  'Uniswap'
+  'WTIA',
+  'Wrapped Celestia'
 )
 
 export const USDC_FLAME_DEVNET = new Token(
@@ -97,7 +64,7 @@ export const USDC_FLAME_TESTNET = new Token(
   'USDC (Noble)'
 )
 
-export const WRIA_FLAME_TESTNET = new Token(
+export const WTIA_FLAME_TESTNET = new Token(
   ChainId.FLAME_TESTNET,
   '0xb1ed550217B33fdBeA6aA81b074A2DF8979AfA94',
   18,
@@ -183,8 +150,6 @@ export class TokenProvider implements ITokenProvider {
 
 export const DAI_ON = (chainId: ChainId): Token => {
   switch (chainId) {
-    case ChainId.MAINNET:
-      return DAI_MAINNET
     default:
       throw new Error(`Chain id: ${chainId} not supported`)
   }
@@ -192,8 +157,6 @@ export const DAI_ON = (chainId: ChainId): Token => {
 
 export const USDT_ON = (chainId: ChainId): Token => {
   switch (chainId) {
-    case ChainId.MAINNET:
-      return USDT_MAINNET
     default:
       throw new Error(`Chain id: ${chainId} not supported`)
   }

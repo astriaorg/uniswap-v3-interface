@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import { IOnChainQuoteProvider, RouteWithQuotes } from '../../providers'
 import { IMulticallProvider } from '../../providers/multicall-provider'
-import { DAI_MAINNET, ITokenProvider, USDC_MAINNET } from '../../providers/token-provider'
+import { ITokenProvider, USDC_MAINNET } from '../../providers/token-provider'
 import { IV3PoolProvider } from '../../providers/v3/pool-provider'
 import { CurrencyAmount } from '../../util/amounts'
 import { ChainId } from '../../util/chains'
@@ -89,7 +89,7 @@ export class LegacyRouter implements IRouter<LegacyRoutingConfig> {
       route: [routeQuote],
       estimatedGasUsed: BigNumber.from(0),
       estimatedGasUsedQuoteToken: CurrencyAmount.fromFractionalAmount(tokenOut, 0, 1),
-      estimatedGasUsedUSD: CurrencyAmount.fromFractionalAmount(DAI_MAINNET!, 0, 1),
+      estimatedGasUsedUSD: CurrencyAmount.fromFractionalAmount(USDC_MAINNET!, 0, 1),
       gasPriceWei: BigNumber.from(0),
       trade,
       methodParameters: swapConfig ? this.buildMethodParameters(trade, swapConfig) : undefined,
@@ -121,7 +121,7 @@ export class LegacyRouter implements IRouter<LegacyRoutingConfig> {
       route: [routeQuote],
       estimatedGasUsed: BigNumber.from(0),
       estimatedGasUsedQuoteToken: CurrencyAmount.fromFractionalAmount(tokenIn, 0, 1),
-      estimatedGasUsedUSD: CurrencyAmount.fromFractionalAmount(DAI_MAINNET, 0, 1),
+      estimatedGasUsedUSD: CurrencyAmount.fromFractionalAmount(USDC_MAINNET, 0, 1),
       gasPriceWei: BigNumber.from(0),
       trade,
       methodParameters: swapConfig ? this.buildMethodParameters(trade, swapConfig) : undefined,

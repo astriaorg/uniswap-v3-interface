@@ -1,13 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Token } from '@uniswap/sdk-core'
 
-import {
-  DAI_MAINNET,
-  USDC_FLAME_DEVNET,
-  USDC_FLAME_TESTNET,
-  USDC_MAINNET,
-  USDT_MAINNET,
-} from '../../../providers/token-provider'
+import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, USDC_MAINNET } from '../../../providers/token-provider'
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider'
 import { ArbitrumGasData, IL2GasDataProvider, OptimismGasData } from '../../../providers/v3/gas-data-provider'
 import { IV3PoolProvider } from '../../../providers/v3/pool-provider'
@@ -21,7 +15,7 @@ import {
 } from '../entities/route-with-valid-quote'
 
 export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
-  [ChainId.MAINNET]: [DAI_MAINNET, USDC_MAINNET, USDT_MAINNET],
+  [ChainId.MAINNET]: [USDC_MAINNET],
   [ChainId.FLAME_DEVNET]: [USDC_FLAME_DEVNET],
   [ChainId.FLAME_TESTNET]: [USDC_FLAME_TESTNET],
 }

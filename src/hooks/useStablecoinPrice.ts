@@ -11,7 +11,7 @@ import { USDC_FLAME_DEVNET, USDC_FLAME_TESTNET, USDC_MAINNET } from '../constant
 // Stablecoin amounts used when calculating spot price for a given currency.
 // The amount is large enough to filter low liquidity pairs.
 const STABLECOIN_AMOUNT_OUT: { [chainId: number]: CurrencyAmount<Token> } = {
-  [SupportedChainId.MAINNET]: CurrencyAmount.fromRawAmount(USDC_MAINNET, 100_000e6),
+  [SupportedChainId.MAINNET]: CurrencyAmount.fromRawAmount(USDC_MAINNET, 1000e6),
   [SupportedChainId.FLAME_DEVNET]: CurrencyAmount.fromRawAmount(USDC_FLAME_DEVNET, 5e6),
   [SupportedChainId.FLAME_TESTNET]: CurrencyAmount.fromRawAmount(USDC_FLAME_TESTNET, 5e6),
 }

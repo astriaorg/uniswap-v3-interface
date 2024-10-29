@@ -13,7 +13,7 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { RelayEnvironmentProvider } from 'react-relay'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { isProductionEnv } from 'utils/env'
 
 import Web3Provider from './components/Web3Provider'
@@ -62,7 +62,7 @@ createRoot(container).render(
     <Provider store={store}>
       <FeatureFlagsProvider>
         <QueryClientProvider client={queryClient}>
-          <HashRouter>
+          <BrowserRouter>
             <Web3Provider>
               <RelayEnvironmentProvider environment={RelayEnvironment}>
                 <BlockNumberProvider>
@@ -74,13 +74,12 @@ createRoot(container).render(
                 </BlockNumberProvider>
               </RelayEnvironmentProvider>
             </Web3Provider>
-          </HashRouter>
+          </BrowserRouter>
         </QueryClientProvider>
       </FeatureFlagsProvider>
     </Provider>
   </StrictMode>
 )
-
 if (process.env.REACT_APP_SERVICE_WORKER !== 'false') {
   serviceWorkerRegistration.register()
 }

@@ -95,7 +95,6 @@ export const routingApi = createApi({
         let result
 
         try {
-          console.log('routerPreference', routerPreference)
           if (routerPreference === RouterPreference.API) {
             const query = qs.stringify({
               ...API_QUERY_PARAMS,
@@ -116,7 +115,6 @@ export const routingApi = createApi({
               // This change is intentionally being deferred to first see what effect router caching has.
               CLIENT_PARAMS
             )
-            console.log('getClientSideQuote', result)
           }
 
           return { data: result.data as GetQuoteResult }
