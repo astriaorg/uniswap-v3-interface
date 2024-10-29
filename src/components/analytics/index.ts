@@ -50,7 +50,7 @@ if (typeof GOOGLE_ANALYTICS_ID === 'string') {
       : 'mobileRegular',
   })
 } else {
-  googleAnalytics.initialize('test', { gtagOptions: { debug_mode: true } })
+  // googleAnalytics.initialize('test', { gtagOptions: { debug_mode: true } })
 }
 
 const installed = Boolean(window.navigator.serviceWorker?.controller)

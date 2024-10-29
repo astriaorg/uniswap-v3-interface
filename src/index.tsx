@@ -3,7 +3,6 @@ import 'inter-ui'
 import 'polyfills'
 import 'components/analytics'
 
-import * as Sentry from '@sentry/react'
 import { FeatureFlagsProvider } from 'featureFlags'
 import RelayEnvironment from 'graphql/data/RelayEnvironment'
 import { BlockNumberProvider } from 'lib/hooks/useBlockNumber'
@@ -14,7 +13,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { RelayEnvironmentProvider } from 'react-relay'
 import { BrowserRouter } from 'react-router-dom'
-import { isProductionEnv } from 'utils/env'
 
 import Web3Provider from './components/Web3Provider'
 import App from './pages/App'
@@ -32,12 +30,12 @@ if (!!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false
 }
 
-if (isProductionEnv()) {
-  Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
-    release: process.env.REACT_APP_GIT_COMMIT_HASH,
-  })
-}
+// if (isProductionEnv()) {
+//   Sentry.init({
+//     dsn: process.env.REACT_APP_SENTRY_DSN,
+//     release: process.env.REACT_APP_GIT_COMMIT_HASH,
+//   })
+// }
 
 function Updaters() {
   return (
