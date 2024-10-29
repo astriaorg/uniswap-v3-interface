@@ -22,7 +22,7 @@
   ],
   "orientation": "portrait",
   "name": "Flame DEX",
-  "description": "Swap or provide liquidity on the Flame DEX",
+  "description": "Swap or provide liquidity on Flame",
   "iconPath": "./images/256x256_App_Icon.png",
   "short_name": "Flame DEX",
   "start_url": ".",
