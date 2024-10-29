@@ -5,8 +5,6 @@ import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { flexRowNoWrap } from 'theme/styles'
-import { Z_INDEX } from 'theme/zIndex'
 
 import { useAnalyticsReporter } from '../components/analytics'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -42,18 +40,6 @@ const BodyWrapper = styled.div`
   `};
 `
 
-const HeaderWrapper = styled.div`
-  ${flexRowNoWrap};
-  background-color: rgba(5, 10, 13, 0.2);
-  backdrop-filter: blur(5px);
-  border-bottom: 1px solid #333;
-  width: 100%;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  z-index: ${Z_INDEX.sticky};
-`
-
 const Marginer = styled.div`
   margin-top: 5rem;
 `
@@ -76,9 +62,7 @@ export default function App() {
       <DarkModeQueryParamReader />
       <ApeModeQueryParamReader />
       <AppWrapper>
-        <HeaderWrapper>
-          <NavBar />
-        </HeaderWrapper>
+        <NavBar />
         <BodyWrapper>
           <Popups />
           <Polling />

@@ -4,10 +4,24 @@ import { Row } from 'nft/components/Flex'
 import { ReactNode } from 'react'
 import { NavLink, NavLinkProps, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { flexRowNoWrap } from 'theme/styles'
+import { Z_INDEX } from 'theme/zIndex'
 
 import { ChainSelector } from './ChainSelector'
 import { FlameLogo } from './FlameLogo'
 import * as styles from './style.css'
+
+const HeaderWrapper = styled.div`
+  ${flexRowNoWrap};
+  background-color: rgba(5, 10, 13, 0.2);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid #333;
+  width: 100%;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: ${Z_INDEX.sticky};
+`
 
 const MobileBottomBar = styled.div`
   position: fixed;
@@ -116,39 +130,41 @@ const Navbar = () => {
 
   return (
     <>
-      <Nav>
-        <Box display="flex" height="full" flexWrap="nowrap" alignItems="center">
-          <Box className={styles.leftSideContainer}>
-            <LogoContainer className={styles.logoContainer}>
-              <StyledFlameLogo
-                width="221"
-                height="38"
-                className={styles.logo}
-                onClick={() => {
-                  navigate('/')
-                }}
-              />
-            </LogoContainer>
-          </Box>
-          <Box className={styles.middleContainer} justifyContent="center">
-            <Row gap="8" display={{ sm: 'none', lg: 'flex' }}>
-              <PageTabs />
-            </Row>
-          </Box>
-          <Box className={styles.rightSideContainer}>
-            <Row gap="12">
-              {/* <Box position="relative" display={{ sm: 'flex', xl: 'none' }}>
+      <HeaderWrapper>
+        <Nav>
+          <Box display="flex" height="full" flexWrap="nowrap" alignItems="center">
+            <Box className={styles.leftSideContainer}>
+              <LogoContainer className={styles.logoContainer}>
+                <StyledFlameLogo
+                  width="221"
+                  height="38"
+                  className={styles.logo}
+                  onClick={() => {
+                    navigate('/')
+                  }}
+                />
+              </LogoContainer>
+            </Box>
+            <Box className={styles.middleContainer} justifyContent="center">
+              <Row gap="8" display={{ sm: 'none', lg: 'flex' }}>
+                <PageTabs />
+              </Row>
+            </Box>
+            <Box className={styles.rightSideContainer}>
+              <Row gap="12">
+                {/* <Box position="relative" display={{ sm: 'flex', xl: 'none' }}>
                 <SearchBar />
               </Box> */}
-              <Box>
-                <ChainSelector />
-              </Box>
+                <Box>
+                  <ChainSelector />
+                </Box>
 
-              <Web3Status />
-            </Row>
+                <Web3Status />
+              </Row>
+            </Box>
           </Box>
-        </Box>
-      </Nav>
+        </Nav>
+      </HeaderWrapper>
       <MobileBottomBar>
         <MobilePageTabs />
       </MobileBottomBar>
