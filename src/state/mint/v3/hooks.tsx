@@ -271,6 +271,14 @@ export function useV3DerivedMintInfo(
     tickSpaceLimits,
   ])
 
+  // default to tick space limits if no tick is parsed
+  if (ticks[Bound.LOWER] === undefined) {
+    ticks[Bound.LOWER] = tickSpaceLimits[Bound.LOWER]
+  }
+  if (ticks[Bound.UPPER] === undefined) {
+    ticks[Bound.UPPER] = tickSpaceLimits[Bound.UPPER]
+  }
+
   const { [Bound.LOWER]: tickLower, [Bound.UPPER]: tickUpper } = ticks || {}
 
   // specifies whether the lower and upper ticks is at the exteme bounds
