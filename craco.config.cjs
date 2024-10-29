@@ -17,6 +17,8 @@ module.exports = {
       }),
     ],
     configure: (webpackConfig) => {
+      webpackConfig.output.publicPath = process.env.PUBLIC_URL || '/'
+
       const instanceOfMiniCssExtractPlugin = webpackConfig.plugins.find(
         (plugin) => plugin instanceof MiniCssExtractPlugin
       )
@@ -35,8 +37,6 @@ module.exports = {
       if (process.env.NODE_ENV === 'production') {
         webpackConfig.devtool = false;
       }
-
-      webpackConfig.publicPath = '/';
 
       return webpackConfig
     },
