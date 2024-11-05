@@ -17,7 +17,7 @@ export function OpenCoinbaseWalletOption() {
     <Option
       {...BASE_PROPS}
       isActive={isActive}
-      link="https://go.cb-w.com/dayy?cb_url=https%3A%2F%2Fflame.astria.org%2Fswap"
+      link="https://go.cb-w.com/dapp?cb_url=https%3A%2F%2Fflame.astria.org%2Fswap"
       header="Open in Coinbase Wallet"
     />
   )
