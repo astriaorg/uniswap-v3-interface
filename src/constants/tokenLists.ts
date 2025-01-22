@@ -34,6 +34,14 @@ export const DEFAULT_TOKEN_LIST: TokenInfo[] = [
     decimals: WRAPPED_NATIVE_CURRENCY[SupportedChainId.FLAME_TESTNET]!.decimals,
   },
   {
+    chainId: SupportedChainId.FLAME_TESTNET,
+    address: '0x0F0C3207a9fE9B7e8AaE4bb83E865C91A13Fd8a7',
+    name: 'Drop Staked TIA',
+    symbol: 'dTIA',
+    decimals: 18,
+  },
+
+  {
     chainId: SupportedChainId.MAINNET,
     address: USDC_MAINNET.address,
     name: USDC_MAINNET.name!,
@@ -59,6 +67,13 @@ export const DEFAULT_TOKEN_LIST: TokenInfo[] = [
     address: '0xcbb93e854AA4EF5Db51c3b094F28952eF0dC67bE',
     name: 'Milk TIA',
     symbol: 'milkTIA',
+    decimals: 18,
+  },
+  {
+    chainId: SupportedChainId.MAINNET,
+    address: '0x1E3b0f82d049379FEd8C0b67D915Ea925067e5f2',
+    name: 'Drop Staked TIA',
+    symbol: 'dTIA',
     decimals: 18,
   },
 ]
