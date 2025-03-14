@@ -28,15 +28,15 @@ const AppWrapper = styled.div`
   min-height: 100vh;
 `
 
-const BodyWrapper = styled.div`
+const BodyWrapper = styled.div<{ isSwapPage: boolean }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 72px 0px 0px 0px;
+  padding: ${({ isSwapPage }) => (isSwapPage ? '102px' : '72px')} 0px 0px 0px;
   align-items: center;
   flex: 1;
-  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    padding: 52px 0px 16px 0px;
+  ${({ theme, isSwapPage }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    padding: ${isSwapPage ? '78px' : '52px'} 0px 16px 0px;
   `};
 `
 
@@ -63,7 +63,7 @@ export default function App() {
       <ApeModeQueryParamReader />
       <AppWrapper>
         <NavBar />
-        <BodyWrapper>
+        <BodyWrapper isSwapPage={pathname.startsWith('/swap')}>
           <Popups />
           <Polling />
           <Suspense fallback={<Loader />}>

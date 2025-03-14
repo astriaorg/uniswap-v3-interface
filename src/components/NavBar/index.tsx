@@ -7,11 +7,12 @@ import styled from 'styled-components/macro'
 import { flexRowNoWrap } from 'theme/styles'
 import { Z_INDEX } from 'theme/zIndex'
 
+import { BetaBanner } from './BetaBanner'
 import { ChainSelector } from './ChainSelector'
 import { FlameLogo } from './FlameLogo'
 import * as styles from './style.css'
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.div<{ isSwapPage: boolean }>`
   ${flexRowNoWrap};
   background-color: rgba(5, 10, 13, 0.2);
   backdrop-filter: blur(5px);
@@ -19,8 +20,13 @@ const HeaderWrapper = styled.div`
   width: 100%;
   justify-content: space-between;
   position: fixed;
-  top: 0;
+  top: ${({ isSwapPage }) => (isSwapPage ? '30px' : '0')}; /* Account for beta banner height only on swap page */
   z-index: ${Z_INDEX.sticky};
+
+  /* Adjust the banner height on smaller screens */
+  @media (max-width: 768px) {
+    top: ${({ isSwapPage }) => (isSwapPage ? '26px' : '0')};
+  }
 `
 
 const MobileBottomBar = styled.div`
@@ -125,10 +131,13 @@ const MobilePageTabs = () => {
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const isSwapPage = pathname.startsWith('/swap')
 
   return (
     <>
-      <HeaderWrapper>
+      <BetaBanner />
+      <HeaderWrapper isSwapPage={isSwapPage}>
         <Nav>
           <Box display="flex" height="full" flexWrap="nowrap" alignItems="center">
             <Box className={styles.leftSideContainer}>
