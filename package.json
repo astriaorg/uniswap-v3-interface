@@ -71,6 +71,7 @@
     "@types/await-timeout": "^0.3.1",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-blackhole": "^0.2.2",
+    "@types/caniuse-lite": "^1",
     "@types/d3": "^6.7.1",
     "@types/jest": "^25.2.1",
     "@types/ms.macro": "^2.0.0",
@@ -178,6 +179,7 @@
     "await-timeout": "^1.1.1",
     "bunyan": "^1.8.15",
     "bunyan-blackhole": "^1.1.1",
+    "caniuse-lite": "1.0.30001632",
     "cids": "^1.0.0",
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.2.0",
@@ -192,6 +194,7 @@
     "immer": "^9.0.6",
     "inter-ui": "^3.13.1",
     "jotai": "^1.3.7",
+    "jotai-immer": "^0.4.1",
     "jsbi": "^3.1.4",
     "make-plural": "^7.0.0",
     "mnemonist": "^0.38.3",
@@ -243,6 +246,11 @@
     "workbox-precaching": "^6.1.0",
     "workbox-routing": "^6.1.0",
     "zustand": "^4.0.0-rc.1"
+  },
+  "resolutions": {
+    "@vanilla-extract/css": "1.7.2",
+    "caniuse-lite": "1.0.30001632",
+    "@metamask/safe-event-emitter": "2.0.0"
   },
   "engines": {
     "npm": "please-use-yarn",

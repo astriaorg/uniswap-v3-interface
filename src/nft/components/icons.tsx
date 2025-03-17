@@ -3,7 +3,9 @@ import styled, { useTheme } from 'styled-components/macro'
 
 import { themeVars, vars } from '../css/sprinkles.css'
 
-type SVGProps = React.SVGProps<SVGSVGElement>
+interface SVGProps extends React.SVGProps<SVGSVGElement> {
+  fill?: string
+}
 
 export const UniIcon = (props: SVGProps) => (
   <svg {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
