@@ -71,6 +71,7 @@
     "@types/await-timeout": "^0.3.1",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-blackhole": "^0.2.2",
+    "@types/caniuse-lite": "^1",
     "@types/d3": "^6.7.1",
     "@types/jest": "^25.2.1",
     "@types/ms.macro": "^2.0.0",
@@ -178,6 +179,7 @@
     "await-timeout": "^1.1.1",
     "bunyan": "^1.8.15",
     "bunyan-blackhole": "^1.1.1",
+    "caniuse-lite": "1.0.30001632",
     "cids": "^1.0.0",
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.2.0",
@@ -245,7 +247,8 @@
     "zustand": "^4.0.0-rc.1"
   },
   "resolutions": {
-    "@vanilla-extract/css": "1.7.2"
+    "@vanilla-extract/css": "1.7.2",
+    "caniuse-lite": "1.0.30001632"
   },
   "engines": {
     "npm": "please-use-yarn",

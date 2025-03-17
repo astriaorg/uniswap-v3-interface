@@ -4682,6 +4682,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/caniuse-lite@npm:^1":
+  version: 1.0.5
+  resolution: "@types/caniuse-lite@npm:1.0.5"
+  checksum: 10c0/510f06241bc8274dbf41abf7658e2a72aec519f120b1ad89552a1d76d52a96fd549318d63120c89190d48ed831896b444d7ce773d1c042627cae504cf9a65023
+  languageName: node
+  linkType: hard
+
 "@types/d3-array@npm:^2":
   version: 2.12.3
   resolution: "@types/d3-array@npm:2.12.3"
@@ -5765,6 +5772,7 @@ __metadata:
     "@types/await-timeout": "npm:^0.3.1"
     "@types/bunyan": "npm:^1.8.6"
     "@types/bunyan-blackhole": "npm:^0.2.2"
+    "@types/caniuse-lite": "npm:^1"
     "@types/d3": "npm:^6.7.1"
     "@types/jest": "npm:^25.2.1"
     "@types/ms.macro": "npm:^2.0.0"
@@ -5834,6 +5842,7 @@ __metadata:
     babel-plugin-relay: "npm:^14.1.0"
     bunyan: "npm:^1.8.15"
     bunyan-blackhole: "npm:^1.1.1"
+    caniuse-lite: "npm:1.0.30001632"
     cids: "npm:^1.0.0"
     clsx: "npm:^1.1.1"
     copy-to-clipboard: "npm:^3.2.0"
@@ -6195,7 +6204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vanilla-extract/css@npm:^1.7.2":
+"@vanilla-extract/css@npm:1.7.2":
   version: 1.7.2
   resolution: "@vanilla-extract/css@npm:1.7.2"
   dependencies:
@@ -8995,10 +9004,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30000981, caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001125, caniuse-lite@npm:^1.0.30001370":
-  version: 1.0.30001375
-  resolution: "caniuse-lite@npm:1.0.30001375"
-  checksum: 10c0/0f7b46e46b63f8118c5a59748e5849230be32945947ca9f02c9f3599c2fdedd58f87ec65bcc52707f7a5be57149ef922d5a8d18ff363270755b39489396dae42
+"caniuse-lite@npm:1.0.30001632":
+  version: 1.0.30001632
+  resolution: "caniuse-lite@npm:1.0.30001632"
+  checksum: 10c0/960af2c7ed4367d6b72a164ecb9050ea9eada28c61e2134baaa712862364b9b6b41247c3ff4c2a497f91e879c5a1c9c7713080ac2d0c72eb4bee5ef2f4e24d62
   languageName: node
   linkType: hard
 
