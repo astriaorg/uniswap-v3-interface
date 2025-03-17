@@ -244,6 +244,9 @@
     "workbox-routing": "^6.1.0",
     "zustand": "^4.0.0-rc.1"
   },
+  "resolutions": {
+    "@vanilla-extract/css": "1.7.2"
+  },
   "engines": {
     "npm": "please-use-yarn",
     "yarn": ">=1.22"
