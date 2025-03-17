@@ -249,7 +249,8 @@
   },
   "resolutions": {
     "@vanilla-extract/css": "1.7.2",
-    "caniuse-lite": "1.0.30001632"
+    "caniuse-lite": "1.0.30001632",
+    "@metamask/safe-event-emitter": "2.0.0"
   },
   "engines": {
     "npm": "please-use-yarn",
