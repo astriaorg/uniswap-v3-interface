@@ -53,25 +53,25 @@ const compare = (a: [number, number], b: [number, number], xScale: ScaleLinear<n
     // For extremely large numbers, use relative comparison instead of pixel comparison
     if (Math.abs(a[i]) > 1e20 || Math.abs(b[i]) > 1e20) {
       // Calculate relative difference (as a fraction of the larger value)
-      const relativeDiff = Math.abs(a[i] - b[i]) / Math.max(Math.abs(a[i]), Math.abs(b[i]));
-      
+      const relativeDiff = Math.abs(a[i] - b[i]) / Math.max(Math.abs(a[i]), Math.abs(b[i]))
+
       // If the relative difference is significant (more than 0.0000001%), consider them different
       if (relativeDiff > 1e-10) {
-        return false;
+        return false
       }
     } else {
       // For normal sized numbers, use the original pixel-based comparison
-      const pixelA = xScale(a[i]).toFixed(1);
-      const pixelB = xScale(b[i]).toFixed(1);
-      
+      const pixelA = xScale(a[i]).toFixed(1)
+      const pixelB = xScale(b[i]).toFixed(1)
+
       if (pixelA !== pixelB) {
-        return false;
+        return false
       }
     }
   }
-  
+
   // If all value pairs are considered equal, return true
-  return true;
+  return true
 }
 
 export const Brush = ({
