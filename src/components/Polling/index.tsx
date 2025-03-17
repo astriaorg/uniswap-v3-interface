@@ -164,11 +164,7 @@ export default function Polling() {
           {!!priceGwei && (
             <RowFixed style={{ marginRight: '8px' }}>
               <ThemedText.DeprecatedMain fontSize="11px" mr="8px">
-                <MouseoverTooltip
-                  text={
-                    "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
-                  }
-                >
+                <MouseoverTooltip text="The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI.">
                   {priceGwei.toString()} gwei
                 </MouseoverTooltip>
               </ThemedText.DeprecatedMain>
