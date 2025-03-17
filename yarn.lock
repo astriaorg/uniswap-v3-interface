@@ -5870,6 +5870,7 @@ __metadata:
     inter-ui: "npm:^3.13.1"
     jest-styled-components: "npm:^7.0.8"
     jotai: "npm:^1.3.7"
+    jotai-immer: "npm:^0.4.1"
     jsbi: "npm:^3.1.4"
     make-plural: "npm:^7.0.0"
     mnemonist: "npm:^0.38.3"
@@ -16097,6 +16098,16 @@ __metadata:
   bin:
     jest: bin/jest.js
   checksum: 10c0/c53dba7e6e575a2625454985e474d2ee5097c0615ffe9b2355dd919c491e14a687e238ca36b8e0510868ef9c16c28f96920e0a116d8a9241ee6a4de0e9a9381c
+  languageName: node
+  linkType: hard
+
+"jotai-immer@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "jotai-immer@npm:0.4.1"
+  peerDependencies:
+    immer: ">=9.0.0"
+    jotai: ">=2.0.0"
+  checksum: 10c0/81e6cd9bc279142ee14988020997b3f6a963988c919ac9eff6c5e519bde66b2e023c904ce9a8fb42a9105a28b17d6ebeecd33bc3d586e3ad97c3824913035fc9
   languageName: node
   linkType: hard
 
